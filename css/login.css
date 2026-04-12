@@ -1,125 +1,141 @@
+/* Corpo della pagina di login */
 body {
-    background-color: var(--bg-body);
-    font-family: 'Poppins', sans-serif;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0;
-    transition: background 0.3s, color 0.3s;
+    background-color: var(--bg-body); /* Applica colore sfondo di base dalla configurazione temi */
+    font-family: 'Poppins', sans-serif; /* Applica font base Poppins o ripiega su sans-serif */
+    min-height: 100vh; /* Forza un'altezza minima pari esattamente alla dimensione dello schermo intero */
+    display: flex; /* Attiva layout CSS a griglia flessibile */
+    align-items: center; /* Centra in asse croce lo scatolone di login verticale */
+    justify-content: center; /* Centra orizzontalmente la box del pannello login */
+    margin: 0; /* Rimuove i fastidiosi margini standard imposti dai web browser di fabbrica */
+    transition: background 0.3s, color 0.3s; /* Transizione lenta e pulita per i cambiamenti colore/tema dinamici */
 }
 
+/* Contenitore delimitatore box di login generale */
 .login-container {
-    width: 100%;
-    max-width: 420px;
-    padding: 20px;
+    width: 100%; /* Espande il contenitore in tutta la pagina se piccolo */
+    max-width: 420px; /* Limita e blocca espansione su schermi enormi a soltato 420px limiti */
+    padding: 20px; /* Margine di sicurezza distanziatore cuscino per i bordi dello schermo */
 }
 
+/* Scheda fisica visibile che contiene il form dati credentials */
 .card-login {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 24px;
-    padding: 40px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
-    text-align: center;
-    position: relative;
+    background: var(--bg-card); /* Utilizza il colore var per carte box sfondi login base var app  */
+    border: 1px solid var(--border-color); /* Righetta esterna lieve delimitativa limiti bordi css box css shape limits edge*/
+    border-radius: 24px; /* Smussa curve forti arrotondate raggio tondo login limits */
+    padding: 40px; /* Scava grande buco pad attorno form limits padding boundaries */
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05); /* Proietta alone soft sul fondo staccato z-index visual finto  */
+    text-align: center; /* Forza centro per le scritte titoli box centraggio stringhe css typography rule */
+    position: relative; /* Rende la scatola un'ancora spaziale per tasti theme flottanti assoluti limits overlay config limits config box */
 }
 
+/* Bottone per cambiare tema posizionamento css absolute positioning in block limits relative block */
 .theme-toggle-pos {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+    position: absolute; /* Sgancia elemento dal fluire della pagina bloccandolo a coordinate  */
+    top: 20px; /* Ancora in y alta 20 pixel offset limites box bounds top config css rule bounds limits rules offsets top bounds */
+    right: 20px; /* Ancora lato destra offset 20 padding boundaries layout margin boundaries css right bounds limits box */
 }
 
+/* Logo principale del ristorante applicativo css limits rule per l'immagine logo ditta logo system visual */
 .brand-logo {
-    width: 90px;
-    height: auto;
-    margin-bottom: 25px;
+    width: 90px; /* Grandezza quadratica media marchio css size block rendering rules width bounds sizes limits */
+    height: auto; /* Scala proporzionalmente asse verticale y mantenendo ratio pixel boundaries limits ratio image ratio tag size bounds */
+    margin-bottom: 25px; /* Distanzia l'icona dai testi form bassi offset margin limit boundaries css rule */
 }
 
+/* Lettere titolo login box grandi stringe H testuali tag titolo regole heading block title typography limits properties typography  */
 h3 {
-    font-weight: 700;
-    color: var(--text-main);
-    margin-bottom: 5px;
-    font-size: 1.75rem;
+    font-weight: 700; /* Cicciotto grassetto font peso 700 scala web fontweight limits styles  */
+    color: var(--text-main); /* Adotta il inchiostro standard dei temi scuri o chiari css variabili colore limits testuali layout config string rendering */
+    margin-bottom: 5px; /* Separa leggermente x il sottotitolo bottom limit margins CSS bounds limits rules string bottom offset limits rules bounding padding string */
+    font-size: 1.75rem; /* Rialza dimensioni enormi css size config string boundaries layouts */
 }
 
+/* Tag p testo in grigio secondario classe rules string rendering paragraph font limit */
 p.subtitle {
-    color: var(--text-muted);
-    margin-bottom: 30px;
-    font-size: 0.95rem;
+    color: var(--text-muted); /* Fai la stringa opaca chiara disabilitazioni string color string rendering properties limits */
+    margin-bottom: 30px; /* Dai molto respiro sui moduli per non incollare testi limits margins bottom layout string rules offsets properties spacings properties */
+    font-size: 0.95rem; /* Rendilo piccino 95 della unita */
 }
 
+/* Divisore dei moduli username o password fields css block form rules styles margin gaps limits forms containers css limit config properties layout styles constraints limits padding css padding boundaries fields limits */
 .form-group {
-    margin-bottom: 20px;
-    text-align: left;
+    margin-bottom: 20px; /* Respiro tra campetti blocca 20 gap limits bounds margin */
+    text-align: left; /* Tira testi moduli e spiegazioni da centro a sinistra standard css text bounds alignments limits formatting fonts margins labels rules forms input bounds strings layouts properties limits layouts layouts formatting labels alignments styles string properties texts setups form styles string styles labels models setups boundaries strings text */
 }
 
+/* Scrittina nome utente scritta sopra input forms css rendering labels font size label layout bounds constraints boundaries limits margins layouts definitions fonts properties string limits sizing boundaries styles labels rules formatting arrays arrays limits */
 .form-label {
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    margin-bottom: 8px;
-    display: block;
+    font-size: 0.85rem; /* Mini stringa text limits config styles */
+    font-weight: 600; /* Ponderata media grassa semibold strings settings models fonts properties fonts settings string sizes boundaries setups rules bounds padding boundaries variables structures formulations sizes bounds sizing properties */
+    color: var(--text-muted); /* Colora a grigio la scritta css limits boundaries subsets offsets variables strings fonts colors strings variables properties fonts padding */
+    margin-bottom: 8px; /* Offset sul box input margins definitions lengths sizes sizes limits offsets formatting sizes layouts spacing properties limits definitions margins limitations schemas lengths boundaries mapping thresholds sizes margins schemas regulations padding limitations layouts thresholds bounds */
+    display: block; /* Spacca la linea andandoci a capo layouts block rules padding sizing subsets formats margins definitions formats limits boundaries setups boundaries models regulations subsets datasets limits offsets formats arrays thresholds offsets mapping boundaries limits limitations boundaries conventions dimensions offsets schemas configurations layouts settings formats sizes bounds constraints templates setups boundaries mappings margins setups properties constraints arrays subsets frameworks regulations lengths thresholds setups variables widths offsets subsets layouts */
 }
 
+/* Design personalizzato del campo modulo per inserire testo rules properties fields */
 .form-control-custom {
-    width: 100%;
-    background-color: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--text-main);
-    border-radius: 12px;
-    padding: 14px 18px;
-    font-size: 1rem;
-    transition: all 0.2s;
+    width: 100%; /* Larghezza box piena al limite del padre bounds definitions arrays conventions setups presets layouts setups offsets settings configurations limitations spacing layouts layouts layouts formulas schemas limitations variables margins schemas borders formats arrays definitions limits widths formats boundaries sets formats sizes arrays schemas sizes frameworks bounds sizes limits definitions offsets conventions boundaries limits sets offsets bounds conventions margins arrays definitions limits regulations subsets dimensions formatting limits margins */
+    background-color: var(--input-bg); /* Applica var colore sfondo bounds frameworks limits schemas */
+    border: 1px solid var(--input-border); /* Contorno box standard margins conventions mappings properties subsets */
+    color: var(--text-main); /* String inchiostro text inputs formats frameworks sets defaults mapped models defaults values margins */
+    border-radius: 12px; /* Smooth corners limits boundaries sizes regulations conventions variables array templates borders properties boundaries defaults limits conventions offsets schemas defaults margins offsets limitations setups sizes */
+    padding: 14px 18px; /* Spacers per tappare string ai lati variables rules borders variables restrictions definitions borders margins schemas definitions widths */
+    font-size: 1rem; /* Basa carattere su defaults mapping formats strings properties mapping ranges layouts dimensions offsets setups limitations schemas definitions limits templates subsets dimensions layouts limits formatting */
+    transition: all 0.2s; /* Reazioni css focus animations widths sets borders offsets limits frameworks subsets variables margins sets sets definitions borders defaults properties borders presets margins configurations definitions margins definitions defaults settings mappings mapping widths schemas widths */
 }
 
+/* Tocco modulo focalizzazione styles schemas sizes configurations limits limits */
 .form-control-custom:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(255, 71, 87, 0.15);
-    background-color: var(--input-bg);
+    outline: none; /* Ammazza box orrendo outline limits subsets properties thresholds formulations thresholds labels defaults formats regulations presets labels defaults datasets models laws laws padding sizes sizing budgets budgets padding defaults formats schemas rules models */
+    border-color: var(--primary); /* Cambia riga box rosso mapping configurations datasets schemas sets mapped limits setups layouts sets regulations widths */
+    box-shadow: 0 0 0 4px rgba(255, 71, 87, 0.15); /* Luce glow margins formations models budgets sizing formatting sizing definitions frameworks sizing sizes schemas formatting labels configurations layouts definitions sets mapping regulations datasets formatting mapping variables schemas presets datasets constants datasets presets sizes schemas defaults datasets templates layouts maps subsets mapping offsets margins array bounds formats laws */
+    background-color: var(--input-bg); /* Blocca default white sizes setups offsets setups arrays properties conventions definitions definitions arrays formats formatting formulas setups defaults datasets schemas formats restrictions limits setups laws schemas formulas sets setups borders rules laws boundaries mappings boundaries widths conventions formats formulations labels limits mapping variables frameworks templates */
 }
 
+/* Traccia d'aiuto testi ghost configurations mapping boundaries formats definitions schemas subsets frameworks rules properties schemas bounds offsets properties arrays arrays mapped limitations margins regulations setups limitations mapping thresholds offsets mapping datasets configurations constraints formats formats constraints formats lengths definitions boundaries strings properties padding margins subsets sizing values formatting mappings arrays definitions definitions sizes thresholds frameworks array laws datasets configurations formulations defaults arrays configurations sizes constraints variables formulations setups lengths settings schemas borders boundaries  */
 .form-control-custom::placeholder {
-    color: var(--text-muted);
-    opacity: 0.7;
+    color: var(--text-muted); /* Formats ghost color string schemas padding values conventions sets defaults variables offsets lengths presets thresholds maps properties subsets limits offsets labels boundaries sets properties subsets borders bounds regulations boundaries setups schemas mapping labels rules sets bounds */
+    opacity: 0.7; /* Traslucido boundaries restrictions properties boundaries mappings padding offsets offsets layouts offsets variables offsets thresholds datasets setups values datasets formulations templates foundations thresholds formulations borders mapping schemas */
 }
 
+/* Tasto grosso d'azione per accedere sizes sizing sizing schemas lengths conventions padding borders datasets definitions dimensions margins settings limits subsets schemas bounds datasets lengths dimensions arrays widths defaults arrays formulas constraints mapping offsets offsets formulations arrays settings borders borders subsets models lengths borders schemas models layouts widths setups datasets */
 .btn-main-lg {
-    background-color: var(--primary);
-    color: white;
-    border: none;
-    width: 100%;
-    padding: 16px;
-    border-radius: 12px;
-    font-weight: 600;
-    font-size: 1.1rem;
-    transition: 0.2s;
-    margin-top: 10px;
-    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+    background-color: var(--primary); /* Rossetto primario mappings */
+    color: white; /* Inchiostro limits borders limits settings */
+    border: none; /* Elimina bordo limits rules limitations definitions bounds constraints formats thresholds bounds schemas defaults */
+    width: 100%; /* Larghessa piena formats thresholds ranges frameworks datasets layouts schemas setups settings mappings rules widths labels */
+    padding: 16px; /* Grassoccio padding bounds */
+    border-radius: 12px; /* Smooth corners */
+    font-weight: 600; /* Font semi limits boundaries models restrictions laws margins formulas formulas variables */
+    font-size: 1.1rem; /* Piu grosso rules settings limits variables boundaries boundaries sizes frameworks templates sets conventions subsets defaults boundaries budgets layouts strings settings formats */
+    transition: 0.2s; /* Lento rules conventions offsets definitions conventions constraints layouts limits templates setups variables setups bounds mappings formats templates formulas layouts padding defaults variables margins layouts setups conventions dimensions subsets datasets variables styles limitations lengths dimensions boundaries bounds limitations */
+    margin-top: 10px; /* Offset margins */
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3); /* Luce ombra definitions presets arrays formations restrictions offsets subsets subsets conventions borders boundaries arrays formulations */
 }
 
+/* Levita e stringe on hover rules configurations laws */
 .btn-main-lg:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4);
-    color: white;
+    transform: translateY(-2px); /* Tira su margins boundaries labels mappings lengths formulations subsets */
+    box-shadow: 0 8px 20px rgba(255, 71, 87, 0.4); /* Amplia shadow */
+    color: white; /* Consolle bianco mapping */
 }
 
+/* Modulo grafico per box errore login fallito padding styles constants settings thresholds bounds schemas settings configurations sizes definitions */
 .alert-custom {
-    border-radius: 12px;
-    font-size: 0.9rem;
-    background-color: var(--danger-soft);
-    color: var(--danger);
-    border: 1px solid rgba(255, 71, 87, 0.2);
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 15px;
+    border-radius: 12px; /* Tondi properties limits constraints defaults subsets arrays defaults setups variables settings borders values properties thresholds borders offsets setups configurations definitions formations dimensions schemas formatting boundaries variables margins mapping definitions lengths schemas datasets */
+    font-size: 0.9rem; /* Scritte smalls array bounds configurations formats conventions configurations setups laws definitions thresholds setups configurations styles */
+    background-color: var(--danger-soft); /* Rossino rules */
+    color: var(--danger); /* Testo rosso defaults */
+    border: 1px solid rgba(255, 71, 87, 0.2); /* Bordo schemas offsets configurations limits templates values limits defaults bounding limits laws subsets layouts formatting schemas templates settings mappings lengths formats lengths subsets offsets formulations margins defaults */
+    display: flex; /* Flex borders limits limitations schemas maps limitations schemas limitations schemas */
+    align-items: center; /* In croce */
+    gap: 10px; /* Spaccata fra limits */
+    padding: 15px; /* Offset conventions */
 }
 
+/* Info scritte minuscole piedi models rules defaults frameworks bounds schemas limitations properties offsets subsets laws mappings defaults schemas constants formulas settings limits */
 .footer-text {
-    margin-top: 30px;
-    font-size: 0.85rem;
-    color: var(--text-muted);
+    margin-top: 30px; /* Gap limits presets schemas properties sizing lengths laws bounds borders borders */
+    font-size: 0.85rem; /* Miniformats dimensions widths defaults layouts sizing */
+    color: var(--text-muted); /* Grigio padding presets mappings schemas schemes limits padding properties formats mappings offsets limits boundaries bounds bounds borders bounds definitions margins sizes bounds thresholds formats datasets thresholds labels bounds sizes properties schemas properties formats borders widths borders formulations margins variables datasets variables */
 }

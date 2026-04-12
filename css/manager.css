@@ -1,539 +1,583 @@
-/* =========================================
-   Manager Dashboard Styles
-   ========================================= */
+/* ========================================= */
+/* Stili per la Dashboard del Manager        */
+/* ========================================= */
 
-/* Sidebar Buttons */
+/* Pulsanti della barra laterale */
 .btn-sidebar {
-    display: flex;
-    align-items: center;
-    padding: 18px 25px;
-    margin-bottom: 8px;
-    border-radius: 15px;
-    color: var(--text-muted);
-    font-weight: 600;
-    font-size: 1.05rem;
-    cursor: pointer;
-    transition: 0.2s;
+    display: flex; /* Utilizza flexbox per allineare gli elementi */
+    align-items: center; /* Centra verticalmente gli elementi */
+    padding: 18px 25px; /* Spaziatura interna: 18px sopra/sotto, 25px lati */
+    margin-bottom: 8px; /* Spazio inferiore di 8px tra i pulsanti */
+    border-radius: 15px; /* Arrotonda gli angoli di 15px */
+    color: var(--text-muted); /* Colore del testo secondario */
+    font-weight: 600; /* Testo in semigrassetto */
+    font-size: 1.05rem; /* Dimensione del font leggermente aumentata */
+    cursor: pointer; /* Cursore a forma di mano */
+    transition: 0.2s; /* Effetto di transizione fluido di 0.2s */
 }
 
+/* Stato hover dei pulsanti della barra laterale */
 .btn-sidebar:hover {
-    background-color: rgba(255, 71, 87, 0.1);
-    color: var(--primary);
+    background-color: rgba(255, 71, 87, 0.1); /* Sfondo rosso chiaro trasparente */
+    color: var(--primary); /* Cambia il testo nel colore primario rosso */
 }
 
+/* Stato attivo dei pulsanti della barra laterale */
 .btn-sidebar.active {
-    background-color: var(--primary);
-    color: white !important;
-    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+    background-color: var(--primary); /* Sfondo primario rosso */
+    color: white !important; /* Forza il testo bianco */
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4); /* Ombra rossa per far risaltare il pulsante */
 }
 
-/* Page Header */
+/* Intestazione della pagina */
 .page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid var(--border-color);
-    background: var(--surface-color);
-    position: sticky;
-    top: 0;
-    z-index: 50;
+    display: flex; /* Layout flessibile */
+    justify-content: space-between; /* Distribuisce lo spazio tra gli elementi interni */
+    align-items: center; /* Allinea verticalmente al centro */
+    padding: 1.5rem 2rem; /* Spaziatura generosa sopra/sotto e laterale */
+    border-bottom: 1px solid var(--border-color); /* Riga di separazione inferiore */
+    background: var(--surface-color); /* Sfondo del colore superficiale (es. bianco o grigio scuro) */
+    position: sticky; /* Rende la barra appiccicosa durante lo scorrimento */
+    top: 0; /* Si blocca in cima (a 0px) */
+    z-index: 50; /* Mantiene l'intestazione sopra gli altri elementi */
 }
 
-/* Filter Tabs */
+/* Contenitore dei filtri (schede) */
 .filter-tabs {
-    display: flex;
-    gap: 8px;
-    padding: 1rem 2rem;
-    border-bottom: 1px solid var(--border-color);
-    background: var(--surface-color);
-    overflow-x: auto;
+    display: flex; /* Layout flessibile */
+    gap: 8px; /* Distanza di 8px tra un filtro e l'altro */
+    padding: 1rem 2rem; /* Spaziatura interna */
+    border-bottom: 1px solid var(--border-color); /* Bordo inferiore */
+    background: var(--surface-color); /* Sfondo superficiale */
+    overflow-x: auto; /* Consente lo scorrimento orizzontale se ci sono troppi filtri */
 }
 
+/* Singolo filtro / scheda */
 .filter-tab {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 8px 20px;
-    border-radius: 50px;
-    border: 1px solid var(--border-color);
-    background: var(--surface-color);
-    color: var(--text-muted);
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: 0.2s;
-    white-space: nowrap;
+    display: flex; /* Layout flessibile */
+    align-items: center; /* Centra gli elementi (icona e testo) */
+    gap: 6px; /* Spazio di 6px tra gli elementi interni */
+    padding: 8px 20px; /* Padding interno */
+    border-radius: 50px; /* Arrotonda completamente i bordi facendoli a pillola */
+    border: 1px solid var(--border-color); /* Contorno sottile */
+    background: var(--surface-color); /* Sfondo del filtro */
+    color: var(--text-muted); /* Testo di default grigio */
+    font-weight: 600; /* Font semigrassetto */
+    font-size: 0.9rem; /* Dimensione ridotta */
+    cursor: pointer; /* Mostra indicatore di clic */
+    transition: 0.2s; /* Animazione cambio stato in 0.2 secondi */
+    white-space: nowrap; /* Impedisce che il testo del filtro vada a capo */
 }
 
+/* Stato hover del singolo filtro */
 .filter-tab:hover {
-    border-color: var(--primary);
-    color: var(--primary);
+    border-color: var(--primary); /* Colora il bordo di rosso primario */
+    color: var(--primary); /* Cambia colore al testo in primario */
 }
 
+/* Stato attivo del filtro */
 .filter-tab.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
-    box-shadow: 0 2px 8px rgba(255, 71, 87, 0.3);
+    background: var(--primary); /* Sfondo primario solido */
+    color: white; /* Testo bianco visibile */
+    border-color: var(--primary); /* Bordo stesso colore sfondo */
+    box-shadow: 0 2px 8px rgba(255, 71, 87, 0.3); /* Leggera ombra */
 }
 
+/* Pallino di stato (dot) quando il filtro è attivo */
 .filter-tab.active .status-dot {
-    background: white !important;
+    background: white !important; /* Forza il pallino a diventare bianco */
 }
 
+/* Contatore numerico interno al filtro quando attivo */
 .filter-tab.active .filter-count {
-    background: rgba(255, 255, 255, 0.3);
-    color: white;
+    background: rgba(255, 255, 255, 0.3); /* Sfondo leggermente bianco trasparente */
+    color: white; /* Testo bianco */
 }
 
+/* Contatore numerico generale nei filtri */
 .filter-count {
-    background: var(--input-bg);
-    color: var(--text-muted);
-    padding: 2px 8px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    min-width: 22px;
-    text-align: center;
+    background: var(--input-bg); /* Colore sfondo di input grigino */
+    color: var(--text-muted); /* Testo scuro ridotto */
+    padding: 2px 8px; /* Padding per fare spazio ai numeri */
+    border-radius: 50px; /* Stile pillola per il badge */
+    font-size: 0.75rem; /* Carattere molto piccolo */
+    font-weight: 700; /* Grassetto visibile */
+    min-width: 22px; /* Larghezza minima per contenere 1-9 */
+    text-align: center; /* Centra il testo nel contatore */
 }
 
-/* Status Dots */
+/* Pallino indicatore di stato generico */
 .status-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    flex-shrink: 0;
+    width: 10px; /* Larghezza di 10px */
+    height: 10px; /* Altezza di 10px */
+    border-radius: 50%; /* Lo rende tondo */
+    display: inline-block; /* Fluisce insieme al testo senza a capo */
+    flex-shrink: 0; /* Impedisce di restringersi se c'è poco spazio */
 }
 
+/* Colore per stato libero (verde) */
 .dot-libero {
-    background: #2ecc71;
-    box-shadow: 0 0 6px rgba(46, 204, 113, 0.5);
+    background: #2ecc71; /* Verde smeraldo */
+    box-shadow: 0 0 6px rgba(46, 204, 113, 0.5); /* Alone verde brillante */
 }
 
+/* Colore per stato occupato (rosso) */
 .dot-occupato {
-    background: #e74c3c;
-    box-shadow: 0 0 6px rgba(231, 76, 60, 0.5);
+    background: #e74c3c; /* Rosso corallo */
+    box-shadow: 0 0 6px rgba(231, 76, 60, 0.5); /* Alone rosso brillante */
 }
 
+/* Colore per stato riservato (giallo/arancio) */
 .dot-riservato {
-    background: #f39c12;
-    box-shadow: 0 0 6px rgba(243, 156, 18, 0.5);
+    background: #f39c12; /* Giallo dorato */
+    box-shadow: 0 0 6px rgba(243, 156, 18, 0.5); /* Alone giallo brillante */
 }
 
-/* Table Grid */
+/* Griglia layout dei tavoli */
 .tavoli-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-    gap: 20px;
-    padding: 2rem;
+    display: grid; /* Modello grid CSS */
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); /* Colonne dinamiche min 180px max spazio */
+    gap: 20px; /* Spazio di 20px tra scatole */
+    padding: 2rem; /* Spaziatura ai bordi esterni */
 }
 
+/* Singola scheda tavolo (Card) */
 .tavolo-card {
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    border-radius: 18px;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    transition: all 0.25s ease;
-    overflow: hidden;
-    cursor: pointer;
-    position: relative;
+    background: var(--surface-color); /* Sfondo in base tema */
+    border: 1px solid var(--border-color); /* Contorno standard */
+    border-radius: 18px; /* Angoli rotondi 18px */
+    padding: 0; /* Rimuove lo spazio per lasciarlo ai blocchi header/footer */
+    display: flex; /* Flexbox */
+    flex-direction: column; /* Impila verticalmente header e footer */
+    align-items: center; /* Allinea il blocco centralmente incrociato */
+    transition: all 0.25s ease; /* Transizione lenta per effetti al passaggio */
+    overflow: hidden; /* Cessa lo sfondamento degli interni */
+    cursor: pointer; /* Interattivo */
+    position: relative; /* Livello per rendering di figli posizionati in assoluto */
 }
 
+/* Hover per le schede tavoli */
 .tavolo-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    border-color: transparent;
+    transform: translateY(-4px); /* Lievita la card in alto di 4 pixel */
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* Crea un'ombra inferiore allargata */
+    border-color: transparent; /* Nasconde il colore standard */
 }
 
+/* Sezione alta (Header) dell'elemento tavolo */
 .tavolo-card-header {
-    width: 100%;
-    padding: 24px 20px 16px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-    position: relative;
+    width: 100%; /* Larghezza piena */
+    padding: 24px 20px 16px; /* Spaziatura interna */
+    display: flex; /* Flex interno */
+    flex-direction: column; /* Colonna */
+    align-items: center; /* Allineamento al centro */
+    gap: 12px; /* Spazio vuoto tra componenti */
+    position: relative; /* Permette rendering assoluto */
 }
 
+/* Icona contenitore grande del tavolo */
 .tavolo-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.4rem;
-    transition: 0.3s;
+    width: 56px; /* Grandezza icona X */
+    height: 56px; /* Grandezza icona Y */
+    border-radius: 16px; /* Bordi molto tondi quadratici */
+    display: flex; /* Regola per i figli */
+    align-items: center; /* Centrati in croce */
+    justify-content: center; /* Centrati lateralmente */
+    font-size: 1.4rem; /* Grandezza del font dentro */
+    transition: 0.3s; /* Animazioni 300ms */
 }
 
+/* Variante per tavolo libero */
 .tavolo-icon.libero {
-    background: rgba(46, 204, 113, 0.15);
-    color: #2ecc71;
+    background: rgba(46, 204, 113, 0.15); /* Sfondo verde tenue */
+    color: #2ecc71; /* Testo verde forte */
 }
 
+/* Variante per tavolo occupato */
 .tavolo-icon.occupato {
-    background: rgba(231, 76, 60, 0.15);
-    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.15); /* Sfondo rosso tenue */
+    color: #e74c3c; /* Rosso prominente */
 }
 
+/* Variante tavolo prenotato/riservato */
 .tavolo-icon.riservato {
-    background: rgba(243, 156, 18, 0.15);
-    color: #f39c12;
+    background: rgba(243, 156, 18, 0.15); /* Sfondo oro tenue */
+    color: #f39c12; /* Oro */
 }
 
+/* Intestazione nominale tavolo */
 .tavolo-name {
-    font-weight: 700;
-    font-size: 1rem;
-    color: var(--text-main);
-    text-align: center;
+    font-weight: 700; /* Spessore massimo carattere */
+    font-size: 1rem; /* Grandezza normale */
+    color: var(--text-main); /* Colore generale dell'applicativo */
+    text-align: center; /* Imposta font centrale */
 }
 
+/* Indicatori dei posti a sedere (sedie) */
 .tavolo-seats {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-    display: flex;
-    align-items: center;
-    gap: 4px;
+    font-size: 0.8rem; /* Minuscolo */
+    color: var(--text-muted); /* Grigio debole */
+    display: flex; /* Scatola flessibile */
+    align-items: center; /* Centrale */
+    gap: 4px; /* Un pelo di buco tra icona e numeri */
 }
 
+/* Sezione Bassa / Footer della Carta Tavolo */
 .tavolo-card-footer {
-    width: 100%;
-    padding: 10px 16px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--border-color);
-    background: var(--bg-body);
+    width: 100%; /* Larghezza base intera */
+    padding: 10px 16px; /* Spazio minimo attorno per comandi azioni */
+    display: flex; /* Utilizza layout CSS flex */
+    justify-content: space-between; /* Mette la label a sx e le azioni a dx */
+    align-items: center; /* Asse dritto centrale */
+    border-top: 1px solid var(--border-color); /* Linea stacco dall'header */
+    background: var(--bg-body); /* Sfondo sfumato un po' diverso */
 }
 
+/* Badge dello stato (es. "Libero", "Occupato") testuale */
 .tavolo-status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 12px;
-    border-radius: 50px;
-    font-size: 0.75rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: 0.2s;
+    display: inline-flex; /* Adatta il blocco come inline ma con limiti flex */
+    align-items: center; /* Testo in mezzo */
+    gap: 6px; /* Spazio a icone in caso serva */
+    padding: 4px 12px; /* Pad protettivo di sfondo */
+    border-radius: 50px; /* Stile pillola completa */
+    font-size: 0.75rem; /* Modesto per non sopraffare */
+    font-weight: 700; /* Evidenzia stato */
+    text-transform: uppercase; /* FORZA TUTTO MAIUSCOLO */
+    letter-spacing: 0.5px; /* Distanzia un minimo i caratteri */
+    cursor: pointer; /* Permette cliccata su badge veloce */
+    transition: 0.2s; /* Reattività in hover */
 }
 
+/* Hover sul badge */
 .tavolo-status-badge:hover {
-    transform: scale(1.05);
+    transform: scale(1.05); /* Incrementa le dimensioni un po' su passaggio */
 }
 
+/* Etichetta Stato tavolo Libero */
 .badge-libero {
-    background: rgba(46, 204, 113, 0.15);
-    color: #2ecc71;
+    background: rgba(46, 204, 113, 0.15); /* Verde schiarito */
+    color: #2ecc71; /* Scritta verde */
 }
 
+/* Etichetta Stato tavolo Occupato */
 .badge-occupato {
-    background: rgba(231, 76, 60, 0.15);
-    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.15); /* Rosso schiarito */
+    color: #e74c3c; /* Scritta scura rossa */
 }
 
+/* Etichetta Stato tavolo Riservato */
 .badge-riservato {
-    background: rgba(243, 156, 18, 0.15);
-    color: #f39c12;
+    background: rgba(243, 156, 18, 0.15); /* Giallo sbiadito */
+    color: #f39c12; /* Giallo intenso */
 }
 
+/* Contenitore piccolo delle azioni rapide a card (Modifica / Cancella) */
 .tavolo-actions {
-    display: flex;
-    gap: 4px;
+    display: flex; /* Disposizione scatole flex */
+    gap: 4px; /* Lascia aria tra bottoncini azioni */
 }
 
+/* Classe unificatrice dei bottoncini azione piccoli in manager */
 .tavolo-actions .btn-act {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    border: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-size: 0.8rem;
-    transition: 0.2s;
-    background: transparent;
-    color: var(--text-muted);
+    width: 30px; /* Tassello quadrato stringato da 30 */
+    height: 30px; /* Altezza limitata 30 */
+    border-radius: 8px; /* Tondo di 8 punti */
+    border: none; /* Distrugge i normali bottoni border */
+    display: flex; /* Sotto-raggruppatore */
+    align-items: center; /* In mezzo verticali */
+    justify-content: center; /* Centrale di orizzontali */
+    cursor: pointer; /* Indirizza usabilità mouse puntatore */
+    font-size: 0.8rem; /* Scalaggio piccole icone */
+    transition: 0.2s; /* Sfuma in 20 millisecondi (errore, css 0.2s = 200 millisecondi) */
+    background: transparent; /* Nasce trasparente senza sfondo */
+    color: var(--text-muted); /* Simbolo neutrale grigio */
 }
 
+/* Azione sfiorata di base standard */
 .tavolo-actions .btn-act:hover {
-    background: var(--input-bg);
-    color: var(--text-main);
+    background: var(--input-bg); /* Appare fondo sul tassello per cliccare */
+    color: var(--text-main); /* Scintilla colore primario standard testo d'applicativo */
 }
 
+/* Pulsante rosso da eliminazione forzata nel manager per i tavoli al passaggio */
 .tavolo-actions .btn-act.btn-delete-t:hover {
-    background: rgba(231, 76, 60, 0.1);
-    color: #e74c3c;
+    background: rgba(231, 76, 60, 0.1); /* Crea riquadro pericolo mortale rosso basso */
+    color: #e74c3c; /* Fiammante segno di stop al click */
 }
 
-/* Mobile Nav */
+/* Navigatore orizzontale in schermi piccoli dispositivi mobile/cellulari */
 .mobile-nav-bar {
-    display: flex;
-    gap: 8px;
-    padding: 12px 16px;
-    background: var(--surface-color);
-    border-bottom: 1px solid var(--border-color);
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+    display: flex; /* Contenitore fluido */
+    gap: 8px; /* Distanziamo blocchi per pulsanti telefono di 8 punti */
+    padding: 12px 16px; /* Generoso spazio tocco laterale cellulari 16 px */
+    background: var(--surface-color); /* Pigmento base delle interfacce cellulari alto livello */
+    border-bottom: 1px solid var(--border-color); /* Filo sotto il div per stacco */
+    overflow-x: auto; /* Abilità scroll orizzontale di polpastrelli cellulari lunghi lunghi blocchi extra schermo */
+    -webkit-overflow-scrolling: touch; /* Migliora fluido frame scorrimento Safari motori cell Apple iphone/ipad ecc */
 }
 
+/* Componente pulsante standard dentro i menu sopra nel layout piccolo dispositivi */
 .mobile-nav-btn {
-    white-space: nowrap;
-    padding: 10px 20px;
-    border-radius: 50px;
-    border: 1px solid var(--border-color);
-    background: var(--surface-color);
-    color: var(--text-muted);
-    font-weight: 600;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: 0.2s;
+    white-space: nowrap; /* Spazza via div a capo se stringa parola sfasata lunghezze non va a capo previene sformature */
+    padding: 10px 20px; /* Zona tocco pollice telefono */
+    border-radius: 50px; /* Bordi curvi lisci layout pillola */
+    border: 1px solid var(--border-color); /* Esterno pulsante inattivo in linea fine scura */
+    background: var(--surface-color); /* Interno vuoto */
+    color: var(--text-muted); /* Semitrasparenza tonale smorzata dei grigi disattivi dei nav bar element touch */
+    font-weight: 600; /* Enfatizzatore spessore testo di menu standard applicare mobile formattazione 600 peso calcolati semigrasso */
+    font-size: 0.9rem; /* Misura leggermente piccola font menu a blocchi scorrimento cellulari 90 per cento dell html radice font */
+    cursor: pointer; /* Indirizza tocco mouse nei vari test device web visualizzatori non mobile o simili emulati cursori di interfacce tocco / touch emulator web */
+    transition: 0.2s; /* Ritardo transizionale color format a passaggi attivi hover 0.2 temporale */
 }
 
+/* Stato elemento attivo selezionato nel menu mobile navbar tocco dita scorrevoli */
 .mobile-nav-btn.active {
-    background: var(--primary);
-    color: white;
-    border-color: var(--primary);
+    background: var(--primary); /* Sfondo acceso intero principale var rosso sistema */
+    color: white; /* Inversione color per risaltare su blocco solido colore var dark rosso o principale chiaro bianco sempre visibile alto contrasto web UI pattern UX regole accessibili wcag normalita */
+    border-color: var(--primary); /* Salta i fili bordo a tinta interna continua pulita interfaccia fluida coerente piatta ombre material solid shape colore unificato primario */
 }
 
-/* Cards & Forms */
+/* Modelli personalizzati contenitori generici schede dati manageriali formati blocchi dashboard etc  */
 .card-custom {
-    background: var(--bg-card);
-    border-radius: 15px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-    padding: 20px;
-    margin-bottom: 20px;
+    background: var(--bg-card); /* Colore specifico fondazioni carte dati metriche grafici  */
+    border-radius: 15px; /* Bordi limitati a 15 angolati limitazioni forme tondate contenitive */
+    border: 1px solid var(--border-color); /* Standard bordino tenue delimitatori schede blocchi spaziali confini manager */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04); /* Minuscola oscurità proiettata a raggio in ombra scostamento blando z per realismo UI card */
+    padding: 20px; /* Riparo interno da costrutto padding fisso bordi oggetti testo limiti perimetro css spazi vuoto white-space 20 densita visuale */
+    margin-bottom: 20px; /* Caduta inferiori per accatastamenti colonna separazioni divisori blocchi dati list */
 }
 
+/* Formato caratteri titolo schede */
 .card-title {
-    font-weight: 700;
-    margin-bottom: 15px;
-    color: var(--text-main);
+    font-weight: 700; /* Max neretto in grassetto testo formattazione grassi stringhe caratteri web font peso */
+    margin-bottom: 15px; /* Crea buco sottotitolo allenta densita topografia titoli */
+    color: var(--text-main); /* Stringhe testo nero / principale scuro app variabile generica master temi oscuri/chiari color testuale principale scuro in light.css inverso base logica var dinamica */
 }
 
+/* Elementi moduli html di input nativo tipo testo selettori password ecc applicazione regole bootstrap forms input class css override re-definitore manager applicativo */
 .form-control,
 .form-select {
-    background-color: var(--input-bg);
-    border: 1px solid var(--input-border);
-    color: var(--text-main);
-    border-radius: 10px;
-    padding: 10px 15px;
+    background-color: var(--input-bg); /* Sostituisci bianco base dei browser bootstrap col tema variabile input colori */
+    border: 1px solid var(--input-border); /* Applica bordo da variabili config */
+    color: var(--text-main); /* Applica inchiostro font testi var generale colore primo testo scuro / primario logico */
+    border-radius: 10px; /* Raggiatura arrotondata formati caselle testo modern app feel */
+    padding: 10px 15px; /* Limite offset scrittura interna box moduli campi forms moduli testuali selettori css spazi formattazione riempimenti limiti spaziatura inserimento 10y 15x offset  testo a border limiti fisici casella div control html input nativi o tag textarea select tag override reset pad  */
 }
 
+/* Moduli di testo d'imput dati in focalizzazione attivi input css class stato interazione cursore o click selezione tab keyboard tab-index */
 .form-control:focus,
 .form-select:focus {
-    background-color: var(--input-bg);
-    border-color: var(--primary);
-    color: var(--text-main);
-    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.2);
+    background-color: var(--input-bg); /* Blocca sfondi bianchi ritorno forzando sempre css var back input di app */
+    border-color: var(--primary); /* Circonda col rosso colore primario input stato attivo indicatore visivo form control accessibilita standard visuali form interazioni */
+    color: var(--text-main); /* Evita sfalsamenti croma in testi */
+    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.2); /* Sostituisce l'alone blu bootstrap bootstrap base a variazioni aura rossa halo custom colore primario r g b canali a alfa 0.2 semitrasparente blur in 3 spargimento box shadow glow outline focus indicatore */
 }
 
+/* Pseudoclasse CSS base placeholders diciture aiutanti testi input */
 ::placeholder {
-    color: var(--text-muted) !important;
-    opacity: 0.7;
+    color: var(--text-muted) !important; /* Disabilita grigi chiari per standard grigione nostro da var app !important prevaricatore pesi css override defaults chrome mozilla safari input placeholder webkit mozilla ms pseudo elementi string limitazioni visualizzazione formattazioni testi default browser engine nativo render  */
+    opacity: 0.7; /* Scurisce di trasparenza blocco alpha text string a un livello ridotto ghost visivo */
 }
 
-/* Table */
+/* Classi tabelle dati storici metriche log manager rendiconti liste utenti e prodotti ordini */
 .table-custom {
-    width: 100%;
-    color: var(--text-main);
+    width: 100%; /* Larghezza espansibile table max padre */
+    color: var(--text-main); /* Pigmento lettere tabelle general css */
 }
 
+/* Formati intestazioni intestazione riga thead in css th campi head formattazione colonne righe topografia */
 .table-custom th {
-    text-align: left;
-    padding: 10px;
-    color: var(--text-muted);
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    border-bottom: 2px solid var(--border-color);
+    text-align: left; /* Tira parole tutto sx base sinistra align testo left css standard rules */
+    padding: 10px; /* Allenta celle thead intestatrici tabellare bordi limit padding testo div css layout tabel  */
+    color: var(--text-muted); /* Formato grigino secondario diciture */
+    font-size: 0.85rem; /* Piccole intestatrici dicitura scala font testuali piccoli caratteri head string renderizzazione */
+    text-transform: uppercase; /* FORZA STRINGA CARATTERI STAMPATELLO MAIUSCOLO AUTOMATICO */
+    border-bottom: 2px solid var(--border-color); /* Riga divisoria doppietta linea forte per separar riga base di th colonna tabella da records table thead linea tbody limite divisorio tabelle standard formattatrici css thead / tbody divisore css bordatura grossa bottom spessore line thickness rendering divisivo per confini di blocchi th */
 }
 
+/* Formato cella normale contenitore dati record di tabella riga / cella */
 .table-custom td {
-    padding: 12px 10px;
-    border-bottom: 1px solid var(--border-color);
-    vertical-align: middle;
+    padding: 12px 10px; /* Rigonfiamento spazio y12 x10 limite per separare bordi da string testuali */
+    border-bottom: 1px solid var(--border-color); /* Rigone base divisione sotto elemento td separazione tra i record lista */
+    vertical-align: middle; /* Setta centrature y asse rendering cell tabelle base vertical align td/th in thead tbody tr row */
 }
 
+/* Tabella riga intero row tr blocco record css rules string formati in cascata su table rules string */
 .table-custom tr {
-    color: var(--text-main);
+    color: var(--text-main); /* Colore generico cascante testuale */
 }
 
+/* Contenitore input box speciali allergeni campi check toggle liste cibi prodotti vari manager backend back office panel form  */
 .allergeni-box {
-    background: var(--input-bg);
-    border: 1px solid var(--input-border);
+    background: var(--input-bg); /* Fondo simile in controll format standard var colors */
+    border: 1px solid var(--input-border); /* Stessi limiti css d'input field form controls text area standard app design ui conformita coerenza design */
 }
 
-/* Empty State */
+/* Nessun elemento trovato cartello empty space null state tavoli dashboard manager nessuna info vista css configurazioni stato vuoto grafiche centrate messaggistica applicativa no results feedback ux */
 .tavoli-empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 2rem;
-    color: var(--text-muted);
-    text-align: center;
+    display: flex; /* Attivatore form flessibili posizionatori centro layouting per centrare flex container block models css div rule in column orientamento flexbox direttiva css rules */
+    flex-direction: column; /* Impila icone div testi sopra no data state vertically asse y cross column dir flexbox */
+    align-items: center; /* Setta in x cross center blocco in colonna flex per centratura x di y element */
+    justify-content: center; /* Centro di contenitore padre main area max div flexbox centro area rendering blocco  */
+    padding: 4rem 2rem; /* Margini giganti interni y / x rem relativita spazio per aria visuale empty no info messages blocchi */
+    color: var(--text-muted); /* Tonali sbiaditi stringe testo off topic state msg error in vuoti grafici */
+    text-align: center; /* Dispone a capo i paragrafi in asse medio testuale regole centratura paragrafiche blocchi p span text align rules rulesets strings centro css standard formatting paragraph */
 }
 
+/* Icina in mezzo nel cartello d'errore tavoli-empty div itags rendering tag vuoti icone font awesome */
 .tavoli-empty i {
-    font-size: 4rem;
-    margin-bottom: 1rem;
-    opacity: 0.3;
+    font-size: 4rem; /* Ingigantisce iconissima per colpo di occhio visivo grafica ux no tavoli error */
+    margin-bottom: 1rem; /* Sfasa paragrafo H testo sotto x evitare sovrapposizioni margine basso per scostare titoli descrizioni  */
+    opacity: 0.3; /* Traslucido sbiadita 30 per cento fantasma icone grafiche opacita trasparente css style visual alpha levels blending rules styles render render rules opacity alfa rgb a layer blending fade */
 }
 
+/* Intestazione H titolo no datastate found grafic */
 .tavoli-empty h4 {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+    font-weight: 600; /* Incremento spessore grassetti pesanti pesi ponderati titolazioni head testuale semibold css rules */
+    margin-bottom: 0.5rem; /* Margina basso per separare dal paragrafo sotto descrizione piccola testo distanziatore limite layout bottom */
 }
 
-/* Responsive */
+/* Limitatore layout query a schermi portatili laptop tablet standard piccolo CSS media tag breakpoint regole limiti grafiche adattive configurazioni fluid webdesign responsive breakpoint larghezza regole adattamenti layout CSS rendering display risoluzioni css max limits width limits tablet iPad etc configurazioni ruleset */
 @media (max-width: 991.98px) {
     .tavoli-grid {
-        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-        gap: 12px;
-        padding: 1rem;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Rimpicciolisce la colonnatura limite blocchi card tavole card per restare almeno a 150 larghezza minimo 1 farzione prima grid 180 si stretta in resize finestra CSS CSS grid */
+        gap: 12px; /* Stringe corridoio tabel grid in 12 limitazioni distanze card spaziatura card CSS grid spazio in tablet ipad o schermi stretti resizing limiti tablet layout spacing in mobile breakpoints resizing web page css layout reflow media tag breakpoints mediaqueries */
+        padding: 1rem; /* Smagrisce a 1 rem meta l aria periferie griglia limit container in schermi stretti CSS breakpoint styling override responsive config max media widths rule layouts media tag limits rulesets rule */
     }
 }
 
+/* Limitazione massima schermi mobili smart phone cellulari tablet mini layout CSS limiti adattivi schermi verticali CSS media configuration */
 @media (max-width: 767.98px) {
     .page-header {
-        padding: 1rem;
-        flex-direction: column;
-        gap: 0.75rem;
-        align-items: stretch;
-        text-align: center;
+        padding: 1rem; /* Strizza header pagina limiti telefono smagritura css pad */
+        flex-direction: column; /* Collassa tutto in colonna telefono view in flexbox orientation break column wrapping css in mobile breakpoint css layout in flex box */
+        gap: 0.75rem; /* Bucatura inter elementi limitata spacing telefono configurazione */
+        align-items: stretch; /* Tira pulsanti a larghezze limiti schermo mobile ux phone stretching di figli in col flex in css flexbox */
+        text-align: center; /* Butta paragrafi loghi stringhe al asse x mezzo */
     }
 
     .page-header .d-flex {
-        justify-content: center;
+        justify-content: center; /* In cell centrano raggruppatori pulsanti bootstrap d flex interni limiti layout rules */
     }
 
     .page-header h2 {
-        font-size: 1.3rem;
+        font-size: 1.3rem; /* Smorza h2 grandezze ditte fonts string limiti layout phone */
     }
 
     .page-header p {
-        font-size: 0.8rem;
+        font-size: 0.8rem; /* Stringe piccoli font per telefoni small strings descriptions */
     }
 
     .tavoli-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 10px;
-        padding: 0.75rem;
+        grid-template-columns: repeat(2, 1fr); /* Forza a sole 2 blocchi colonne fisso in telefonino x non debordare grid css rules override base a max 2 min 2 ripetitore layout forzato 2 frazioni rigide */
+        gap: 10px; /* Minimizza buche carte tavolino x spazio recupero 10px */
+        padding: 0.75rem; /* Comprime esterni 0,75 x guadagno pixels css margini periferie */
     }
 
     .tavolo-card-header {
-        padding: 14px 10px 10px;
-        gap: 8px;
+        padding: 14px 10px 10px; /* Shrinks pad in card header blocchi tavolo stringe limiti telefonino limiti margini pad */
+        gap: 8px; /* Limita a 8 px spazzi intra element */
     }
 
     .tavolo-icon {
-        width: 40px;
-        height: 40px;
-        font-size: 1rem;
-        border-radius: 12px;
+        width: 40px; /* Abbassa grandezze icon CSS icone card tavoli telefono min setting dimensionale limiti regole override breakpoints formattazione width px box dimensions render rule block */
+        height: 40px; /* Y limiti height px limits in block rules css limits dimensions css icon dimensions phone rule height formattazione width box sizes altezza per schermi cellulare regole layout size  */
+        font-size: 1rem; /* Riduzione testo interno icon css string size rules override cell */
+        border-radius: 12px; /* Smoossa curve proporzionali a icone piccole css shape radiante bordo rotondità ridotte */
     }
 
     .tavolo-name {
-        font-size: 0.85rem;
+        font-size: 0.85rem; /* Minima string testi regole phone size desc */
     }
 
     .tavolo-seats {
-        font-size: 0.7rem;
+        font-size: 0.7rem; /* Riduzioni caratteri sedia limits text phone formats */
     }
 
     .tavolo-card-footer {
-        padding: 8px 10px;
-        flex-direction: column;
-        gap: 8px;
+        padding: 8px 10px; /* Footer stretto limits spazio box pad padding rules override cell limits */
+        flex-direction: column; /* Trasforma piede card tavoli footer da sinistra destra a alto basso a due righe limits column flexbox css stack rules for devices piccolezza flex telefono wrap limits stack items column */
+        gap: 8px; /* Offset spacing limiti */
     }
 
     .tavolo-status-badge {
-        font-size: 0.65rem;
-        padding: 3px 10px;
+        font-size: 0.65rem; /* Badge piu minuscoli in telefonino limits cell */
+        padding: 3px 10px; /* Riduzione ingombro badge limites CSS boundaries rule sizing rulesets limits */
     }
 
     .tavolo-actions {
-        gap: 6px;
+        gap: 6px; /* Piccoli pulsantini meno distanti layout */
     }
 
     .tavolo-actions .btn-act {
-        width: 28px;
-        height: 28px;
-        font-size: 0.7rem;
+        width: 28px; /* Stringe limiti pulsanti in tablet/phon css layout bounding limiti box actions css width width rules sizes */
+        height: 28px; /* Rigidezza offset dimensionale limiti in y phone layouts actions btn css forms altezzze limits height config dimensioni config formati dimensioni btn */
+        font-size: 0.7rem; /* Ridimensioni font icone interne css styles rules layout breakpoints limits for dimensions font settings font size */
     }
 
     .filter-tabs {
-        padding: 0.5rem 0.75rem;
-        gap: 6px;
+        padding: 0.5rem 0.75rem; /* Strizza la striscia filtri su smartphone CSS stringe paddings limiti strato barra orizzontale filtri telefono schermi mobile width phone tablet override limits layout css settings limiti width spacing padding layout strato rules settings boundaries padding bar container css limit configurazioni padding margini limits array bar  */
+        gap: 6px; /* Minore spazio intra tab CSS layouts for schermi portatili cellulari gap flex rule overrides gap override limits spacing per mobile div container properties */
     }
 
     .filter-tab {
-        padding: 6px 14px;
-        font-size: 0.8rem;
+        padding: 6px 14px; /* Rimpicciolisce tabs limiti in phone */
+        font-size: 0.8rem; /* Font piccino in bottoni filtro telefono dimensioni css limits rule text string size override limiti telefonini width */
     }
 
     .filter-count {
-        font-size: 0.7rem;
-        padding: 1px 6px;
+        font-size: 0.7rem; /* Riduce pallina numero filtri telefono text rule font limiti size formattazione in mobile breakpoints responsive CSS text regole sizes config font limits rule overrides per cell size text string css rule formattazioni numeriche badge counts limits config */
+        padding: 1px 6px; /* Stringe ovali badge limits pad */
     }
 
     .mobile-nav-bar {
-        justify-content: center;
+        justify-content: center; /* Accentra i menu nav mobile buttons phone css align centratura flex base overrides a mobile limits width centrate rule flex box align css string settings */
     }
 
     .card-custom {
-        padding: 15px;
-        margin-bottom: 15px;
+        padding: 15px; /* Restringe scatole manager dati phone limits pad spazi css margins in box limits padding config */
+        margin-bottom: 15px; /* Comprime buchi fra colonne di scatole per schermi alti limitativi */
     }
 
     .table-custom td,
     .table-custom th {
-        padding: 8px 6px;
-        font-size: 0.85rem;
+        padding: 8px 6px; /* Rimpicciolisce rigonfiamento limiti tabellari in portatili limits in padding rendering css per tabel responsive */
+        font-size: 0.85rem; /* Mini tabel testi per phone limites string */
     }
 
     .table-custom .col-desc {
-        display: none;
+        display: none; /* In telefono nasconde le colonne non importati delle thead e tabel td come spiegazioni lunghe eliminazione rendering blocco nascosto responsive layout css column stripping regole visibility css blocchi in table override limits non render html block css tag for rule of breaking the line of table limit table in phone limits css rule  */
     }
 
     .btn-main {
-        padding: 10px;
-        font-size: 0.9rem;
+        padding: 10px; /* Rigonfiamento limits bottone principale in cell phone dimensions limit per tappability button mobile rule touch size limits formattazione padding CSS per interazione dita bottoni pad mobile device ui ux boundaries touch size CSS formattazione limiti width limiti di click btn  */
+        font-size: 0.9rem; /* Testo minore phone limits text */
     }
 }
 
+/* Modelli strettissimi schermi molto datati mini smartphone css breakpoints boundaries overrides ultra light width sizes mini phone mediaquery limit settings CSS ruleset settings limits device width rule */
 @media (max-width: 399.98px) {
     .tavoli-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
-        padding: 0.5rem;
+        grid-template-columns: repeat(2, 1fr); /* Due fisse colonne mini schermi 300px rules in css rule css settings per force rendering column limite flex layout rule limit grid in cell mini overrides for iphone 5 4 mini css media queries limits boundaries grid column 2 width 1 fractional min max bound css grid array config sizes grids configurazioni display css array grid column settings bounds 2 min column limits responsive size for very small rules sizes width  */
+        gap: 8px; /* Togli divario limitato tavoli array minimi spazi grid array spacing gap limitations layout css settings grids rules */
+        padding: 0.5rem; /* Limature box model padding for grids config grids limits grids limits boundaries borders rule spacing padding config */
     }
 
     .tavolo-card-header {
-        padding: 12px 8px 8px;
+        padding: 12px 8px 8px; /* Riduzione massima box header spazio telefono mini layout rules pad css config rules */
     }
 
     .tavolo-icon {
-        width: 36px;
-        height: 36px;
-        font-size: 0.9rem;
+        width: 36px; /* Ridimensionatura drastica y icona dimensioni limiti formattazione regole for miniature screen css limits rules  */
+        height: 36px; /* Ridimensionatura drastica y icona css rules limits */
+        font-size: 0.9rem; /* Limite string rules settings */
     }
 
     .tavolo-name {
-        font-size: 0.8rem;
+        font-size: 0.8rem; /* Set font format mini dimensions css text size rules in layout mobile responsive limits limits CSS settings */
     }
 
     .page-header .btn {
-        font-size: 0.8rem;
-        padding: 8px 14px !important;
+        font-size: 0.8rem; /* String btn limiti head texts text sizes formats responsive strings CSS media bounds btn typography string dimension limits string configuration settings limiti string font sizes btn configurations rule limit formattazione limiti string text size */
+        padding: 8px 14px !important; /* Forza riduzione padding pulsanti header limits css important rules spacing formattazioni limits */
     }
 }

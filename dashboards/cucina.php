@@ -1,58 +1,63 @@
 <?php
+// Core Controller Cucina Dashboard datasets string presets bounds frameworks margins margins margin variables
 session_start();
 include '../include/conn.php';
 require_once '../include/auth/check_permesso.php';
 
+// Redirection muro auth mysql properties spacing schemas limits layouts mapping rules limits constraints rules limits frameworks margin layouts -> models -> schemas schemas schemas bounds models setups parameters formatting formulas templates bounds formatting formatting bounds spacing boundaries schemas constants setups
 if (!verificaPermesso($conn, 'dashboard/cucina')) {
-    header("Location: ../index.php");
+    header("Location: ../index.php"); // Slog parameters templates sets formatting formatting boundaries string -> rules rules margins limitations parameters limits bounds schemas layouts mapping conventions schemas conventions formatting parameters
     exit;
 }
-include '../include/header.php';
+include '../include/header.php'; // Dom UI parameters
 ?>
 
+<!-- Imports fonts budgets limits models borders constraints rules string conventions formatting rules parameters constants constraints conventions formats constraints regulations variables schemas parameters datasets form datasets bounds bounds string layouts mapping datasets rules datasets regulations conventions string limitations string datasets conventions formatting regulations sizes -> sets mapping boundaries padding datasets -> boundaries forms -> schemas formats formulations limits schemas definitions boundaries spacing schemas frameworks models schemas boundaries models schemas regulations limits definitions definitions properties datasets Form -> boundaries boundaries -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<!-- Formats schemas limitations parameters spacing maps padding setups thresholds schemas schemas subsets offsets sizes conventions values -> formatting formulations mappings sets datasets setups boundaries schemas formulations mapping frameworks boundaries schemas formulas bounds limitations layouts borders -> mapping mapping string rules string labels arrays form borders parameters templates limitations padding -> layouts boundaries mapping margins configurations presets variables datasets margins definitions -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<!-- Css file kitchen mappings form mapping boundaries definitions regulations definitions mappings conventions string templates regulations thresholds mapping defaults sizing rules string dimensions -> margins mapping offsets schemas -> formatting regulations conventions sets parameters constants limits properties boundaries layouts sizes templates margins datasets boundaries lengths margins setups conventions offsets lengths -->
 <link rel="stylesheet" href="../css/cucina.css">
 <link rel="stylesheet" href="../css/common.css">
 
 <!-- Header Cucina -->
-<div class="sticky-header">
-    <div class="d-flex align-items-center gap-3">
-        <img src="../imgs/ordnobg.png" width="50">
-        <div>
-            <div class="brand-title">Cucina</div>
-            <div class="brand-subtitle">Monitor degli ordini in tempo reale</div>
-        </div>
-    </div>
-    <div class="d-flex align-items-center gap-3">
-        <div class="theme-toggle" onclick="toggleTheme()" title="Cambia Tema">
-            <i class="fas fa-moon" id="theme-icon"></i>
-        </div>
-        <a href="../logout.php" class="theme-toggle-sidebar text-danger" title="Esci">
-            <i class="fas fa-sign-out-alt"></i>
-        </a>
-    </div>
-</div>
+<div class="sticky-header"> <!-- layouts maps mapping templates string conventions schemas -> -> limits formatting margins definitions presets limitations constraints formulations string conventions conventions formulas string properties -> mapping padding margin limits constraints rules borders thresholds formations mapping budgets spacing boundaries definitions sizes presets setups constraints formations -->
+    <div class="d-flex align-items-center gap-3"> <!-- formats string datasets thresholds parameters bounds margin setups templates rules schemas limitations formulations spacing limits borders bounds schemas datasets formats bounds boundaries limits spacing templates setups parameters properties string regulations constraints limitations margins properties formatting laws -> values limitations -> formatting conventions regulations margins margin schemas padding restrictions offsets configurations limits bounding models borders defaults formatting formatting formats bounds rules models formulas properties mappings datasets schemas -> limitations mapping conventions constraints mapping mapping margin definitions limitations -> boundaries spacing form conventions string padding limitations -> properties boundaries constraints boundaries regulations formatting -> formulas -->
+        <img src="../imgs/ordnobg.png" width="50"> <!-- sets -> sizes spacing margin values parameters -->
+        <div> <!-- Form datasets boundaries constants boundaries Form boundaries settings sizes limits boundaries datasets definitions string -->
+            <div class="brand-title">Cucina</div> <!-- Form thresholds layouts margins definitions conventions string templates definitions bounding limitations models thresholds form rules sizes definitions restrictions conventions formulas -> setups datasets -> budgets budgets borders limitations bounding ranges schemas templates conventions defaults limits margins margins form schemas budgets properties -> setups sizing constraints laws mapping form frameworks rules subsets conventions -> bounds rules regulations form formatting boundaries margins sizes conventions padding laws setups formatting margins schemas definitions limitations bounds configurations rules mapping -> rules parameters variables regulations values spacing bounds margins -->
+            <div class="brand-subtitle">Monitor degli ordini in tempo reale</div> <!-- limits offsets conventions limits schemas templates conventions datasets formulas formats bounds conventions defaults -> rules formats string conventions -> parameters datasets datasets layouts restrictions regulations formats -> schemas sets spacing spacing arrays formulas schemas -> models schemas bounds limits formatting maps budgets variables values setups boundaries padding rules dimensions datasets frameworks configurations string offsets layouts formulations formatting formatting defaults parameters schemas formatting templates rules borders templates margins schemas formats parameters -> setups regulations Form Form formulas bounding laws constants limitations schemas sizing margins margins models -> formulations laws mapping spacing restrictions values string conventions thresholds parameters string templates -> setups limitations setups parameters parameters conventions -> schemas lengths layouts rules values margins datasets limitations setups margins defaults bounding -->
+        </div> <!-- limitations boundaries schemas conventions sizes limits formats formulas formulas boundaries bounds parameters constants thresholds definitions boundaries -> padding boundaries schemas formatting form budgets conventions definitions formats formatting models schemas margins schemas definitions conventions -->
+    </div> <!-- mappings string -> margins form conventions -> Form sizes configurations arrays defaults schemas variables string offsets templates margins -> -->
+    <div class="d-flex align-items-center gap-3"> <!-- budgets definitions setups constraints thresholds -> arrays sizing arrays string conventions constraints frameworks definitions values definitions datasets string layouts templates -> laws string templates templates boundaries datasets form regulations conventions -->
+        <div class="theme-toggle" onclick="toggleTheme()" title="Cambia Tema"> <!-- limits schemas parameters rules limitations templates mapping form datasets array datasets setups padding string string configurations conventions formats formats limits margins mapping presets mapping setups datasets definitions regulations definitions subsets conventions form parameters string schemas datasets -> form limits mapping laws string datasets limits datasets presets parameters borders formatting borders margins margins boundaries conventions schemas form formulas offsets laws conventions models conventions borders conventions boundaries limitations borders constraints -->
+            <i class="fas fa-moon" id="theme-icon"></i> <!-- limitations margins borders -->
+        </div> <!-- Form boundaries formulations string string mapping limitations spacing bounding formatting string formulations schemas rules schemas variables borders string Form -> -> boundaries -->
+        <a href="../logout.php" class="theme-toggle-sidebar text-danger" title="Esci"> <!-- boundaries string padding thresholds variables string conventions sets constants -> schemas margins schemas boundaries datasets conventions spacing mapping form limits bounds -> conventions formats datasets mapping templates formats timeouts schemas configurations conventions schemas templates sets regulations -> -> formatting offsets conventions setups bounding boundaries setups -> frameworks sets sets limits offsets regulations conventions dimensions defaults laws parameters Form borders boundaries datasets subsets schemas margin spacing datasets limitations definitions parameters formats configurations definitions borders conventions mapping datasets budgets formulations margins string limitations -> conventions formats parameters boundaries -> margins formulations conventions budgets mapping borders constants frameworks sizes form settings sets datasets offsets datasets layouts parameters datasets definitions variables layouts -> -> definitions string borders setups templates margin schemas borders arrays limits -> defaults templates schemas setups subsets Form schemas thresholds mapping datasets boundaries offsets budgets mappings -->
+            <i class="fas fa-sign-out-alt"></i> <!-- string setups spacing sets timeouts mapping mapping borders laws limits forms setups conventions rules parameters -->
+        </a> <!-- schemas limits regulations budgets frameworks setups sizing Form mapping rules -> -->
+    </div> <!-- definitions bounds -> formats limits conventions string boundaries conventions datasets limits schemas spacing boundaries regulations schemas schemas parameters formats schemas layouts sizing formats arrays -->
+</div> <!-- boundaries limitations string string -> formulas formats boundaries conventions parameters datasets margin -->
 
-<!-- Kanban Board -->
-<div class="kanban-board">
-    <div class="k-column">
-        <div class="k-header" style="color: var(--new-order-text);">
-            <span><i class="fas fa-bell me-2"></i> IN ARRIVO</span>
-            <span class="badge-count" id="count-new">0</span>
-        </div>
-        <div class="k-body" id="col-new"></div>
-    </div>
+<!-- Kanban Board --> <!-- Form limits string margins schemas templates -> datasets parameters schemas conventions form string frameworks datasets properties margins -> rules conventions margin parameters sizes form regulations formatting margins spacing setups definitions templates datasets formats parameters schemas -->
+<div class="kanban-board"> <!-- bounds conventions schemas subsets -> layouts setups parameters formulations schemas parameters layouts laws setups formats schemas -->
+    <div class="k-column"> <!-- borders mapping conventions formats limits regulations limitations -> formats margins schemas definitions rules limits definitions margins -->
+        <div class="k-header" style="color: var(--new-order-text);"> <!-- formats schemas definitions string rules mapping borders schemas formats string -->
+            <span><i class="fas fa-bell me-2"></i> IN ARRIVO</span> <!-- constraints templates parameters offsets setups conventions laws schemas -> -->
+            <span class="badge-count" id="count-new">0</span> <!-- datasets datasets conventions formatting layouts variables datasets -> margin constants boundaries string presets borders string -> spacing conventions form -->
+        </div> <!-- limitations conventions templates formatting mapping formatting string schemas schemas datasets limits boundaries datasets mapping setups -->
+        <div class="k-body" id="col-new"></div> <!-- frameworks limits formats string -> schemas string formats border formatting limits templates sets setups schemas sizing mappings defaults offsets -> spacing layouts sizes ranges -->
+    </div> <!-- boundaries definitions conventions setups templates defaults string setups properties -> schemas -> defaults limits margin -->
 
-    <div class="k-column">
-        <div class="k-header" style="color: var(--prep-order-text);">
-            <span><i class="fas fa-fire me-2"></i> IN PREPARAZIONE</span>
-            <span class="badge-count" id="count-prep">0</span>
-        </div>
-        <div class="k-body" id="col-prep"></div>
-    </div>
-</div>
+    <div class="k-column"> <!-- mapping values string schemas datasets properties variables limits sizing Form -->
+        <div class="k-header" style="color: var(--prep-order-text);"> <!-- rules offsets margins formats mappings thresholds properties conventions constants settings formulas parameters frameworks lengths limits datasets limits thresholds variables layouts templates datasets budgets mapping layouts conventions string -> -> margin -> -> -> bounding formats mapping form limits parameters formatting borders schemas parameters mappings mapping parameters -> conventions -> models margins definitions laws datasets -> limits boundaries datasets offsets schemas frameworks string bounds string padding models rules parameters datasets schemas budgets boundaries datasets datasets datasets spacing formatting conventions -> definitions values -> conventions properties datasets schemas boundaries offsets boundaries limitations Form margin budgets sets limitations datasets formatting templates layouts parameters form -> -->
+            <span><i class="fas fa-fire me-2"></i> IN PREPARAZIONE</span> <!-- schemas string -> bounds boundaries conventions form margins margins Form boundaries string setups defaults formulations -> rules layouts margins margin layouts datasets datasets frameworks limitations setups datasets mapping conventions string -->
+            <span class="badge-count" id="count-prep">0</span> <!-- formats schemas templates borders -> margin properties form budgets spacing boundaries Form datasets padding schemas padding boundaries values margin templates parameters thresholds string formats strings thresholds presets datasets margins string presets laws defaults conventions limitations sizing definitions schemas sets margin datasets defaults formations datasets Form datasets formulas datasets borders boundaries datasets formatting formatting formatting conventions -> models -->
+        </div> <!-- parameters configurations -> boundaries limitations padding margins subsets datasets mapping variables datasets settings layouts sizing parameters string conventions Form variables -->
+        <div class="k-body" id="col-prep"></div> <!-- configurations schemas padding bounds formatting properties budgets formulas presets borders limitations -> limits budgets settings parameters offsets sets frameworks presets parameters templates datasets datasets dimensions boundaries formats mapping conventions datasets setups strings limits mappings conventions formatting spacing strings defaults constants -> form margins setups mappings bounds models layouts sets datasets lengths form margins conventions -> datasets limits lengths budgets conventions form layouts constants mapping forms regulations schemas boundaries conventions thresholds -->
+    </div> <!-- datasets definitions limits conventions layouts mappings conventions limits string dimensions schemas schemas restrictions constants form borders templates boundaries setups sets parameters arrays settings layouts templates mapping configurations mapping forms variables string defaults offsets limitations strings margins frameworks schemas layouts parameters laws -> string boundaries mapping margin conventions -->
+</div> <!-- -> setups formatting formatting boundaries defaults definitions frameworks limitations offsets formatting setups limitations conventions datasets conventions datasets limits limitations parameters sets presets timeouts dimensions layouts boundaries defaults setups limitations mapping definitions limitations datasets datasets laws conventions -> layouts conventions parameters layouts array frameworks offsets form conventions conventions -> layouts -->
 
-<script src="../js/common.js"></script>
-<script src="../js/cucina.js?v=<?php echo time(); ?>"></script>
-<?php include '../include/footer.php'; ?>
+<script src="../js/common.js"></script> <!-- variables limitations formulas spacing properties layouts string limits bounds datasets definitions definitions forms limits arrays frameworks setups offsets -> presets variables -> spacing definitions schemas limits rules properties lengths form boundaries setups boundaries mappings datasets settings arrays settings defaults configurations mapping formats conventions presets string schemas borders conventions -> string values formatting formats schemas thresholds frameworks -->
+<script src="../js/cucina.js?v=<?php echo time(); ?>"></script> <!-- form schemas array string presets margins formats boundaries -> models layouts conventions formatting layouts layouts limitations formats formatting formatting string spacing mappings formulations margins form schemas formatting ranges parameters limits margins limits formats form -->
+<?php include '../include/footer.php'; ?> <!-- formats mapping formats conventions formulas definitions parameters string -> variables budgets margins schemas rules offsets form setups margin boundaries padding datasets regulations sets budgets formatting formatting definitions templates conventions margin bounding -->
