@@ -1,32 +1,34 @@
 <?php
-// Avvia la sessione
 session_start();
+include "../include/conn.php";
+require_once "../include/auth/check_permesso.php";
+require_once "../include/constants.php";
 
-// Verifica che l'utente sia loggato con il ruolo 'manager', altrimenti lo rimanda al login
-if (!isset($_SESSION['ruolo']) || $_SESSION['ruolo'] != 'manager') {
+if (!verificaPermesso($conn, 'dashboard/manager')) {
     header("Location: ../index.php");
     exit;
 }
 
-// Inclusione della connessione al database e dell'header HTML principale
-include "../include/conn.php";
 include "../include/header.php";
 
-// Recupera tutti i tavoli dal database per mostrarli nella griglia
-$tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
+// Dati precaricati: tavoli e categorie (query unica riutilizzata nel form e nella tabella)
+$tavoli = $conn->query("SELECT * FROM utenti WHERE ruolo='tavolo' ORDER BY username ASC");
+$categorie_result = $conn->query("SELECT * FROM categorie ORDER BY nome_categoria");
+$categorie_array = [];
+while ($cat = $categorie_result->fetch_assoc()) {
+    $categorie_array[] = $cat;
+}
 ?>
 
-<!-- Importazione dei Google Fonts e icone FontAwesome -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<!-- Fogli di stile custom: manager.css specifico per l'admin, common.css condiviso -->
 <link rel="stylesheet" href="../css/manager.css?v=<?php echo time(); ?>">
 <link rel="stylesheet" href="../css/common.css?v=<?php echo time(); ?>">
 
 <div class="container-fluid p-0">
     <div class="row g-0">
 
-        <!-- SIDEBAR LATERALE (Desktop) -->
+        <!-- Sidebar Desktop -->
         <div class="col-md-3 col-lg-2 d-none d-md-block">
             <div class="sidebar-custom d-flex flex-column">
                 <div class="text-center mb-5 mt-3"><img src="../imgs/ordlogo.png" width="100"></div>
@@ -34,7 +36,6 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                     <small class="text-uppercase fw-bold ps-3 mb-2 d-block text-muted" style="font-size: 11px;">Pannello
                         Admin</small>
 
-                    <!-- Pulsanti per switchare tra gestione Tavoli e Menu -->
                     <div class="btn-sidebar active" onclick="switchPage('tavoli', this)">
                         <i class="fas fa-chair me-3"></i> Gestione Tavoli
                     </div>
@@ -43,7 +44,6 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                     </div>
                 </div>
 
-                <!-- Footer della sidebar: Cambio tema (Chiaro/Scuro) e pulsante Logout -->
                 <div class="p-4 mt-auto">
                     <div class="d-flex justify-content-center gap-3">
                         <div class="theme-toggle-sidebar" onclick="toggleTheme()" title="Cambia Tema">
@@ -57,10 +57,10 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
             </div>
         </div>
 
-        <!-- CONTENUTO PRINCIPALE -->
+        <!-- Contenuto Principale -->
         <div class="col-md-9 col-lg-10">
 
-            <!-- NAVBAR MOBILE (Visibile solo da smartphone) -->
+            <!-- Navbar Mobile -->
             <div class="mobile-nav-bar d-md-none">
                 <div class="mobile-nav-btn active" onclick="switchPage('tavoli', this)">
                     <i class="fas fa-chair"></i> Tavoli
@@ -78,9 +78,8 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                 </div>
             </div>
 
-            <!-- SEZIONE: GESTIONE TAVOLI -->
+            <!-- Sezione Tavoli -->
             <div id="page-tavoli" class="page-section active">
-                <!-- Intestazione della sezione con bottone per aggiungere un nuovo tavolo -->
                 <div class="page-header">
                     <div>
                         <h2 class="fw-bold m-0">Gestione Tavoli</h2>
@@ -94,7 +93,6 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                     </div>
                 </div>
 
-                <!-- Filtri per visualizzare i tavoli per stato (Tutti, Liberi, Occupati, Riservati) -->
                 <div class="filter-tabs">
                     <button class="filter-tab active" onclick="filtraTavoli('tutti', this)">
                         <i class="fas fa-th me-1"></i> Tutti <span class="filter-count" id="count-tutti">0</span>
@@ -113,12 +111,10 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                     </button>
                 </div>
 
-                <!-- Griglia dove i tavoli verranno caricati dinamicamente via JavaScript (manager.js) -->
                 <div class="tavoli-grid" id="tavoli-grid"></div>
             </div>
 
-            <!-- SEZIONE: GESTIONE MENU -->
-            <!-- Nascosta di default, visibile cliccando sul bottone di switch "Menu" -->
+            <!-- Sezione Menu -->
             <div id="page-menu" class="page-section" style="display: none;">
                 <div class="container py-4">
                     <div class="d-flex justify-content-between align-items-center mb-4">
@@ -128,7 +124,6 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                         </div>
                     </div>
 
-                    <!-- Avviso di successo mostrato post caricamento piatto/modifica -->
                     <?php if (isset($_GET['msg']) && $_GET['msg'] == 'success'): ?>
                         <div id="success-alert"
                             class="alert alert-success border-0 shadow-sm rounded-3 mb-4 text-center fw-bold text-success">
@@ -137,12 +132,11 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                     <?php endif; ?>
 
                     <div class="row g-4">
-                        <!-- SCHEDA: AGGIUNTA DI UN NUOVO PIATTO -->
+                        <!-- Nuovo Piatto -->
                         <div class="col-lg-8">
                             <div class="card-custom">
-                                <h5 class="card-title"><i class="fas fa-utensils me-2 text-warning"></i>Nuovo Piatto
-                                </h5>
-                                <form action="../api/manager/aggiungi_piatto.php" method="POST"
+                                <h5 class="card-title"><i class="fas fa-utensils me-2 text-warning"></i>Nuovo Piatto</h5>
+                                <form action="../api/manager/manager_api.php?action=aggiungi_piatto" method="POST"
                                     enctype="multipart/form-data">
                                     <div class="row g-3">
                                         <div class="col-md-8">
@@ -154,15 +148,11 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                                                 placeholder="Prezzo (€)">
                                         </div>
                                         <div class="col-md-12">
-                                            <!-- Select per assegnare il piatto ad una categoria esistente -->
                                             <select name="id_categoria" class="form-select" required>
                                                 <option value="" selected disabled>Seleziona Categoria</option>
-                                                <?php
-                                                $res = $conn->query("SELECT * FROM categorie");
-                                                while ($cat = $res->fetch_assoc()) {
-                                                    echo "<option value='" . $cat['id_categoria'] . "'>" . $cat['nome_categoria'] . "</option>";
-                                                }
-                                                ?>
+                                                <?php foreach ($categorie_array as $cat): ?>
+                                                    <option value="<?php echo $cat['id_categoria']; ?>"><?php echo $cat['nome_categoria']; ?></option>
+                                                <?php endforeach; ?>
                                             </select>
                                         </div>
                                         <div class="col-12">
@@ -172,16 +162,12 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                                         <div class="col-12">
                                             <label class="small text-muted fw-bold mb-2">ALLERGENI PRESENTI</label>
                                             <div class="d-flex flex-wrap gap-2 p-3 rounded allergeni-box">
-                                                <!-- Creazione automatica di checkbox per gli allergeni -->
-                                                <?php
-                                                $allergeni = ["Glutine", "Crostacei", "Uova", "Pesce", "Arachidi", "Soia", "Latte", "Frutta a guscio", "Sedano", "Senape", "Sesamo", "Solfiti", "Molluschi"];
-                                                foreach ($allergeni as $a) {
-                                                    echo "<div class='form-check form-check-inline m-0 me-3'>
-                                                            <input class='form-check-input' type='checkbox' name='allergeni[]' value='$a' id='al_$a'>
-                                                            <label class='form-check-label small' for='al_$a'>$a</label>
-                                                          </div>";
-                                                }
-                                                ?>
+                                                <?php foreach ($ALLERGENI as $a): ?>
+                                                    <div class="form-check form-check-inline m-0 me-3">
+                                                        <input class="form-check-input" type="checkbox" name="allergeni[]" value="<?php echo $a; ?>" id="al_<?php echo $a; ?>">
+                                                        <label class="form-check-label small" for="al_<?php echo $a; ?>"><?php echo $a; ?></label>
+                                                    </div>
+                                                <?php endforeach; ?>
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -197,12 +183,11 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                             </div>
                         </div>
 
-                        <!-- SCHEDA LATERALE: GESTIONE CATEGORIE -->
+                        <!-- Gestione Categorie -->
                         <div class="col-lg-4">
-                            <!-- Form per creare una nuova categoria -->
                             <div class="card-custom mb-4">
                                 <h5 class="card-title"><i class="fas fa-tags me-2 text-primary"></i>Nuova Categoria</h5>
-                                <form action="../api/manager/aggiungi_categoria.php" method="POST" class="d-flex gap-2">
+                                <form action="../api/manager/manager_api.php?action=aggiungi_categoria" method="POST" class="d-flex gap-2">
                                     <input type="text" name="nome_categoria" class="form-control"
                                         placeholder="Es: Burger" required>
                                     <input type="hidden" name="id_menu" value="1">
@@ -210,26 +195,22 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                                             class="fas fa-plus"></i></button>
                                 </form>
                             </div>
-                            <!-- Tabella delle categorie esistenti con pulsante di eliminazione -->
                             <div class="card-custom">
                                 <h5 class="card-title">Gestione Categorie</h5>
                                 <div style="max-height: 300px; overflow-y: auto;">
                                     <table class="table-custom">
                                         <tbody>
-                                            <?php
-                                            $res_cat = $conn->query("SELECT * FROM categorie ORDER BY nome_categoria");
-                                            while ($row = $res_cat->fetch_assoc()) {
-                                                echo "<tr>
-                                                        <td><strong>" . $row['nome_categoria'] . "</strong></td>
-                                                        <td class='text-end'>
-                                                            <form action='../api/manager/elimina_categoria.php' method='POST' onsubmit='return confirm(\"Eliminare questa categoria e tutti i piatti collegati?\");'>
-                                                                <input type='hidden' name='id_categoria' value='" . $row['id_categoria'] . "'>
-                                                                <button class='btn-action btn-delete'><i class='fas fa-trash'></i></button>
-                                                            </form>
-                                                        </td>
-                                                      </tr>";
-                                            }
-                                            ?>
+                                            <?php foreach ($categorie_array as $row): ?>
+                                                <tr>
+                                                    <td><strong><?php echo $row['nome_categoria']; ?></strong></td>
+                                                    <td class="text-end">
+                                                        <form action="../api/manager/manager_api.php?action=elimina_categoria" method="POST" onsubmit="return confirm('Eliminare questa categoria e tutti i piatti collegati?');">
+                                                            <input type="hidden" name="id_categoria" value="<?php echo $row['id_categoria']; ?>">
+                                                            <button class="btn-action btn-delete"><i class="fas fa-trash"></i></button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            <?php endforeach; ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -237,7 +218,7 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                         </div>
                     </div>
 
-                    <!-- TABELLA COMPLETA DEI PIATTI SALVATI NEL MENU -->
+                    <!-- Lista Piatti -->
                     <div class="row">
                         <div class="col-12">
                             <div class="card-custom">
@@ -255,11 +236,9 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                                         </thead>
                                         <tbody>
                                             <?php
-                                            // Caricamento dei piatti dal DB
                                             $result = $conn->query("SELECT * FROM alimenti ORDER BY nome_piatto ASC");
                                             if ($result->num_rows > 0) {
                                                 while ($row = $result->fetch_assoc()) {
-                                                    // Sanitizzazione dei dati per l'inserimento incruento nei target HTML (data attributes)
                                                     $allergeniSafe = htmlspecialchars($row['lista_allergeni'], ENT_QUOTES);
                                                     $descSafe = htmlspecialchars($row['descrizione'], ENT_QUOTES);
                                                     $nomeSafe = htmlspecialchars($row['nome_piatto'], ENT_QUOTES);
@@ -270,7 +249,6 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                                                             <td class='fw-bold text-success'>" . number_format($row['prezzo'], 2) . " €</td>
                                                             <td class='text-end'>
                                                                 <div class='d-flex justify-content-end gap-2'>
-                                                                    <!-- Pulsante per aprire la modale di modifica piatto con i dati precaricati -->
                                                                     <button type='button' class='btn btn-warning btn-sm text-white'
                                                                         onclick='apriModalModifica(this)'
                                                                         data-id='" . $row['id_alimento'] . "'
@@ -282,8 +260,7 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
                                                                         data-allergeni='" . $allergeniSafe . "'>
                                                                         <i class='fas fa-edit'></i>
                                                                     </button>
-                                                                    <!-- Form invisibile per eliminare istantaneamente il piatto -->
-                                                                    <form action='../api/manager/elimina_piatto.php' method='POST' onsubmit='return confirm(\"Eliminare questo piatto?\");' style='margin:0;'>
+                                                                    <form action='../api/manager/manager_api.php?action=elimina_piatto' method='POST' onsubmit='return confirm(\"Eliminare questo piatto?\");' style='margin:0;'>
                                                                         <input type='hidden' name='id_alimento' value='" . $row['id_alimento'] . "'>
                                                                         <button type='submit' class='btn btn-danger btn-sm'><i class='fas fa-trash'></i></button>
                                                                     </form>
@@ -307,9 +284,8 @@ $tavoli = $conn->query("SELECT * FROM tavoli ORDER BY nome_tavolo ASC");
     </div>
 </div>
 
-<!-- Inclusione delle finestre modali esterne (Aggiungi tavolo, Modifica tavolo/piatto) -->
 <?php include "../include/modals/manager_modals.php"; ?>
 
-<!-- Script principale per le interazioni AJAX e UI -->
+<script src="../js/common.js"></script>
 <script src="../js/manager.js?v=<?php echo time(); ?>"></script>
 <?php include "../include/footer.php"; ?>
