@@ -147,8 +147,10 @@ switch ($action) {
         $check = $conn->prepare("SELECT id_utente FROM utenti WHERE username = ? AND ruolo='tavolo'");
         $check->bind_param("s", $nome);
         $check->execute();
-        if ($check->get_result()->num_rows > 0)
+        $res = $check->get_result();
+        if ($res->num_rows > 0) {
             json(['success' => false, 'error' => 'Esiste già un tavolo con questo nome.']);
+        }
 
         $stmt = $conn->prepare("INSERT INTO utenti (username, password, ruolo, stato, posti, id_menu) VALUES (?, ?, 'tavolo', 'libero', ?, 1)");
         $stmt->bind_param("ssi", $nome, $password, $posti);
