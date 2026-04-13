@@ -1,29 +1,32 @@
 <?php
-// Blocco distruttore distruzioni sessioni PHP e sloggate dal server system
+// Avvia o riprende la sessione
+session_start(); 
 
-session_start(); // Apri pacchetto scatola sessione lato server buffer memory limits
-
-// Controlla se a lanciare l esci kill server è un banale tavolo arrays rules 
-// Se è un tavolo, libera il posto in root db sql object schema e cancella il device_token limit
+// Se l'utente che sta facendo il logout è di tipo 'tavolo' ed è validamente loggato
 if (isset($_SESSION['ruolo']) && $_SESSION['ruolo'] === 'tavolo' && isset($_SESSION['id_tavolo'])) {
-    include "include/conn.php"; // Tiralo dal link params connection
-    // Sanitize string to INT rules conventions limits schemas boundaries
+    
+    // Connetti al DB per eseguire lo "sganciamento" fisico del tavolo dal gestionale
+    include "include/conn.php"; 
+
     $idTavolo = intval($_SESSION['id_tavolo']);
 
-    // Cancella cookie e sbatti libero in sql query parameters schemas formatting margins
+    // Rimette il tavolo a stato 'libero' in modo che in dashboard manager appaia nuovamente verde 
+    // e setta il device token a nullo
     $conn->query("UPDATE utenti SET stato='libero', device_token=NULL WHERE id_utente=" . $idTavolo);
-    
-    // Cookie time death minus 3600 per sparare il cookie cookie nel passato di ore uccidendone il ttl rules margins
+
+    // "Mangia" o cancella il cookie del device token portando la sua data di scadenza nel passato (-3600 secondi)
     setcookie('device_token_' . $idTavolo, '', time() - 3600, '/');
 }
 
-// Azzoppa variables globals session parameters schemas
+// Libera/svuota tutte le variabili registrate in sessione (es. array $_SESSION sarà vuoto)
 session_unset();
-// Distruzione cruda kill process session RAM limits layouts rules formats schemas parameters definitions spacing
+
+// Distrugge definitivamente il file o riferimento di sessione lato server
 session_destroy();
 
-// Piegati a index rediretta e ciao limitations layouts formatting datasets schemas constraints margins datasets schemas margins presets
+// Redirect l'utente di nuovo alla pagina di Login principale
 header("Location: index.php");
-// End margins parameters datasets setups margins datasets offsets offsets schemas mapping variables
+
+// Ferma l'esecuzione di qualsiasi codice che potrebbe seguire
 exit;
 ?>

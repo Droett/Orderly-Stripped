@@ -1,283 +1,255 @@
-/* ========================================= */
-/* Stili Dashboard Cucina                    */
-/* ========================================= */
-
-/* Corpo della pagina cucina */
 body {
-    overflow: hidden; /* Nasconde la barra di scorrimento esterna per un effetto app fissa a pieno schermo */
+    overflow: hidden; 
 }
 
-/* Intestazione superiore fissa */
 .sticky-header {
-    height: 80px; /* Altezza bloccata a 80 pixel per l'intestazione fissa (header) */
+    height: 80px; 
 }
 
-/* Titolo principale del ristorante in alto */
 .brand-title {
-    font-weight: 700; /* Testo in grassetto pesante per il nome del marchio */
-    font-size: 1.5rem; /* Dimensione del font ingrandita a 1.5 rem */
-    color: var(--text-main); /* Colore del testo principale secondo la variabile di tema corrente */
+    font-weight: 700; 
+    font-size: 1.5rem; 
+    color: var(--text-main); 
 }
 
-/* Sottotitolo sotto il marchio */
 .brand-subtitle {
-    font-size: 0.85rem; /* Testo piccolo per il sottotitolo */
-    color: var(--text-muted); /* Colore in grigietto neutro o smorzato */
-    font-weight: 400; /* Peso del carattere normale, senza grassetto */
+    font-size: 0.85rem; 
+    color: var(--text-muted); 
+    font-weight: 400; 
 }
 
-/* Scheda di gestione ordini stile Kanban */
 .kanban-board {
-    display: flex; /* Disposizione flessibile a blocchi laterali */
-    height: calc(100vh - 80px); /* Altezza pari all'intero schermo meno l'intestazione fissa in alto */
-    padding: 1.5rem; /* Margine interno protettivo di 1.5 rem da tutti i lati */
-    gap: 2rem; /* Distanza tra una colonna Kanban e l'altra impostata a 2 rem */
-    overflow-x: auto; /* Abilita lo scorrimento orizzontale se le colonne sono tante */
+    display: flex; 
+    height: calc(100vh - 80px); 
+    padding: 1.5rem; 
+    gap: 2rem; 
+    overflow-x: auto; 
 }
 
-/* Singola colonna Kanban (Nuovi, In Preparazione, ecc) */
 .k-column {
-    flex: 1; /* Consente alla colonna di allargarsi e occupare spazio equo */
-    background: var(--col-bg); /* Colore di sfondo dedicato alla colonna Kanban */
-    border-radius: 30px; /* Angoli molto arrotondati, aspetto a pillola grande */
-    display: flex; /* Abilita flex interno per l'impaginazione */
-    flex-direction: column; /* Impila intestazione colonna e corpo della colonna in verticale */
-    overflow: hidden; /* Taglia via tutto il contenuto fanciullo che esborada oltre i bordi tondi */
-    border: 1px solid var(--border-color); /* Bordo sottile e tenue col colore variabile */
-    min-width: 300px; /* Larghezza minima vitale della colonna a 300 pixel per non collassare troppo */
+    flex: 1; 
+    background: var(--col-bg); 
+    border-radius: 30px; 
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden; 
+    border: 1px solid var(--border-color); 
+    min-width: 300px; 
 }
 
-/* Testata (Titolo) della colonna Kanban */
 .k-header {
-    padding: 1.5rem; /* Area protetta di margine interno 1.5 rem */
-    font-weight: 700; /* Titolo colonna marcato in grassetto */
-    font-size: 1.1rem; /* Carattere del titolo leggermente ingrandito */
-    display: flex; /* Disposizione dei contenuti orizzontale (flex) */
-    justify-content: space-between; /* Spinge il titolo a sinistra e il contatore badge a dritta limite */
-    align-items: center; /* Centra titolo e badge verticalmente sulla stessa riga */
-    background: var(--surface-color); /* Colore superficie per staccare dal colore base della colonna */
-    border-bottom: 1px solid var(--border-color); /* Riga sotto al titolo che lo separa dagli ordini veri e propri */
+    padding: 1.5rem; 
+    font-weight: 700; 
+    font-size: 1.1rem; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    background: var(--surface-color); 
+    border-bottom: 1px solid var(--border-color); 
 }
 
-/* Goccia/Badge numerico dei conteggi sulla colonna Kanban */
 .badge-count {
-    background: var(--text-main); /* Usa il colore testo base invertito come sfondo per alto contrasto */
-    color: var(--surface-color); /* Usa il colore superficie per il testo invertendo chiaro/scuro */
-    padding: 5px 12px; /* Margini per far respirare i numeri dentro al badge curvo */
-    border-radius: 20px; /* Curvatura estrema stile capsula contatore numerico */
-    font-size: 0.9rem; /* Scrittina numerica leggermente più piccola */
+    background: var(--text-main); 
+    color: var(--surface-color); 
+    padding: 5px 12px; 
+    border-radius: 20px; 
+    font-size: 0.9rem; 
 }
 
-/* Corpo vero e proprio della lista ordini in colonna */
 .k-body {
-    flex: 1; /* Riempe l'intero spazio rimasto della colonna flexsibile in altezza */
-    overflow-y: auto; /* Consente che le scatole ordine scorrano in giù verticalmente con la barra */
-    padding: 1.5rem; /* Margine bianco all'interno per far staccare i riquadri ordini dai contorni */
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 1.5rem; 
 }
 
-/* Modifica la barra di scorrimento di sistema per le colonne Kanban */
 .k-body::-webkit-scrollbar {
-    width: 6px; /* Barra sottilissima personalizzata spessa solo 6 pixel */
+    width: 6px; 
 }
 
-/* Elemento cursore mobile della barra scorrimento Chrome/Safari */
 .k-body::-webkit-scrollbar-thumb {
-    background-color: var(--border-color); /* Cursore barra grigino neutro */
-    border-radius: 10px; /* Estremità tondette del cursore della barra */
+    background-color: var(--border-color); 
+    border-radius: 10px; 
 }
 
-/* Elemento fisico scatola per singolo Ordine Cliente */
 .order-card {
-    background: var(--surface-color); /* Superficie scatola su sfondo chiara/scura del tema */
-    border-radius: var(--card-radius); /* Raggiatura angolare generica delle cards definita in root */
-    padding: 1.5rem; /* Spazio interno cuscinetto 1.5 rem */
-    margin-bottom: 1.5rem; /* Distacco dalla card successiva sotto di essa */
-    box-shadow: 0 4px 15px var(--shadow-soft); /* Ombra soffiata e morbida esterna sotto la scheda */
-    border: 1px solid var(--border-color); /* Traccia perimetrale solida */
-    transition: transform 0.2s; /* Scivolamento fluido animatorio per mouse interazione trascinamento o levitazione */
-    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Animazione rimbalzante al momento in cui sorge il nuovo ordine asincrono sullo schermo */
-    position: relative; /* Serve ad eventuali figli renderizzati con posizione assoluta in coordinate */
+    background: var(--surface-color); 
+    border-radius: var(--card-radius); 
+    padding: 1.5rem; 
+    margin-bottom: 1.5rem; 
+    box-shadow: 0 4px 15px var(--shadow-soft); 
+    border: 1px solid var(--border-color); 
+    transition: transform 0.2s; 
+    animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+    position: relative; 
 }
 
-/* Sollevamento estetico del box ordine al puntamento */
 .order-card:hover {
-    transform: translateY(-5px); /* Trascina z-axis falso tirando verso in su -5px l'elemento html */
-    border-color: var(--primary); /* Accende il bordo della card nel rosso principale d'allerta evidenziazione */
+    transform: translateY(-5px); 
+    border-color: var(--primary); 
 }
 
-/* Zona alta info ordine, nome tavolo, id e tempo da arrivo */
 .card-top {
-    display: flex; /* Spalanca la riga divisoria flessibile laterale a laterale per gli elementi superiori card */
-    justify-content: space-between; /* Distribuisce tavolo a sinistra tempo attesa estrema destra separati */
-    align-items: center; /* Livella in orizzontale in asse linea mediano perfetto */
-    margin-bottom: 1rem; /* Buca lo spazio inferiore per staccare intestazione lista vivanda piatti scritti */
-    padding-bottom: 1rem; /* Pad sotto */
-    border-bottom: 1px solid var(--border-color); /* Barra linea grigia seprazione tra top card tavolo / piatti info */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    margin-bottom: 1rem; 
+    padding-bottom: 1rem; 
+    border-bottom: 1px solid var(--border-color); 
 }
 
-/* Indicatore TAVOLO in grassetto gigante per i cuochi numerico */
 .table-badge {
-    background: var(--primary); /* Stacca in rosso totale primario assoluto di richiamo app */
-    color: white; /* Inversione color in bianco brillante */
-    padding: 6px 15px; /* Box interni testo */
-    border-radius: 12px; /* Tondino stondati  */
-    font-weight: 700; /* Extra strong bold */
-    font-size: 1.1rem; /* Zoom in fonte lettere taglia elevata visivo impatto cuoco vista stanca */
-    box-shadow: 0 4px 10px rgba(255, 159, 67, 0.3); /* Luminescenza alone croma ombra shadow colorata custom drop rgba trasparent */
+    background: var(--primary); 
+    color: white; 
+    padding: 6px 15px; 
+    border-radius: 12px; 
+    font-weight: 700; 
+    font-size: 1.1rem; 
+    box-shadow: 0 4px 10px rgba(255, 159, 67, 0.3); 
 }
 
-/* Sezione testo cronometro minuti attesa d'ordine */
 .time-badge {
-    color: var(--text-muted); /* Smorza colorazione per cronometro secondario o minuti fa css strings */
-    font-size: 0.9rem; /* Scritte orologio piu modeste rimpicciolite */
-    font-weight: 600; /* Carattere leggibile scuro ma semi bold semigrassetto  */
-    display: flex; /* Organizzazione layout flex container block elements css */
-    align-items: center; /* Sulla linea mezzana */
-    gap: 5px; /* 5 pixels aria fra glifo gliph time o clock e intero numero o testo */
+    color: var(--text-muted); 
+    font-size: 0.9rem; 
+    font-weight: 600; 
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
 }
 
-/* Singola riga del cibo elencata con q.tà, note e info */
 .dish-row {
-    display: flex; /* Disposizione lista prodotti ordini riga css rules flexbox  */
-    align-items: flex-start; /* Allinea riga al bordo top alto perché alcune pietanze hanno descrizioni extra o div NOTE su 2 righe limits */
-    margin-bottom: 12px; /* Stacca piatto in elenco 1 da piatto 2 12pixels bottom css limitations rulesets styling */
-    font-size: 1rem; /* String formattazione base 1 normale web fonts css html */
-    color: var(--text-main); /* String inchiostratura colore primo default testuale css color override */
+    display: flex; 
+    align-items: flex-start; 
+    margin-bottom: 12px; 
+    font-size: 1rem; 
+    color: var(--text-main); 
 }
 
-/* Capsula della Quantità Override Modificata Esclusiva CSS Cucina */
 .qty-capsule {
-    background: var(--capsule-bg); /* Applica pallino color base capsula css generico app var */
-    color: var(--text-main); /* Fonte del numero Qty string testuale nera color main */
-    font-weight: 700; /* Pesante inchiostratura per grassetto quantitativi x1 x3 x5 visibilissimi per cucina rapida visual */
-    min-width: 35px; /* Quadratino tondo limits w35 */
-    height: 35px; /* Quadratino raggio limits h35 proporzioni squadrate quadrate perfette css property h w  */
-    display: flex; /* Flex interno per far cadere il testo al perfetto mezzo pixel box model css rules formatting layout */
-    align-items: center; /* Y mezze line rules */
-    justify-content: center; /* X mezzev line flex */
-    border-radius: 10px; /* Estremo curvo 10 punti arrotondamenti corners css property styles limits boundaries sizing templates bounds */
-    margin-right: 12px; /* Scosta laterale a sinistra di 12 spinge in lá le scritte del nome del piatto stacco div margins offsets layouts */
-    border: 1px solid var(--border-color); /* Legaturina linea filettata confine css borders rendering rules box offsets */
-    width: auto; /* Modifica estensioni automatizzate calcolate per cifre con doppi o tripli numeri x90 qt css array overrides widths sizing models limits layouts bounds regulations boundaries templates defaults formats margins  */
-    max-width: none; /* Distrugge i tetti base pre programmati in limits max css property styles configurations setups formatting */
+    background: var(--capsule-bg); 
+    color: var(--text-main); 
+    font-weight: 700; 
+    min-width: 35px; 
+    height: 35px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border-radius: 10px; 
+    margin-right: 12px; 
+    border: 1px solid var(--border-color); 
+    width: auto; 
+    max-width: none; 
 }
 
-/* Bottoncino per azionamento passaggio stato ordine INIZIA o COMPLETA ecc tasto botton form command */
 .btn-action {
-    width: 100%; /* Spacca su tutta la largezza scheda ordine css bounds limits */
-    border: none; /* Uccide l'html brutto css override border none rules button config */
-    padding: 12px; /* Espande bottone al clic pad rules in form configs rendering style  */
-    border-radius: 50px; /* Disegna lo stile full ovale pilloliforme a salsiccia 50px borders radius corner rendering limits styling shapes vector bounds rules layout models CSS configs offsets formats formatting borders arrays limitations sets margins formulations sizes schemas datasets formats limits configurations */
-    font-weight: 700; /* Robusto testo css weight configurazione bold html */
-    font-size: 0.9rem; /* Scritte text form limits configurations text dimensions configurations bounding settings sizes font settings */
-    cursor: pointer; /* Mano del pc limits rules css cursor */
-    margin-top: 1rem; /* Distacca superiormente distanziando da ultimo cibo a 1 rem string margin limits bounding schemas margin offsets layouts limits formats datasets */
-    transition: 0.2s; /* Morbidi limiti fluidi limiti delay hover effects limiti setups */
-    display: flex; /* Flexes layout string formati rendering */
-    justify-content: center; /* X middle bounds array forms center rules schemas alignments layout configurations offsets bounds settings sizing */
-    align-items: center; /* Y middle css box model rules arrays limits margins templates rules sizes variables subsets models setups formats layouts borders subsets schemas */
-    gap: 8px; /* Tassello divisore testi/icone sizes layouts constraints */
+    width: 100%; 
+    border: none; 
+    padding: 12px; 
+    border-radius: 50px; 
+    font-weight: 700; 
+    font-size: 0.9rem; 
+    cursor: pointer; 
+    margin-top: 1rem; 
+    transition: 0.2s; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 8px; 
 }
 
-/* Tinta personalizzata al bottone Prendi Comanda limits CSS bounds rules overrides classi custom class mapping */
 .btn-start {
-    background: var(--dark); /* Nera layouts properties */
-    color: white; /* Inversione color */
+    background: var(--dark); 
+    color: white; 
 }
 
-/* Levita e stringe interazione bottone nero sizes layouts conventions restrictions definitions arrays definitions datasets formats regulations limitations presets properties thresholds sizing layouts subsets formulas setups rules */
 .btn-start:hover {
-    opacity: 0.9; /* Schiarimento alpha blending compositing opacity alpha css properties configurations constraints settings definitions settings mappings formulations constants formulas maps constraints borders conventions datasets subsets schemas limitations mapping conventions formats templates borders setups schemas limits offsets sizes */
-    transform: translateY(-2px); /* Spinta alto z assi fake levitate Y asis 2px offsets models formatting layouts conventions definitions schemas setups */
+    opacity: 0.9; 
+    transform: translateY(-2px); 
 }
 
-/* Telaio fotogrammi d'animazione effetto Po In a Scatto Apparizione Asincrona limits keyframes CSS anim rules animation models */
 @keyframes popIn {
     from {
-        transform: scale(0.9); /* Inizia col box piccolo al 90 % */
-        opacity: 0; /* Inizia invisibile fantasma css alpha rules property models subsets borders limits datasets boundaries dimensions values restrictions formations configurations defaults configurations */
+        transform: scale(0.9); 
+        opacity: 0; 
     }
 
     to {
-        transform: scale(1); /* Finisce standard limits 100% normal block boundaries presets formulas schemas definitions formats restrictions models mapping regulations laws borders subsets mappings conventions bounds schemas margins datasets configurations */
-        opacity: 1; /* Finisce solido e colorato visibile frameworks bounds restrictions definitions regulations maps margins limits structures datasets constraints schemas limitations sets */
+        transform: scale(1); 
+        opacity: 1; 
     }
 }
 
-/* Formati Tablet Responsive layout manager CSS cucine breakpoints configuration limit overrides device limits layouts */
 @media (max-width: 991.98px) {
     .kanban-board {
-        padding: 1rem; /* Layouts models borders string sets formatting templates conventions boundaries offsets models setups arrays setups bounds boundaries schemas sizes schemas */
-        gap: 1rem; /* Datasets variables schemas strings definitions margins sets boundaries limits setups formulations bounding boundaries settings frameworks boundaries configurations constraints bounds margins presets formulas */
+        padding: 1rem; 
+        gap: 1rem; 
     }
 
     .k-column {
-        min-width: 250px; /* Formulations restrictions bounds limitations schemas offsets thresholds rules laws rules configurations layouts defaults rules conventions mappings limits widths sizing formulations dimensions boundaries rules constraints layouts standards mappings padding margins formulas */
+        min-width: 250px; 
     }
 }
 
-/* Modelli Mobile layouts schemas rules settings borders properties offsets rules boundaries laws templates sizes mappings standards limits conventions margins sizes conventions datasets setups bounds layouts definitions sets presets defaults rules formulations setups sizes conventions laws datasets setups defaults formats mapping regulations formulas presets budgets boundaries */
 @media (max-width: 767.98px) {
     body {
-        overflow: auto; /* Sblocca barra su layout phone limitations rules conventions thresholds limitations borders schemas restrictions layouts margins setups sizing mapping definitions datasets templates borders schemas */
+        overflow: auto; 
     }
 
     .sticky-header {
-        height: auto; /* Bounds templates */
-        padding: 0.75rem 1rem; /* Formulas defaults layouts regulations boundaries sizes margin margins */
-        flex-wrap: wrap; /* Array boundaries configurations datasets borders datasets definitions laws layouts datasets borders boundaries mapped setups properties thresholds definitions setups formats */
-        gap: 0.5rem; /* Margins margins constraints bounds padding sets thresholds borders boundaries setups boundaries formats models */
+        height: auto; 
+        padding: 0.75rem 1rem; 
+        flex-wrap: wrap; 
+        gap: 0.5rem; 
     }
 
     .brand-title {
-        font-size: 1.15rem; /* Definitions budgets templates setups padding strings */
+        font-size: 1.15rem; 
     }
 
     .brand-subtitle {
-        font-size: 0.75rem; /* Sets configurations formats bounds limits mapping formulations configurations formulas margins limitations definitions restrictions sets datasets layouts offsets limitations dimensions limits conventions sets formations margin schemas sizing regulations boundaries boundaries margins */
+        font-size: 0.75rem; 
     }
 
     .kanban-board {
-        flex-direction: column; /* Impila layout in unica lista scorrimento boundaries borders conventions limits ranges rules layouts */
-        height: auto; /* Dimensions bounding borders limits limitations mapped budgets margin formatting templates sizing restrictions definitions schemas conventions models bounds setups presets formulations limits */
-        padding: 0.75rem; /* Formats formats conventions limitations arrays formats labels layouts formulas mapping limitations formats borders setups sets thresholds array mappings offsets formatting limits thresholds laws presets limitations borders templates constraints formatting conventions margins */
-        gap: 1rem; /* Schemas variables */
-        overflow-x: hidden; /* Blocca scorrimenti errati dx sx offsets margins offsets boundaries limitations sizes formulations definitions arrays thresholds datasets properties thresholds formulas margins schemas margins sets margins margins configurations conventions sizes limitations conventions boundaries subsets datasets limitations borders schemas boundaries definitions boundaries variables layouts ranges datasets */
+        flex-direction: column; 
+        height: auto; 
+        padding: 0.75rem; 
+        gap: 1rem; 
+        overflow-x: hidden; 
     }
 
     .k-column {
-        min-width: 100%; /* Formulas layouts offsets mapped datasets schemas properties limits datasets bounds formulations templates */
-        border-radius: 20px; /* Setups templates offsets thresholds margins string datasets schemas limits conventions borders labels margins subsets padding formulations formats subsets boundaries limitations conventions definitions layouts mappings definitions margins limitations regulations bounds formats widths mapping boundaries limits formulas bounds sizing mapping formulas sizes datasets lengths arrays offsets restrictions formats formatting mapped bounding frameworks sizes borders definitions limitations datasets mappings properties borders borders templates thresholds formulations limitations conventions */
-        max-height: none; /* Dimensioni layouts variables layouts defaults sizes defaults widths thresholds rules bounds layouts models mapping formulations dimensions formulations definitions boundary formats presets limitations setups layouts schemas formatting borders mapping boundaries strings maps boundaries schemas maps boundaries definitions spacing rules boundaries rules borders frameworks spacing configurations templates datasets subsets setups datasets defaults */
+        min-width: 100%; 
+        border-radius: 20px; 
+        max-height: none; 
     }
 
     .k-body {
-        max-height: 400px; /* Regolamentazioni height limits limits schemas values limits definitions padding datasets mapping */
-        overflow-y: auto; /* Regulations limits formatting setups formatting dimensions sets padding layouts datasets presets margins datasets presets margins layouts boundaries conventions formats bounds sets array presets margins rules properties sets borders restrictions mappings widths bounding laws configurations formats formulations rules laws frameworks subsets conventions properties arrays borders restrictions formulations formulations datasets conventions setups */
-        padding: 1rem; /* Bounds */
+        max-height: 400px; 
+        overflow-y: auto; 
+        padding: 1rem; 
     }
 
     .k-header {
-        padding: 1rem; /* Variables schemas definitions mapping definitions offsets setups models definitions definitions templates layouts defaults templates sizing formatting layouts widths laws mappings borders padding formatting configurations settings limitations borders */
-        font-size: 0.95rem; /* Borders */
+        padding: 1rem; 
+        font-size: 0.95rem; 
     }
 
     .order-card {
-        padding: 1rem; /* Array dimensions */
-        margin-bottom: 1rem; /* Variables configurations setups datasets presets datasets padding properties borders setups mapping datasets layouts limitations formulations presets defaults thresholds sizes mapping regulations offsets budgets boundaries settings limitations padding margins thresholds bounds formulations margins margins schemas properties margins borders formulas conventions restrictions formulas frameworks setups variables rules presets */
+        padding: 1rem; 
+        margin-bottom: 1rem; 
     }
 
     .order-card:hover {
-        transform: none; /* No hover effect on touch screens formulas schemas formations offsets standards formatting constraints margins borders datasets regulations limitations defaults subsets schemes borders borders configurations boundaries bounds formulations laws thresholds mapping settings offsets datasets padding settings borders definitions padding constraints boundaries sizes offsets properties margin formulas templates defaults constraints mapping sizes setups datasets widths layouts */
+        transform: none; 
     }
 
     .table-badge {
-        font-size: 0.95rem; /* Dimensions budgets formats mapping restrictions constraints templates variables configurations models boundary defaults thresholds schemas setups formats ranges margins borders sizes margins dimensions formulas */
-        padding: 5px 12px; /* Bounds frameworks laws offsets mappings margins conventions sizing conventions layouts */
+        font-size: 0.95rem; 
+        padding: 5px 12px; 
     }
 
     .btn-action {
-        padding: 10px; /* Setups schemas bounds mapping padding dimensions restrictions properties formulations margins */
-        font-size: 0.85rem; /* Settings dimensions sets limitations setups templates variables formulations margins thresholds margins schemas offsets limits formatting restrictions schemas templates boundaries configurations limits datasets sets bounds margins formats schemas definitions formulations sizing frameworks mapping margins setups conventions definitions formulations sizes datasets rules settings schemas formulations settings boundaries presets schemas definitions restrictions boundaries subsets schemas formatting formatting array sizing dimensions frameworks boundaries sizing setups rules subsets limits variables borders margins definitions conventions properties templates widths formats boundaries boundaries borders settings maps */
+        padding: 10px; 
+        font-size: 0.85rem; 
     }
 }

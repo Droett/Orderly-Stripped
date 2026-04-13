@@ -1,171 +1,165 @@
-<!-- Modale: Aggiungi Tavolo --> <!-- Finestra popup nascosta per la creazione di una nuova postazione tavolo ristorante -->
-<div class="modal fade" id="modalAggiungiTavolo" tabindex="-1"> <!-- Struttura base Bootstrap modal con animazione 'fade' a sfumatura, non visibile ai screen reader (-1) -->
-    <div class="modal-dialog modal-dialog-centered"> <!-- Scatola di layout centrata verticalmente sullo schermo -->
-        <div class="modal-content modal-content-custom shadow-lg"> <!-- Foglio card bianco con applicate classi custom per bordi stondati e ombra 3D gigante -->
-            <div class="modal-header border-0 p-4 pb-2"> <!-- Intestazione alta senza linea divisoria con margine interno generoso -->
-                <div> <!-- Box blocco testo -->
-                    <h3 class="modal-title fw-bold">Nuovo Tavolo 🪑</h3> <!-- Titolo massiccio (H3) grassetto -->
-                    <p class="m-0 text-muted">Crea un nuovo tavolo per il ristorante</p> <!-- Sottotitolo stringa descrittiva ingrigita, scosta margine zero -->
-                </div> <!-- Chiudi testo header -->
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button> <!-- Bottone (X) standard in alto a dx di bootrap che sbatte giù il modal on-click (dismiss) -->
-            </div> <!-- Chiudi header -->
-            
-            <div class="modal-body p-4"> <!-- Pancia del form per l'inserimento dati con cuscinetto 4 unita -->
-                <div class="row g-3"> <!-- Filare griglia flex con fessura forzata (gap) 3 unita tra the columns -->
-                    <div class="col-12"> <!-- Div colonna grande che prende l'intero tetto 12 su 12 grid bs -->
-                        <label class="small text-muted fw-bold mb-1">Nome Tavolo</label> <!-- String per indicatore titolino input -->
-                        <input type="text" id="nuovo_nome_tavolo" class="form-control" placeholder="Es: Tavolo 1"> <!-- Campo vuoti testo x ricevitore id da js -->
-                    </div> <!-- Chiudi colonna -->
-                    <div class="col-6"> <!-- Colonna spaccata a metà schermo 6 su 12 bs grid -->
-                        <label class="small text-muted fw-bold mb-1">Password</label> <!-- Titolo min -->
-                        <input type="text" id="nuovo_password_tavolo" class="form-control" placeholder="Es: 1234"> <!-- Campo pin pass utente -->
-                    </div> <!-- Chiudi mezza -->
-                    <div class="col-6"> <!-- Altra mezza 6 -->
-                        <label class="small text-muted fw-bold mb-1">Posti</label> <!-- Testo -->
-                        <input type="number" id="nuovo_posti_tavolo" class="form-control" value="4" min="1" max="20"> <!-- Controllo numerico forzato a default 4 con hard block tra 1 seduta e 20 max ristorante -->
-                    </div> <!-- Fine div -->
-                </div> <!-- Fine grigliato file -->
-            </div> <!-- Fine corpaccione centro -->
-            
-            <div class="modal-footer border-0 p-4 bg-light-custom"> <!-- Base zona zoccolo tonda bottoni senza filetti di riga con fondali moddati -->
-                <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Annulla</button> <!-- Cancella button trigger nascondimento bs dismiss -->
-                <button type="button" class="btn btn-dark rounded-pill px-5 fw-bold" onclick="aggiungiTavolo()"> <!-- Bottone grosso scuro di Submit trigger funzione JS aggiungi -->
-                    <i class="fas fa-plus me-2"></i>Registra Tavolo <!-- Disegno icona + da libreria e scritta colonna destra 2 offset -->
-                </button> <!-- Fine -->
-            </div> <!-- Fine piedi -->
-        </div> <!-- Fine card shadow -->
-    </div> <!-- Fine window centratore -->
-</div> <!-- Fine container base asincrono -->
+<div class="modal fade" id="modalAggiungiTavolo" tabindex="-1"> 
+    <div class="modal-dialog modal-dialog-centered"> 
+        <div class="modal-content modal-content-custom shadow-lg"> 
+            <div class="modal-header border-0 p-4 pb-2"> 
+                <div> 
+                    <h3 class="modal-title fw-bold">Nuovo Tavolo 🪑</h3> 
+                    <p class="m-0 text-muted">Crea un nuovo tavolo per il ristorante</p> 
+                </div> 
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button> 
+            </div> 
 
+            <div class="modal-body p-4"> 
+                <div class="row g-3"> 
+                    <div class="col-12"> 
+                        <label class="small text-muted fw-bold mb-1">Nome Tavolo</label> 
+                        <input type="text" id="nuovo_nome_tavolo" class="form-control" placeholder="Es: Tavolo 1"> 
+                    </div> 
+                    <div class="col-6"> 
+                        <label class="small text-muted fw-bold mb-1">Password</label> 
+                        <input type="text" id="nuovo_password_tavolo" class="form-control" placeholder="Es: 1234"> 
+                    </div> 
+                    <div class="col-6"> 
+                        <label class="small text-muted fw-bold mb-1">Posti</label> 
+                        <input type="number" id="nuovo_posti_tavolo" class="form-control" value="4" min="1" max="20"> 
+                    </div> 
+                </div> 
+            </div> 
 
-<!-- Modale: Modifica Tavolo --> <!-- Finto strato di popup x edit settings db records update -->
-<div class="modal fade" id="modalModificaTavolo" tabindex="-1"> <!-- Fade contenitore -->
-    <div class="modal-dialog modal-dialog-centered"> <!-- Centrante croce -->
-        <div class="modal-content modal-content-custom shadow-lg"> <!-- Contenuto cartoncino personalizzato con levitazione css 3d shadow -->
-            <div class="modal-header border-0 p-4 pb-2"> <!-- Head pulita no lines border-0 -->
-                <h3 class="modal-title fw-bold">Modifica Tavolo ✏️</h3> <!-- H3 Bold Title str -->
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button> <!-- Bottoncina di X per close JS auto bs -->
-            </div> <!-- Chiudi -->
-            
-            <div class="modal-body p-4"> <!-- Body panza interna contenente forms -->
-                <input type="hidden" id="mod_id_tavolo"> <!-- Invia campi ID occulti e falsi x far sapere a server update SQL la primary key riga da aggiornare (val passata via JS dom edit value) -->
-                
-                <div class="row g-3"> <!-- Strutturall grid a fessura (gap 3)-->
-                    <div class="col-12"> <!-- Intera riga x testo box 1 -->
-                        <label class="small text-muted fw-bold mb-1">Nome</label> <!-- Stringetta grigia name -->
-                        <input type="text" id="mod_nome_tavolo" class="form-control"> <!-- Text ctrl input -->
-                    </div> <!-- chiudi nome -->
-                    <div class="col-6"> <!-- Spacchi a due la bottom line -->
-                        <label class="small text-muted fw-bold mb-1">Password</label> <!-- string pwd -->
-                        <input type="text" id="mod_password" class="form-control"> <!-- text pwd box var ui -->
-                    </div><!-- end mezza -->
-                    <div class="col-6"> <!-- Altra meta 6/12-->
-                        <label class="small text-muted fw-bold mb-1">Posti</label> <!-- seats array var string labels ui -->
-                        <input type="number" id="mod_posti" class="form-control" min="1" max="20"> <!-- num constraint -->
-                    </div><!-- end part -->
-                    <div class="col-12"> <!-- Un'altra riga unica sotto la pancia -->
-                        <label class="small text-muted fw-bold mb-1">Stato</label> <!-- Label indicator string forms html-->
-                        <select id="mod_stato" class="form-select"> <!-- Boxetto HTML selettore di drop down menu ui select arrays mapping -->
-                            <option value="libero">🟢 Libero</option> <!-- Opzione value per php mapping UI frontend labels maps -->
-                            <option value="riservato">🟡 Riservato</option> <!-- Opzione booked db records strings models layout parameters options array forms limits -->
-                        </select> <!-- Spegni box discesa opt html object DOM elements parameters mapping -->
-                    </div> <!-- chiud status -->
-                </div> <!-- chiudi row grid model base bounds frameworks bs form array bounds subsets -->
-            </div> <!-- Chiudi centro corp -->
-            
-            <div class="modal-footer border-0 p-4"> <!-- Pavimento del modale box -->
-                <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Chiudi</button> <!-- Light ui chiudi bs -->
-                <button type="button" class="btn btn-dark rounded-pill px-5 fw-bold" onclick="modificaTavolo()">Salva Modifiche</button> <!-- Invoca il send POST dal master backend js func per edit form limits models templates restrictions -->
-            </div> <!-- End -->
-        </div> <!-- End shadow panel CSS -->
-    </div> <!-- End cross frame pos css limits array string setups formulas dimensions limitations bounds padding form models boundaries formulas frameworks mapping thresholds mapping options values conventions properties margins budgets layouts -->
-</div> <!-- End window layer limits models setups formulas schemas setups parameters templates formats options limitations formats constraints variables constants subsets margins mapping margin conventions arrays offsets boundaries datasets schemas layouts margins formulas datasets offsets thresholds layouts mappings bounds -->
+            <div class="modal-footer border-0 p-4 bg-light-custom"> 
+                <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Annulla</button> 
+                <button type="button" class="btn btn-dark rounded-pill px-5 fw-bold" onclick="aggiungiTavolo()"> 
+                    <i class="fas fa-plus me-2"></i>Registra Tavolo 
+                </button> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
 
+<div class="modal fade" id="modalModificaTavolo" tabindex="-1"> 
+    <div class="modal-dialog modal-dialog-centered"> 
+        <div class="modal-content modal-content-custom shadow-lg"> 
+            <div class="modal-header border-0 p-4 pb-2"> 
+                <h3 class="modal-title fw-bold">Modifica Tavolo ✏️</h3> 
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button> 
+            </div> 
 
-<!-- Modale: Modifica Piatto --> <!-- Popups forms x la logica d editing di singolo vivanda cibi -->
-<div class="modal fade" id="modalModifica" tabindex="-1" aria-hidden="true"> <!-- Finestra ghost fade nascosta a display block JS injection bs bs dom layouts datasets string maps schemas presets formulations defaults -->
-    <div class="modal-dialog modal-lg"> <!-- Formato XL LG grande finestra bootstrap modal bounds margin definitions boundaries datasets defaults array limits conventions formats -->
-        <div class="modal-content"> <!-- Card base bianco bs form schemas bounds margins configurations boundaries -->
-            <div class="modal-header border-0"> <!-- Top limits conventions schemas -->
-                <h5 class="modal-title fw-bold">Modifica Piatto</h5> <!-- UI Title formats arrays string mapping parameters definitions datasets -->
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button> <!-- Default trigger x dismiss limits presets presets string mapping arrays -->
-            </div> <!-- Top End margin bounds padding frameworks datasets presets limitations mapping properties dimensions properties definitions bounds datasets definitions styles limitations layouts schemas conventions layouts schemas rules schemas formations thresholds mappings offsets parameters settings labels limits formulations mapping frameworks -->
-            
-            <div class="modal-body"> <!-- Start Pancia html dom elements form UI -->
-                <!-- Super form action forzato al file in post per mandare roba multimediale files e roba varia (multypart fd HTML forms action) -->
+            <div class="modal-body p-4"> 
+                <input type="hidden" id="mod_id_tavolo"> 
+
+                <div class="row g-3"> 
+                    <div class="col-12"> 
+                        <label class="small text-muted fw-bold mb-1">Nome</label> 
+                        <input type="text" id="mod_nome_tavolo" class="form-control"> 
+                    </div> 
+                    <div class="col-6"> 
+                        <label class="small text-muted fw-bold mb-1">Password</label> 
+                        <input type="text" id="mod_password" class="form-control"> 
+                    </div>
+                    <div class="col-6"> 
+                        <label class="small text-muted fw-bold mb-1">Posti</label> 
+                        <input type="number" id="mod_posti" class="form-control" min="1" max="20"> 
+                    </div>
+                    <div class="col-12"> 
+                        <label class="small text-muted fw-bold mb-1">Stato</label> 
+                        <select id="mod_stato" class="form-select"> 
+                            <option value="libero">🟢 Libero</option> 
+                            <option value="riservato">🟡 Riservato</option> 
+                        </select> 
+                    </div> 
+                </div> 
+            </div> 
+
+            <div class="modal-footer border-0 p-4"> 
+                <button type="button" class="btn btn-light rounded-pill px-4 fw-bold" data-bs-dismiss="modal">Chiudi</button> 
+                <button type="button" class="btn btn-dark rounded-pill px-5 fw-bold" onclick="modificaTavolo()">Salva Modifiche</button> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
+
+<div class="modal fade" id="modalModifica" tabindex="-1" aria-hidden="true"> 
+    <div class="modal-dialog modal-lg"> 
+        <div class="modal-content"> 
+            <div class="modal-header border-0"> 
+                <h5 class="modal-title fw-bold">Modifica Piatto</h5> 
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button> 
+            </div> 
+
+            <div class="modal-body"> 
+
                 <form action="../api/manager/manager_api.php?action=modifica_piatto" method="POST" enctype="multipart/form-data">
-                    <input type="hidden" name="id_alimento" id="mod_id"> <!-- Iniezione in POST shadow param occultid item code x sql back server -->
-                    <div class="row g-3"> <!-- Flex 12 columns grid string formattazioni bounds limitations regulations frameworks setups bounds layouts maps models layouts formats dimensions presets schemas definitions formats spacing constants boundaries formulations bounds conventions mapping presets limitations boundaries datasets limitations schemas rules formulas borders maps formats values subsets frameworks -->
-                        <div class="col-md-8"> <!-- Spacca 8 per testo 12 col max width padding properties -->
-                            <label class="small text-muted">Nome</label> <!-- Testino -->
-                            <input type="text" name="nome_piatto" id="mod_nome" class="form-control" required> <!-- Required obbliga HTML5 checker browser a fermare stringhe vuote limits arrays constraints conventions -->
-                        </div> <!-- End 1 -->
-                        <div class="col-md-4"> <!-- Piccola ala destra 4 di 12 widths conventions padding -->
-                            <label class="small text-muted">Prezzo (€)</label> <!-- String layouts defaults ranges mapping variables datasets rules margins datasets sizing models limits sizing formulas lengths templates formulations formations rules borders layouts datasets subsets padding constants maps setups presets schemas dimensions layouts margins -->
-                            <input type="number" step="0.01" name="prezzo" id="mod_prezzo" class="form-control" required> <!-- Campo nr ma step virgola decimi array formulas constraints bounding laws lengths configurations bounds arrays templates conventions subsets schemas configurations mapping layouts datasets limits presets datasets laws -->
-                        </div> <!-- end ala limit laws -->
-                        
-                        <div class="col-12"> <!-- Intera larghezze formats presets mapping settings borders formulas bounding -->
-                            <label class="small text-muted">Categoria</label> <!-- string formats limitations defaults models spacing formulas formulas formatting parameters mapping -->
-                            <select name="id_categoria" id="mod_cat" class="form-select" required> <!-- Dropper limits widths datasets formats bounds limitations conventions margins bounds configurations layouts definitions datasets datasets layouts subsets formatting schemas defaults layouts subsets laws definitions schemas layouts margins offsets properties rules rules setups formulas conventions margins subsets laws templates array thresholds spacing -->
-                                <?php foreach ($categorie_array as $cat): ?> <!-- Entra dinamicamente PHP loop db records templates schemas bounding margins budgets mappings bounds layouts margins datasets limits variables margins mapping settings budgets offsets defaults settings limits bounding padding limitations schemas properties spacing mapping laws schemas schemas -->
-                                    <!-- Spit HTML option param mapping formats datasets mapping array margin -->
-                                    <option value="<?php echo $cat['id_categoria']; ?>"><?php echo $cat['nome_categoria']; ?></option>
-                                <?php endforeach; ?> <!-- End PHP loop db dump strings layouts mappings array variables -->
-                            </select> <!-- Spegne select arrays -->
-                        </div> <!-- End col padding formats widths limits sizes limitations schemas bounds bounds mapping dimensions formatting schemas boundaries styles properties models subsets borders conventions constraints schemas schemas subsets definitions budgets formulas -->
-                        
-                        <div class="col-12"> <!-- Large widths offsets bounds templates formulas setups presets formulas formulas boundaries -->
-                            <label class="small text-muted">Descrizione</label> <!-- Str formats layouts sets rules frameworks sets variables datasets limitations sizes setups schemas limits formulas datasets mapping boundaries arrays maps thresholds mapping laws formatting properties defaults parameters laws constraints formulas layouts setups models datasets regulations formats subsets frameworks -->
-                            <textarea name="descrizione" id="mod_desc" class="form-control" rows="3" style="resize: none;"></textarea> <!-- Blocca ridimensionabilità brutta in pagina web (resize CSS params block formats schemas boundaries margins subsets formulas restrictions spacing conventions datasets conventions mappings limitations formatting bounds conventions sets limits defaults conventions formulas boundaries margins sizing strings defaults layouts defaults borders setups sizing models) -->
-                        </div> <!-- End constraints definitions defaults boundaries margins mapping offsets boundaries setups limitations definitions sizing borders formulas subsets sets defaults presets constants schemas settings mapping definitions layouts templates properties boundaries limits setups labels conventions limits mapping margins formatting schemas thresholds margins parameters mapping limitations laws layouts formatting frameworks array mapping regulations bounds subsets layouts datasets sizing limitations defaults margins spacing parameters schemas templates setups schemas regulations setups boundaries spacing layouts arrays schemas datasets boundaries constraints conventions spacing settings sets formulations dimensions spacing boundaries sizing constraints padding margin padding boundaries frameworks laws datasets margins limits definitions formulas boundaries borders margins arrays setups constants formatting schemas margins dimensions conventions padding presets boundaries padding layouts arrays limits borders datasets templates regulations -->
-                        
-                        <div class="col-12"> <!-- Maxi contenitor array string definitions constraints margins mapping dimensions borders -->
-                            <label class="small text-muted fw-bold mb-2">ALLERGENI</label> <!-- Array strings sets formats definitions setups constraints limits arrays sizing presets rules sets limits sizes definitions sizes datasets sets arrays rules margins borders padding constraints subsets datasets definitions formats layouts setups boundaries -->
-                            <div class="d-flex flex-wrap gap-2 p-3 rounded bg-light-custom"> <!-- Spacca listoni allergeni multipli check in wrapping box automatico layouts schemas offsets configurations rules borders formatting templates borders formulas schemas formulations array presets settings bounds borders datasets presets constraints schemas variables variables conventions limits widths limitations formats bounds mapping schemas margins properties rules parameters mapping laws padding schemas formatting padding strings boundaries schemas laws regulations presets conventions formatting schemas boundaries formats formats configurations settings conventions sizes datasets rules padding margins bounds constraints setups formats widths presets datasets datasets mapping datasets mapping variables subsets laws sizes settings templates schemas conventions regulations settings models maps defaults frameworks thresholds formatting defaults mapping conventions formatting models layouts offsets setups layouts boundaries -->
-                                <?php foreach ($ALLERGENI as $a): ?> <!-- Loop array base PHP variables margins limitations layouts datasets setups borders limits formulas constants conventions spacing constraints thresholds limitations regulations subsets bounds -->
-                                    <!-- Riquadri ciclabili boxati budgets bounds limits layouts arrays configurations conventions array margin margins frameworks -->
-                                    <div class="form-check form-check-inline m-0 me-3">
-                                        <!-- Iniettori dinamici checkbox form input mapping models bounds layouts formatting arrays schemas formats definitions dimensions datasets defaults formats frameworks conventions limits spacing regulations datasets templates subsets mapping conventions bounds formatting setups margins mappings datasets schemas boundary conventions defaults schemas limitations presets datasets constraints presets laws schemas boundaries settings borders subsets arrays boundaries thresholds thresholds datasets schemas borders presets templates formatting rules dimensions -->
-                                        <input class="form-check-input mod-allergeni" type="checkbox" name="allergeni[]" value="<?php echo $a; ?>" id="mod_al_<?php echo $a; ?>">
-                                        <!-- Testi correlati all id var PHP array bounds constraints boundaries arrays schemas limits mapping templates boundaries settings values dimensions offsets defaults -->
-                                        <label class="form-check-label small" for="mod_al_<?php echo $a; ?>"><?php echo $a; ?></label> <!-- chiusura texts layouts setups templates setups formulas sizing values strings mapping mapping sets datasets definitions values -->
-                                    </div> <!-- chiudi array -->
-                                <?php endforeach; ?> <!-- End loop properties arrays subsets definitions limits constraints offsets definitions setups formats -->
-                            </div> <!-- chiudi box flex boundaries constants padding boundaries budgets conventions defaults variables settings models subsets sets constraints margins array conventions subsets templates labels constraints subsets borders subsets formulas templates boundaries sizes margins frameworks sets mapping layouts widths templates conventions defaults conventions conventions bounds boundaries limits -->
-                        </div> <!-- limit box schemas setups limitations presets formats definitions spacing layouts frameworks templates arrays datasets margins margins -->
-                        
-                        <div class="col-12"> <!-- Upload file layouts limitations conventions setups -->
-                            <div class="d-flex align-items-center gap-3"> <!-- Layout flex form att conventions rules boundaries schemas formats datasets templates schemas -->
-                                <!-- Quadro anteprima img corrente js rules constraints bounds datasets limits datasets boundaries spacing mapping properties schemas layouts arrays lengths borders subsets bounds conventions dimensions parameters mapping formats settings offsets frameworks boundaries maps setups mapping conventions -->
-                                <img id="preview_img" src="" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px; border: 1px solid #ddd;"> <!-- Taglio quadrato css cover margins layouts maps constants schemas layouts setups margins layouts thresholds datasets datasets budgets limitations formulas boundaries definitions templates formats sizes layouts definitions borders constraints definitions conventions laws formats schemas conventions formulas subsets styles dimensions sizing budgets margins styles bounds sets array limitations defaults laws -->
-                                <div class="w-100"> <!-- Allarga 100 layouts schemas laws margins mappings defaults formats formulas frameworks rules formulations subsets formatting sets settings boundaries setups bounds formatting presets schemas definitions boundaries datasets mapping limits setups subsets configurations rules models sizes datasets regulations datasets variables limits constraints limits budgets formatting conventions boundaries formulations schemas rules variables datasets sets layouts layouts -->
-                                    <label class="small text-muted">Sostituisci Immagine</label> <!-- string spacing boundaries templates settings margins formulas rules presets limitations configurations datasets laws limits definitions dimensions schemas conventions laws regulations formats parameters formats offsets mappings datasets templates subsets limitations schemas definitions laws presets schemas configurations bounds conventions defaults -->
-                                    <input type="file" name="immagine" class="form-control" accept="image/*"> <!-- Campo bloccato accept per pescare e validare foto only sizes models boundaries sizes schemas laws mapping models datasets arrays variables datasets datasets margins setups formatting boundaries layouts mapping formats defaults boundary restrictions schemas mapping formats margins templates definitions definitions borders formatting styles -->
-                                </div> <!-- end file limits limits formats boundaries templates definitions boundaries arrays presets array maps formulas formats formats array margins formats sizing borders setups mapping setups subsets borders formatting mapping offsets rules borders formats dimensions layouts strings arrays schemas conventions formatting boundaries limitations definitions sizes styles models schemas lengths widths rules formatting thresholds mapping schemas arrays -->
-                            </div> <!-- end f lex margins variables mapping sets schemas definitions mapping bounding margins offsets formats boundaries mappings configurations schemas subsets configurations formatting thresholds limitations schemas limitations borders dimensions offsets sizing rules frameworks datasets formatting limits datasets datasets lengths values schemas margins labels datasets dimensions array defaults bounds -->
-                        </div> <!-- end form part borders spacing sizing properties margins margins lengths formats boundaries budgets datasets layouts values layouts boundaries limitations margins properties rules definitions templates values conventions definitions datasets schemas definitions subsets formats rules defaults limitations spacing models limits parameters bounds offsets properties laws margins templates arrays schemas -->
-                    </div> <!-- row limits formats properties borders mapping limitations dimensions formulas mapping datasets definitions layouts properties schemas limits constraints mapping defaults thresholds conventions margins mappings limitations borders formatting formats bounds boundaries mapping limits schemas datasets offsets offsets subsets limits sizes arrays boundaries conventions setups templates defaults configurations formatting parameters spacing layouts layouts limits definitions margins mappings subsets mapping spacing templates conventions templates datasets schemas margins limitations formatting sizes formatting offsets limits bounds limitations array templates boundaries bounding settings conventions schemas layouts rules limits -->
-                    
-                    <div class="modal-footer border-0 px-0 mt-3"> <!-- Piedi bottn parameters layouts datasets borders arrays formulas settings margins constraints bounds sets limits defaults properties layouts formulations labels margins boundaries margin schemas formatting presets margins frameworks formats parameters properties defaults values sizes thresholds datasets configurations bounding formatting defaults offsets conventions conventions boundaries -->
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button> <!-- Light setups schemas offsets defaults margins margins datasets conventions limits configurations schemas defaults subsets layouts rules limits frameworks layouts setups offsets schemas subsets budgets regulations formulas schemas budgets datasets offsets -->
-                        <button type="submit" class="btn btn-primary fw-bold px-4">Salva Modifiche</button> <!-- Fire direct post network array bounds formats limitations sets defaults regulations borders formations conventions limits offsets definitions limits limitations mapping limits parameters templates setups defaults rules limits borders offsets values limitations mapped bounding margins settings datasets layouts margins subsets laws schemas configurations limits schemas datasets settings rules schemas margins formulas parameters templates bounds schemas parameters subsets borders spacing formulations margins formatting conventions borders defaults formulations templates parameters schemas mapping thresholds datasets borders formulas arrays defaults schemas configurations subsets templates constants datasets arrays regulations defaults boundaries margins templates datasets layouts formulas configurations margins offsets sizing conventions definitions limitations mapped mappings layouts schemas thresholds formulations formats rules formats bounds datasets setups limitations -->
-                    </div> <!-- constraints properties formations margins mapping borders datasets defaults arrays formats budgets boundaries conventions properties formations definitions datasets thresholds settings formulations laws margins datasets bounds conventions styles -->
-                </form> <!-- fine tag html base html forms limitations defaults restrictions formats array laws strings layouts constraints bounds defaults limits boundaries layouts properties limits arrays mapping margins bounds laws arrays layouts conventions offsets frameworks laws datasets borders datasets margins spacing conventions boundaries defaults conventions mappings properties datasets thresholds limits boundaries configurations datasets formatting schemas setups boundaries laws bounding layouts defaults mapping conventions array configurations regulations datasets defaults layouts regulations regulations schemas limits defaults bounds constants array defaults definitions sets setups limits defaults rules boundaries formats mappings arrays mapping definitions mapping datasets regulations templates mapping defaults bounds margins variables schemas margins datasets boundaries bounds margins sizes mappings parameters mappings boundaries models strings margins formats offsets padding conventions boundaries mapping conventions offsets limitations datasets formulas datasets lengths schemas arrays margins limits array borders conventions settings margins parameters constants formulations datasets conventions margins margins margins arrays frameworks formatting -->
-            </div> <!-- limit sets string bounds arrays formats rules limits margins conventions limitations datasets laws datasets arrays templates mapping dimensions formulas margins limits boundaries datasets defaults mapping thresholds margins defaults borders parameters subsets limitations models margins limits limits defaults margins conventions sizes settings margins mapping sizes formulas datasets margins borders padding margins formats thresholds array parameters sets standards setups conventions schemas offsets setups setups datasets -->
-        </div> <!-- limitations defaults conventions datasets lengths limits defaults configurations formats constants schemas margins formatting datasets sizes setups layouts schemas schemas padding definitions datasets setups setups schemas presets properties lengths frameworks layouts ranges datasets models layouts schemas constraints formats margins settings presets margins sizing schemas definitions parameters defaults datasets arrays limitations setups mapping datasets boundaries limits mapping definitions bounds regulations defaults thresholds boundaries variables borders ranges defaults margins definitions schemas conventions bounds templates margins regulations configurations configurations bounds layouts setups margin conventions formulations sets setups standards setups setups rules sets conventions schemas limits array frameworks margins defaults conventions limitations settings formatting conventions margins templates schemas limits configurations bounding standards boundaries borders frameworks mapping datasets conventions limitations sets configurations definitions conventions formatting sizes setups presets spacing schemas limitations padding schemas bounds parameters conventions maps standards layouts rules presets sets settings conventions regulations formats rules arrays bounding templates subsets formats boundaries parameters conventions formulations conventions arrays spacing margins regulations schemas boundaries budgets margin schemas standards bounds parameters setups parameters formats boundaries margin setups properties conventions datasets rules margins templates spacing formatting array boundaries sizing layouts budgets formatting conventions conventions bounds setups constraints properties constants bounds frameworks presets models thresholds defaults conventions budgets schemas schemas formats sizes presets setups templates schemas datasets parameters setups conventions limits settings formulations formations sizes conventions mapping spacing values frameworks settings definitions boundaries schemas configurations parameters schemas schemas defaults budgets bounds rules formats mapping ranges margins -->
-    </div> <!-- datasets offsets regulations setups layouts defaults rules models bounds configurations boundaries formatting conventions templates spacing limits conventions standards limits datasets schemas padding limits setups templates schemas models mapping mapping variables rules margins boundaries layouts definitions formats arrays sizes arrays templates formatting thresholds borders configurations parameters datasets laws formulas settings spacing formatting mapping spacing spacing limitations standards templates datasets lengths formulations schemas boundaries schemas limitations budgets templates conventions settings schemas rules formats templates margins datasets subsets parameters conventions schemas arrays budgets budgets limits margins datasets conventions thresholds formats ranges formats boundaries limitations string boundaries frameworks sizes limits defaults limits spacing margins conventions boundaries variables parameters conventions formatting offsets templates variables regulations lengths configurations formats formatting boundaries mappings schemas budgets standards rules sizes formulas margins formulas layouts mapping schemas formulations lengths setups arrays variables -->
-</div> <!-- presets configurations rules setups defaults templates arrays formats formatting mapping limits templates margins formatting layouts borders spacing sizing configurations formats formats formatting formats models sets datasets sets budgets limits schemas limitations margins boundaries boundaries schemas parameters formats margins margins -->
+                    <input type="hidden" name="id_alimento" id="mod_id"> 
+                    <div class="row g-3"> 
+                        <div class="col-md-8"> 
+                            <label class="small text-muted">Nome</label> 
+                            <input type="text" name="nome_piatto" id="mod_nome" class="form-control" required> 
+                        </div> 
+                        <div class="col-md-4"> 
+                            <label class="small text-muted">Prezzo (€)</label> 
+                            <input type="number" step="0.01" name="prezzo" id="mod_prezzo" class="form-control" required> 
+                        </div> 
 
-<!-- Toast --> <!-- Modulo scomparso popup green bs toast ui js injector thresholds datasets formatting limitations schemas setups mappings datasets setups spacing offsets schemas settings schemas setups limitations boundaries defaults limits formatting variables conventions -->
-<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3"> <!-- Pin CSS rules layouts limits rules limits formats schemas setups frameworks budgets formulas bounds offsets layouts ranges mapping limitations datasets array datasets schemas spacing templates conventions sizing formulas borders limitations schemas subsets margins models configurations bounds offsets defaults properties templates conventions thresholds schemas variables datasets conventions sizes margins defaults conventions schemas layouts conventions maps rules formulas layouts arrays formatting conventions rules setups boundaries thresholds parameters formatting templates dimensions rules array conventions boundaries limits configurations templates boundaries formatting setups margin thresholds datasets dimensions formats defaults frameworks schemas schemas sets rules offsets formatting datasets boundaries conventions margin styles datasets schemas spacing conventions sets margins boundaries -->
-    <div id="managerToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert"> <!-- Contenitor color parameters boundaries templates regulations spacing margins subsets presets rules definitions conventions boundaries schemas regulations sizing layouts frameworks templates schemas conventions rules limitations schemas offsets margins conventions layouts sets setups templates models boundary constraints defaults datasets formatting thresholds conventions array boundaries boundaries margins datasets formulas sets boundaries laws templates schemas models formatting defaults boundaries margins setups models conventions schemas formats array mapping settings conventions mappings layouts templates spacing datasets schemas laws offsets mapping rules parameters limits array spacing definitions limits conventions datasets spacing formats conventions margins conventions defaults bounds formatting properties arrays schemas boundaries configurations frameworks budgets schemas formatting laws formatting offsets formulations formulations schemas bounds schemas settings definitions conventions setups schemas rules margin conventions bounds variables sizing string datasets datasets constraints datasets conventions -->
-        <div class="d-flex"> <!-- flexbox layouts definitions formatting formats models setups templates conventions bounds models budgets margins limitations formatting string limitations form arrays presets regulations formulations templates mapping formats limits boundaries setups lengths mapping budgets layouts formulations conventions boundaries setups string mapping conventions definitions setups mapping boundaries boundaries regulations schemas formatting conventions models variables properties setups array subsets layouts limits rules datasets properties constraints boundary arrays formations boundaries conventions formats rules formats string margins formulas sizing conventions budgets limits properties defaults formats ranges datasets offsets boundaries margins formats conventions formulas conventions schemas defaults templates subsets bounds conventions limitations offsets defaults bounds formats sizing margin string schemas boundaries margins margins schemas frameworks schemas sizing variables boundaries offsets schemas budgets conventions formats setups conventions boundaries mapping thresholds sizes string formats setups string conventions datasets -->
-            <div class="toast-body fw-bold"> <!-- Div rules mapping margins formulations conventions boundaries schemas -> limits definitions boundaries sizes setups formats -->
-                <!-- Setups conventions schemas bounds -->
-                <i class="fas fa-check-circle me-2"></i> <span id="toast-msg-manager">Azione eseguita!</span> <!-- Div string injector limits properties margins formatting defaults borders subsets padding budgets schemas datasets schemas layouts boundaries dimensions formats schemas formulas formatting presets conventions templates definitions models values offsets limits margins schemas datasets defaults conventions schemas definitions bounds limits limitations datasets boundaries conventions formatting settings formats templates schemas offsets margins arrays mapping limits margins limits formatting parameters templates constraints formations laws borders datasets limits definitions formats margins thresholds templates schemas models borders templates conventions definitions models properties subsets maps boundaries formatting frameworks formats string margins definitions conventions spacing subsets constraints templates conventions schemas frameworks borders formatting spacing borders limits boundaries mapping definitions borders margin conventions boundaries bounds budgets datasets conventions parameters frameworks conventions bounds conventions limits layouts arrays defaults boundaries offsets schemas setups templates -->
-            </div> <!-- datasets defaults formulas margins rules formulas schemas borders conventions mapping limitations dimensions rules offsets constraints configurations subsets borders rules parameters constraints limits formats laws conventions settings spacing presets conventions settings margins datasets arrays formats arrays sets -> boundaries -> boundaries conventions schemas variables string conventions datasets string mapping frameworks margins formatting -> arrays schemas layouts conventions boundaries configurations datasets laws formats limitations conventions schemas boundaries formats conventions boundaries boundaries mappings spacing schemas parameters laws formulas datasets ranges parameters formats datasets conventions datasets frameworks sets formulas schemas formatting margins conventions templates margin templates budgets formatting definitions schemas formats boundaries setups formatting frameworks schemas templates conventions conventions constants bounds variables limits boundaries conventions formulas configurations conventions frameworks formats formats -->
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button> <!-- Button layouts arrays arrays layouts mapping schemas bounds formats limitations definitions margins thresholds limitations boundaries setups borders conventions limits variables constraints boundaries formatting laws datasets setups boundaries dimensions defaults models formats conventions boundaries mapping arrays subsets datasets laws mapping spacing margins layouts boundaries frameworks formats conventions defaults formulations setups formats models formulas limits mapping datasets conventions schemas rules bounds sizing arrays formatting layouts definitions subsets sizing formatting schemas templates datasets margin configurations conventions dimensions spacing margins offsets frameworks array boundaries -> conventions formatting strings margins templates frameworks configurations schemas defaults bounds -> -> margins schemas defaults -> budgets bounds string parameters datasets form boundaries labels parameters bounds arrays layouts schemas limits formulas -> margin formulas -> form sizes parameters -->
-        </div> <!-- bounds frameworks layouts datasets schemas spacing margins formats spacing formatting datasets formats thresholds limits arrays boundaries conventions layouts dimensions mapping sets conventions boundaries formatting bounds setups formulas budgets definitions -> limitations definitions datasets margin string mapping datasets arrays formations laws defaults borders conventions datasets dimensions -> subsets spacing schemas defaults string margins constraints datasets formats models -> definitions constants setups thresholds -> conventions conventions margin spacing thresholds -> layouts defaults conventions schemas datasets laws -> formatting configurations formatting mappings variables layouts schemas limitations values conventions schemas -> -> offsets datasets formats margins datasets -> formatting boundaries regulations mapping formats conventions schemas constraints schemas offsets limits frameworks datasets margins models conventions sizes constraints rules frameworks setups schemas thresholds datasets margins boundaries properties datasets boundaries models formatting padding parameters templates formulations rules boundaries form setups string frameworks formats datasets laws definitions bounds conventions schemas -->
-    </div> <!-- conventions budgets -> limits arrays mappings sets mapping layouts margins formats spacing margins budgets subsets boundaries string mapping sizes constants borders laws subsets schemas schemas defaults boundaries constraints -> layouts datasets parameters setups -> layouts conventions models margins formatting defaults defaults schemas formats form templates margins rules margin values datasets settings limits formations frameworks configurations parameters values defaults datasets datasets borders form frameworks spacing presets datasets setups schemas definitions bounds conventions setups margins datasets -> datasets formations dimensions models formats bounds limits sets constraints datasets padding defaults limits arrays spacing conventions schemas properties limits definitions formats margins offsets margins layouts variables ranges conventions conventions schemas constraints conventions bounds mapping conventions schemas limits schemas labels margins margin layouts datasets datasets limits definitions datasets constraints margins -> definitions formatting definitions bounds conventions arrays definitions formulations -> mapping presets templates -->
-</div> <!-- boundaries parameters formats formulas conventions defaults conventions definitions bounds limits form setups -> bounds conventions bounding mapping boundaries margins datasets formats margin limits thresholds datasets string defaults datasets conventions limits parameters limits boundaries string constraints definitions layouts layouts layouts conventions datasets schemas string subsets layouts mapping subsets constants conventions margin -> presets datasets frameworks -> lengths -> formulas conventions setups conventions constraints margin string boundaries setups -> formats datasets mappings boundaries margins datasets margin boundaries settings budgets datasets schemas schemas presets setups array formatting datasets conventions settings budgets mapping setups limitations spacing configurations -> limits bounds variables budgets boundaries margins formats frameworks configurations margins datasets layouts rules schemas layouts frameworks regulations formatting bounds values conventions formats limits spacing conventions variables frameworks -> variables formats conventions datasets boundaries conventions boundaries padding -> limitations arrays sets datasets definitions datasets setups -> formatting sizing limits datasets definitions -->
+                        <div class="col-12"> 
+                            <label class="small text-muted">Categoria</label> 
+                            <select name="id_categoria" id="mod_cat" class="form-select" required> 
+                                <?php foreach ($categorie_array as $cat): ?> 
+
+                                    <option value="<?php echo $cat['id_categoria']; ?>"><?php echo $cat['nome_categoria']; ?></option>
+                                <?php endforeach; ?> 
+                            </select> 
+                        </div> 
+
+                        <div class="col-12"> 
+                            <label class="small text-muted">Descrizione</label> 
+                            <textarea name="descrizione" id="mod_desc" class="form-control" rows="3" style="resize: none;"></textarea> 
+                        </div> 
+
+                        <div class="col-12"> 
+                            <label class="small text-muted fw-bold mb-2">ALLERGENI</label> 
+                            <div class="d-flex flex-wrap gap-2 p-3 rounded bg-light-custom"> 
+                                <?php foreach ($ALLERGENI as $a): ?> 
+
+                                    <div class="form-check form-check-inline m-0 me-3">
+
+                                        <input class="form-check-input mod-allergeni" type="checkbox" name="allergeni[]" value="<?php echo $a; ?>" id="mod_al_<?php echo $a; ?>">
+
+                                        <label class="form-check-label small" for="mod_al_<?php echo $a; ?>"><?php echo $a; ?></label> 
+                                    </div> 
+                                <?php endforeach; ?> 
+                            </div> 
+                        </div> 
+
+                        <div class="col-12"> 
+                            <div class="d-flex align-items-center gap-3"> 
+
+                                <img id="preview_img" src="" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px; border: 1px solid #ddd;"> 
+                                <div class="w-100"> 
+                                    <label class="small text-muted">Sostituisci Immagine</label> 
+                                    <input type="file" name="immagine" class="form-control" accept="image/*"> 
+                                </div> 
+                            </div> 
+                        </div> 
+                    </div> 
+
+                    <div class="modal-footer border-0 px-0 mt-3"> 
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button> 
+                        <button type="submit" class="btn btn-primary fw-bold px-4">Salva Modifiche</button> 
+                    </div> 
+                </form> 
+            </div> 
+        </div> 
+    </div> 
+</div> 
+
+<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3"> 
+    <div id="managerToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert"> 
+        <div class="d-flex"> 
+            <div class="toast-body fw-bold"> 
+
+                <i class="fas fa-check-circle me-2"></i> <span id="toast-msg-manager">Azione eseguita!</span> 
+            </div> 
+            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button> 
+        </div> 
+    </div> 
+</div>

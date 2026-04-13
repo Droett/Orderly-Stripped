@@ -1,7 +1,8 @@
 <?php
-// Archivi costanti globali condivise per l'intera ragnatela dell'applicazione ristorante
+// Questo file contiene le costanti globali o le configurazioni base condivise in tutta l'applicazione backend.
 
-// Listino array di stringhe testuali mappanti le classi standardizzate europee per i cibi allergenici per stampe e controlli
+// $ALLERGENI è un array globale predefinito contenente l'elenco standard dei 14 principali allergeni alimentari (direttiva UE)
+// Questi valori vengono usati nel frontend e backend per generare dinamicamente le checkbox, filtrare i menu e gestire i profili dei piatti
 $ALLERGENI = [
     "Glutine", "Crostacei", "Uova", "Pesce", "Arachidi", "Soia",
     "Latte", "Frutta a guscio", "Sedano", "Senape", "Sesamo",

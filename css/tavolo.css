@@ -1,437 +1,396 @@
-/* ========================================= */
-/* Table (Customer) Dashboard Styles */
-/* ========================================= */
-
-/* Search bar container */
 .search-wrapper {
-    position: relative; /* Allows absolute positioning for children */
-    width: 100%; /* Take full parent width */
-    max-width: 350px; /* Limit maximum width 350px */
+    position: relative; 
+    width: 100%; 
+    max-width: 350px; 
 }
 
-/* Magnifying glass icon */
 .search-icon {
-    position: absolute; /* Float inside search-wrapper */
-    left: 16px; /* Offset 16px from left edge */
-    top: 50%; /* Center vertically start */
-    transform: translateY(-50%); /* Center vertically exact */
-    color: var(--text-muted); /* Apply muted grey color */
-    font-size: 0.9rem; /* Icon size 0.9rem */
+    position: absolute; 
+    left: 16px; 
+    top: 50%; 
+    transform: translateY(-50%); 
+    color: var(--text-muted); 
+    font-size: 0.9rem; 
 }
 
-/* Input field */
 .search-input {
-    width: 100%; /* Fill container width */
-    padding: 12px 16px 12px 42px; /* Pad inside, left 42px for icon */
-    border-radius: 50px; /* Make fully round pill shape */
-    border: 1px solid var(--border-color); /* Thin border outline */
-    background: var(--input-bg); /* Input background color */
-    color: var(--text-main); /* Text color */
-    font-size: 0.95rem; /* Text size */
-    font-family: 'Poppins', sans-serif; /* Set typography */
-    transition: 0.2s; /* Smooth animation 0.2s */
-    outline: none; /* Remove browser focus ring */
+    width: 100%; 
+    padding: 12px 16px 12px 42px; 
+    border-radius: 50px; 
+    border: 1px solid var(--border-color); 
+    background: var(--input-bg); 
+    color: var(--text-main); 
+    font-size: 0.95rem; 
+    font-family: 'Poppins', sans-serif; 
+    transition: 0.2s; 
+    outline: none; 
 }
 
-/* Input field when clicked */
 .search-input:focus {
-    border-color: var(--primary); /* Shift border to primary color */
-    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15); /* Add soft glow shadow */
+    border-color: var(--primary); 
+    box-shadow: 0 0 0 3px rgba(255, 71, 87, 0.15); 
 }
 
-/* Input field placeholder text */
 .search-input::placeholder {
-    color: var(--text-muted); /* Placeholder grey color */
-    opacity: 0.7; /* Make slightly transparent */
+    color: var(--text-muted); 
+    opacity: 0.7; 
 }
 
-/* Category sidebar buttons */
 .btn-categoria {
-    display: flex; /* Flex layout */
-    align-items: center; /* Center items vertically */
-    padding: 18px 25px; /* Box padding */
-    margin-bottom: 8px; /* Space below button 8px */
-    border-radius: 15px; /* Rounded corners 15px */
-    color: var(--text-muted); /* Text grey */
-    font-weight: 600; /* Font semi-bold */
-    font-size: 1.1rem; /* Text size */
-    cursor: pointer; /* Pointer hand cursor */
-    transition: 0.2s; /* Smooth hover transition */
+    display: flex; 
+    align-items: center; 
+    padding: 18px 25px; 
+    margin-bottom: 8px; 
+    border-radius: 15px; 
+    color: var(--text-muted); 
+    font-weight: 600; 
+    font-size: 1.1rem; 
+    cursor: pointer; 
+    transition: 0.2s; 
 }
 
-/* Category hover state */
 .btn-categoria:hover {
-    background-color: rgba(255, 71, 87, 0.1); /* Light red background */
-    color: var(--primary); /* Red text */
+    background-color: rgba(255, 71, 87, 0.1); 
+    color: var(--primary); 
 }
 
-/* Category active/selected state */
 .btn-categoria.active {
-    background-color: var(--primary); /* Solid red background */
-    color: white !important; /* Force white text */
-    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4); /* Add red shadow drop */
+    background-color: var(--primary); 
+    color: white !important; 
+    box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4); 
 }
 
-/* Nested text inside active category */
 .btn-categoria.active .text-muted {
-    color: white !important; /* Force nested grey elements white */
+    color: white !important; 
 }
 
-/* Main product item card */
 .card-prodotto {
-    background: var(--surface-color); /* Card background color */
-    border-radius: var(--card-radius); /* Round card edges */
-    overflow: hidden; /* Hide contents spilling out */
-    transition: transform 0.2s, background 0.3s; /* Smooth motion */
-    height: 100%; /* Stretch full height */
-    position: relative; /* Allow child absolute layers */
-    border: 1px solid var(--border-color); /* Thin border outline */
-    box-shadow: 0 4px 15px var(--shadow-soft); /* Generic float shadow */
-    cursor: pointer; /* Change mouse */
+    background: var(--surface-color); 
+    border-radius: var(--card-radius); 
+    overflow: hidden; 
+    transition: transform 0.2s, background 0.3s; 
+    height: 100%; 
+    position: relative; 
+    border: 1px solid var(--border-color); 
+    box-shadow: 0 4px 15px var(--shadow-soft); 
+    cursor: pointer; 
 }
 
-/* Product card hover */
 .card-prodotto:hover {
-    border-color: var(--price-color); /* Change border to price color */
+    border-color: var(--price-color); 
 }
 
-/* Product image wrapper */
 .img-wrapper {
-    height: 180px; /* Lock height 180px */
-    overflow: hidden; /* Prevent spill */
-    position: relative; /* Allow child tag placement */
+    height: 180px; 
+    overflow: hidden; 
+    position: relative; 
 }
 
-/* Actual image tag */
 .img-prodotto {
-    width: 100%; /* Fill frame */
-    height: 100%; /* Fill frame */
-    object-fit: cover; /* Crop perfectly to margins */
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
 }
 
-/* Price block floating above image */
 .price-tag {
-    position: absolute; /* Float inside image container */
-    bottom: 12px; /* 12px from bottom */
-    right: 12px; /* 12px from right */
-    background: var(--surface-color); /* Match surface tone */
-    padding: 6px 18px; /* Inner spacing */
-    border-radius: 30px; /* Pill shape */
-    font-weight: 700; /* Bold font */
-    font-size: 1.1rem; /* Big font size */
-    color: var(--price-color) !important; /* Force money color */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Bottom drop shadow */
+    position: absolute; 
+    bottom: 12px; 
+    right: 12px; 
+    background: var(--surface-color); 
+    padding: 6px 18px; 
+    border-radius: 30px; 
+    font-weight: 700; 
+    font-size: 1.1rem; 
+    color: var(--price-color) !important; 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
 }
 
-/* Card bottom portion wrapper */
 .card-body {
-    padding: 1.5rem; /* Margin spacing */
+    padding: 1.5rem; 
 }
 
-/* Item name text */
 .piatto-title {
-    font-weight: 700; /* Bold text */
-    margin-bottom: 5px; /* Element bottom spacing */
-    font-size: 1.2rem; /* Title size */
-    color: var(--text-main); /* Standard text mapping */
+    font-weight: 700; 
+    margin-bottom: 5px; 
+    font-size: 1.2rem; 
+    color: var(--text-main); 
 }
 
-/* Item description text */
 .piatto-desc {
-    font-size: 0.9rem; /* Small font */
-    color: var(--text-muted); /* Grey color */
-    height: 45px; /* Lock height */
-    overflow: hidden; /* Hide bottom spill */
-    display: -webkit-box; /* Flexbox limits */
-    -webkit-line-clamp: 2; /* Force truncate after 2 lines */
-    line-clamp: 2; /* Truncate lines standard */
-    -webkit-box-orient: vertical; /* Align child lines vertical */
+    font-size: 0.9rem; 
+    color: var(--text-muted); 
+    height: 45px; 
+    overflow: hidden; 
+    display: -webkit-box; 
+    -webkit-line-clamp: 2; 
+    line-clamp: 2; 
+    -webkit-box-orient: vertical; 
 }
 
-/* Ordering plus minus capsule */
 .qty-capsule {
-    background: var(--capsule-bg); /* Background mapping */
-    border-radius: 50px; /* Pill curves */
-    padding: 5px; /* Border gap */
-    display: flex; /* Layout mode */
-    justify-content: space-between; /* Space items internal */
-    align-items: center; /* Center cross axis */
-    width: 100%; /* Take element width */
-    max-width: 150px; /* Limit box width to 150px */
-    height: 55px; /* Lock vertical parameter */
-    z-index: 10; /* Float layer top */
-    position: relative; /* Lock z-index stack layer */
+    background: var(--capsule-bg); 
+    border-radius: 50px; 
+    padding: 5px; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%; 
+    max-width: 150px; 
+    height: 55px; 
+    z-index: 10; 
+    position: relative; 
 }
 
-/* Single circle action button */
 .btn-circle {
-    width: 45px; /* Circle bound */
-    height: 45px; /* Circle bound */
-    border-radius: 50%; /* Make pure sphere */
-    border: none; /* No border map */
-    display: flex; /* Format elements */
-    align-items: center; /* Align cross limit */
-    justify-content: center; /* Layout center */
-    cursor: pointer; /* Mark as clickable */
-    transition: transform 0.1s; /* Add quick bounce */
-    flex-shrink: 0; /* Stop width squash */
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    border: none; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer; 
+    transition: transform 0.1s; 
+    flex-shrink: 0; 
 }
 
-/* Press circle state */
 .btn-circle:active {
-    transform: scale(0.9); /* Dip dimension 10% */
+    transform: scale(0.9); 
 }
 
-/* Minus specific override */
 .btn-minus {
-    background: var(--surface-color); /* Base block color */
-    color: #ff6b6b; /* Red layout subtract color */
-    border: 1px solid var(--border-color); /* Layout trim limit */
+    background: var(--surface-color); 
+    color: #ff6b6b; 
+    border: 1px solid var(--border-color); 
 }
 
-/* Plus specific override */
 .btn-plus {
-    background: var(--text-main); /* Dark mapping */
-    color: var(--bg-body); /* Body inverted mapping */
+    background: var(--text-main); 
+    color: var(--bg-body); 
 }
 
-/* Inner card numeric add buttons */
 .btn-card-qty {
-    width: 48px; /* Block bound limit */
-    height: 42px; /* Set vertical size */
-    border-radius: 12px; /* Smooth block layout */
-    border: none; /* Wipe boundary layout */
-    display: flex; /* Enable flex child render */
-    align-items: center; /* Y axis center */
-    justify-content: center; /* X axis center */
-    cursor: pointer; /* Standard interactive point */
-    transition: background 0.2s; /* Layout paint morph */
-    flex-shrink: 0; /* Map bounds lock flex */
-    font-size: 1.1rem; /* Bounding typography render */
-    background: var(--surface-color); /* Ground limit colors */
-    color: var(--text-main); /* Font mapping tone */
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); /* Shade drop limits */
+    width: 48px; 
+    height: 42px; 
+    border-radius: 12px; 
+    border: none; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    cursor: pointer; 
+    transition: background 0.2s; 
+    flex-shrink: 0; 
+    font-size: 1.1rem; 
+    background: var(--surface-color); 
+    color: var(--text-main); 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1); 
 }
 
-/* Press inner qty format */
 .btn-card-qty:active {
-    background: #e9ecef; /* Tone limits down */
+    background: #e9ecef; 
 }
 
-/* Hover inner qty */
 .btn-card-qty:hover {
-    background: var(--primary); /* Force red main map */
-    color: white; /* Invert contrast */
+    background: var(--primary); 
+    color: white; 
 }
 
-/* Quantity digits text layout */
 .qty-input {
-    background: transparent; /* Overlay zero opacity base */
-    border: none; /* Wipe layout bounds */
-    width: 50px; /* Lock digit limit rendering horizontal */
-    text-align: center; /* Print center alignment strings */
-    font-weight: 700; /* Bounding strings thick rendering */
-    font-size: 1.4rem; /* Format large integer rendering limits */
-    color: var(--text-main); /* Format character layouts default */
+    background: transparent; 
+    border: none; 
+    width: 50px; 
+    text-align: center; 
+    font-weight: 700; 
+    font-size: 1.4rem; 
+    color: var(--text-main); 
 }
 
-/* Price numeric rendering rules */
 .text-price {
-    color: var(--price-color) !important; /* Mandate money hue */
+    color: var(--price-color) !important; 
 }
 
-/* Equal mapping numeric string rendering formats widths styles standards models arrays properties structures */
 .price-stable {
-    font-variant-numeric: tabular-nums; /* Mandate numbers same format layouts spacing structure length boundaries sets widths margins mapping subsets constraints */
-    font-feature-settings: "tnum"; /* Override layout limits padding rendering string rules spacing width limits formulations margins margins formulas lengths formulations settings settings frameworks bounds sets rules bounds schemas constraints limits layouts formulations bounding spaces formulations limitations dimensions mapping foundations offsets conventions mapped formatting thresholds datasets restrictions conventions schemas mappings schemas properties dimensions mappings subsets datasets limits configurations presets defaults */
-    display: inline-block; /* Element formatting boundaries restrictions datasets laws properties structures schemas limitations rules constants limitations laws conventions sizes constants configurations schemas widths definitions formulas */
-    min-width: 70px; /* Array bounds boundaries thresholds sets arrays */
-    text-align: right; /* Values mappings bounds limits layouts definitions settings bounds layouts defaults */
-    white-space: nowrap; /* Frameworks subsets mapped datasets settings datasets formats presets limits defaults widths rules values margins setups formulations definitions offsets lengths */
+    font-variant-numeric: tabular-nums; 
+    font-feature-settings: "tnum"; 
+    display: inline-block; 
+    min-width: 70px; 
+    text-align: right; 
+    white-space: nowrap; 
 }
 
-/* Heading totals constraints sets templates formulas defaults dimensions mapped limitations constants subsets formulas presets setups formulations */
 #soldi-header {
-    display: inline-block; /* Inline definitions sizes */
+    display: inline-block; 
 }
 
-/* Bubble variables formulations subsets subsets lengths frameworks lengths limitations schemas layouts rules schemas formats layouts definitions datasets limits sets */
 #pezzi-header {
-    display: inline-block; /* Spaces settings constraints constraints datasets borders mapping configurations definitions formatting datasets thresholds */
-    min-width: 28px; /* Formats schemas settings setups */
-    height: 28px; /* Models limitations schemas offsets dimensions subsets formatting borders schemas margins layouts settings subsets schemas borders thresholds bounds models definitions */
-    line-height: 20px; /* Maps offsets limitations setups */
-    text-align: center; /* Limits formats frameworks rules borders */
-    background-color: white !important; /* Dimensions setups offsets boundaries spaces formats dimensions setups defaults models formats constraints sets dimensions sizes settings presets defaults templates rules schemas properties */
-    color: #212529 !important; /* Conventions budgets constants sizes margins constraints sets schemas */
-    font-weight: 800; /* Constants definitions mappings limits conventions limits thresholds limitations schemas margins borders ranges thresholds subsets mapping values formats lengths formulations limitations formats presets sets bounds mappings widths borders formats subsets restrictions */
-    padding: 4px; /* Formatting defaults datasets conventions layouts thresholds models conventions */
-    border-radius: 50%; /* Models templates formulations formats bounding margins models subsets offsets subsets setups rules setups formatting widths mapping lengths bounds */
-    margin-left: 8px; /* Definitions foundations subsets maps formats sets formulas limitations limitations defaults schemas configurations layouts properties bounds constraints spaces datasets limits templates properties thresholds foundations laws margins laws mappings setups */
+    display: inline-block; 
+    min-width: 28px; 
+    height: 28px; 
+    line-height: 20px; 
+    text-align: center; 
+    background-color: white !important; 
+    color: #212529 !important; 
+    font-weight: 800; 
+    padding: 4px; 
+    border-radius: 50%; 
+    margin-left: 8px; 
 }
 
-/* Mobile sliding bounds restrictions configurations widths dimensions formats subsets mappings layouts offsets dimensions conventions borders configurations layouts */
 .mobile-cat-bar {
-    display: flex; /* Sizes maps lengths thresholds margins ranges rules offsets definitions mappings subsets formulations settings limitations datasets sets */
-    gap: 8px; /* Frameworks frameworks properties properties limits offsets layouts dimensions layouts thresholds setups schemas frameworks presets offsets formulations dimensions offsets subsets values */
-    overflow-x: auto; /* Rules formatting limits bounding widths schemas */
-    padding: 10px 16px; /* Map formats limitations sizes sizes constraints setups laws presets formulations constraints values restrictions arrays layouts offsets formulations mapped sizes limits setups schemas limitations laws */
-    background: var(--surface-color); /* Rules defaults layouts dimensions boundaries bounds bounds formats sizes formulations schemas formats */
-    border-bottom: 1px solid var(--border-color); /* Parameters limits setups definitions spacing formations sets subsets formatting setups offsets layouts arrays mapped presets datasets mapping definitions definitions foundations budgets bounds spaces constraints formulations laws ranges conventions schemas layouts models subsets settings layouts offsets budgets subsets boundaries borders margins */
-    -webkit-overflow-scrolling: touch; /* Definitions frameworks constraints models lengths spaces sizes bounds array limitations rules arrays thresholds presets schemas limitations settings */
-    scrollbar-width: none; /* Boundaries formats schemas definitions conventions conventions setups sizes strings limitations limits sizes boundaries frameworks */
+    display: flex; 
+    gap: 8px; 
+    overflow-x: auto; 
+    padding: 10px 16px; 
+    background: var(--surface-color); 
+    border-bottom: 1px solid var(--border-color); 
+    -webkit-overflow-scrolling: touch; 
+    scrollbar-width: none; 
 }
 
-/* Kill Apple defaults foundations models frameworks rules dimensions frameworks margins definitions models formats offsets mapping limits */
 .mobile-cat-bar::-webkit-scrollbar {
-    display: none; /* Formatting layouts constraints datasets mapping definitions conventions frameworks limitations borders formations subsets mappings laws variables bounds limitations conventions limits dimensions definitions setups layouts setups formats subsets sizes rules margins templates definitions configurations defaults subsets */
+    display: none; 
 }
 
-/* Mobile bounds spacing limits sets frameworks properties formats models setups offsets arrays laws subsets schemas boundaries thresholds presets limitations limitations offsets properties defaults definitions defaults laws strings conventions mappings formatting spacing layouts widths ranges restrictions restrictions presets arrays conventions formats properties models layouts borders limits boundaries margins layouts */
 .mobile-cat-btn {
-    white-space: nowrap; /* Mapping boundaries schemas limitations layouts maps presets constraints constraints layouts formulations formats formulations limits schemas presets properties maps formulas formulations */
-    padding: 8px 18px; /* Formatting variables datasets defaults subsets layouts boundaries arrays constraints models formatting mapped layouts array layouts arrays formations maps bounds limitations models templates templates boundaries mappings formats layouts borders sizes margins schemas settings properties */
-    border-radius: 50px; /* Margins margins mapping boundaries laws restrictions dimensions sizes bounds sizes spaces limitations formats subsets boundaries limits bounds rules dimensions constraints conventions sizes formatting frameworks constraints layouts constraints variables */
-    border: 1px solid var(--border-color); /* Variables datasets restrictions laws bounds constraints limitations margins settings formulations dimensions settings datasets mapping layouts limitations formats structures layouts formats offsets widths values defaults schemas values formatting lengths */
-    background: var(--surface-color); /* Margins limitations mapping arrays constraints subsets setups values layouts configurations formulations schemas spacing schemas mapping foundations configurations formulas widths rules conventions layouts defaults frameworks formats */
-    color: var(--text-muted); /* Maps parameters templates layouts constants sizes limits mapping mapping values mapping restrictions frameworks definitions formats mappings borders laws sizes definitions mapped subsets defaults setups schemas thresholds boundaries */
-    font-weight: 600; /* Settings configurations bounds thresholds spaces dimensions mapped sets variables limits formulas restrictions formulations limits dimensions setups dimensions formats dimensions layouts sets subsets schemas thresholds configurations formulas */
-    font-size: 0.85rem; /* Margins defaults frameworks mapping sizes foundations defaults mapped laws margins budgets thresholds boundaries schemas bounds margins formats strings dimensions models */
-    cursor: pointer; /* Regulations models layouts values variables limitations subsets boundaries mapping definitions margins laws schemas spaces limits conventions thresholds dimensions bounds layouts thresholds rules formulations properties frameworks restrictions borders sizes datasets mapping mapping formulations formulations subsets laws schemas conventions */
-    transition: 0.2s; /* Ranges variables formulations setups conventions lengths settings boundaries sizes sizes layouts restrictions constraints laws rules margins bounds formats thresholds sets models mapping offsets limits mapping formats limits constraints presets laws variables constraints defaults conventions schemes */
-    flex-shrink: 0; /* Formats formats thresholds maps limitations restrictions configurations mapping setups limitations budgets */
+    white-space: nowrap; 
+    padding: 8px 18px; 
+    border-radius: 50px; 
+    border: 1px solid var(--border-color); 
+    background: var(--surface-color); 
+    color: var(--text-muted); 
+    font-weight: 600; 
+    font-size: 0.85rem; 
+    cursor: pointer; 
+    transition: 0.2s; 
+    flex-shrink: 0; 
 }
 
-/* Bounds mapped spaces sets schemas datasets offsets definitions schemas arrays restrictions boundaries layouts sets definitions definitions setups */
 .mobile-cat-btn.active {
-    background: var(--primary); /* Properties limits layouts mapping strings sizes formulations */
-    color: white; /* Layouts laws values values definitions subsets datasets formatting subsets laws presets setups arrays layouts boundaries sizing dimensions configurations dimensions mapping mappings layouts templates layouts boundaries bounds boundaries widths bounds restrictions presets schemas conventions limits layouts values constants defaults schemas layouts rules mappings boundaries settings margins offsets conventions */
-    border-color: var(--primary); /* Map formulations margins formulas regulations sizes conventions restrictions subsets string definitions conventions boundaries configurations definitions formats constants dimensions margins mappings conventions configurations maps */
-    box-shadow: 0 2px 8px rgba(255, 159, 67, 0.3); /* Defaults formats mapped constraints formats properties schemas schemas sizes arrays layouts properties array mapping mapping bounds configurations mapping limitations presets schemas dimensions limitations borders mapped setups setups schemes templates setups layouts constants */
+    background: var(--primary); 
+    color: white; 
+    border-color: var(--primary); 
+    box-shadow: 0 2px 8px rgba(255, 159, 67, 0.3); 
 }
 
-/* Tablet parameters boundaries definitions limitations restrictions */
 @media (max-width: 991.98px) {
     .card-prodotto .card-body {
-        padding: 1rem; /* Pad tablet limit setups formats lengths */
+        padding: 1rem; 
     }
 
     .img-wrapper {
-        height: 150px; /* Shrink properties layouts map setups bounds subsets */
+        height: 150px; 
     }
 }
 
-/* Mobile maps formats properties budgets dimensions definitions bounds sets schemas setups mapping mapped mappings definitions limitations bounds layouts sizes formulations restrictions spaces bounds conventions formatting schemas constraints settings boundaries dimensions widths dimensions sizing boundaries templates limitations margins subsets arrays maps margins mappings formulations thresholds formats widths arrays models restrictions margins boundaries limitations constraints offset defaults setups settings settings thresholds definitions conventions boundaries formulations limits schemas limits layouts subsets bounds formulas boundaries arrays rules presets dimensions templates layouts limits formatting frameworks */
 @media (max-width: 767.98px) {
     .p-4.pb-5 {
-        padding: 0.75rem !important; /* Formats padding formatting formulations thresholds mapping limits limits boundaries */
+        padding: 0.75rem !important; 
     }
 
     .img-wrapper {
-        height: 130px; /* Reduces settings constraints sets sets offsets formats */
+        height: 130px; 
     }
 
     .piatto-title {
-        font-size: 1rem; /* Borders schemas padding rules datasets defaults maps strings properties definitions borders laws rules values offsets dimensions constants bounding subsets layouts constraints layouts sizes formatting thresholds styles datasets */
+        font-size: 1rem; 
     }
 
     .piatto-desc {
-        font-size: 0.8rem; /* Sets settings formats values dimensions conventions mapping setups offsets formats variables mapping restrictions conventions definitions boundaries sizing properties templates formats formulas mappings setups margins frameworks layouts boundaries datasets limits formats boundaries margins sizes setups rules sizing datasets definitions spacing formatting setups values schemas limits values limitations sets formulas rules laws presets properties schemas schemas subsets constants templates boundaries mappings datasets sizes formatting mappings mapping defaults layouts */
-        height: 36px; /* Maps values arrays boundaries lengths array layouts formulations array restrictions schemas regulations sizes constraints schemas sets constraints configurations boundaries offsets formats rules layouts boundaries limitations frameworks limits formulas setups margins datasets presets formats mappings models definitions subsets sizing margins mapped regulations settings settings foundations formatting boundaries margins margins sets boundaries subsets padding limits presets definitions margins mapping formats properties mapped conventions margins boundaries subsets formatting formulations setups boundaries formats sizing datasets datasets offsets properties sets datasets templates arrays */
+        font-size: 0.8rem; 
+        height: 36px; 
     }
 
     .card-body {
-        padding: 0.75rem; /* Margins margins variables schemas limits dimensions constraints formulations formats defaults configurations formatting templates formatting subsets constants mappings schemas setups */
+        padding: 0.75rem; 
     }
 
     .price-tag {
-        font-size: 0.9rem; /* Borders padding boundaries sets arrays setups variables regulations sizes subsets boundaries */
-        padding: 4px 12px; /* Setups schemas properties formatting arrays schemas spaces dimensions definitions formatting regulations laws array defaults boundaries conventions formulas budgets laws formatting settings formations sizes setups formulas limitations */
-        bottom: 8px; /* Formulations subsets setups mapped thresholds boundaries margins conventions mapping padding arrays widths formulations dimensions bounds arrays variables boundaries subsets schemas bounds configurations arrays rules arrays laws datasets schemas configurations presets widths layouts array configurations limitations */
-        right: 8px; /* Limitations layouts defaults bounds boundaries datasets margins labels models limits arrays datasets datasets limits arrays sizes sets offsets margins conventions formulas presets */
+        font-size: 0.9rem; 
+        padding: 4px 12px; 
+        bottom: 8px; 
+        right: 8px; 
     }
 
     .qty-capsule {
-        height: 45px; /* Dimensions variables regulations limits formulas conventions templates conventions boundaries settings margins mapping arrays schemas mapping margins formulations presets rules values templates limits constraints conventions settings array templates layouts padding foundations defaults labels constants offsets string bounds formatting bounds layouts schemas setups datasets subsets limits sets restrictions limitations limitations layouts bounds sets lengths schemes formatting mapping offsets definitions setups schemas datasets formations limits borders formatting */
-        max-width: 130px; /* Values dimensions mapped defaults variables sets schemas formulations templates maps setups presets datasets */
+        height: 45px; 
+        max-width: 130px; 
     }
 
     .btn-circle {
-        width: 38px; /* Templates layouts rules schemas margins laws arrays schemas formulas sets subsets formats formulas rules variables datasets formats setups */
-        height: 38px; /* Settings subsets limitations ranges schemes rules sizes datasets sizes */
+        width: 38px; 
+        height: 38px; 
     }
 
     .qty-input {
-        font-size: 1.1rem; /* Conventions laws datasets formulas templates layouts sizes labels constants subsets dimensions labels models regulations subsets definitions boundaries constraints conventions formulations schemas sizes formats presets settings lengths limitations sizes borders setups restrictions datasets margins schemas offsets templates frameworks bounds */
+        font-size: 1.1rem; 
     }
 
     .search-wrapper {
-        max-width: 100%; /* Maps map limitations datasets formatting properties thresholds definitions properties borders bounds constants constants offsets layouts */
-        flex: 1; /* Settings formulas */
-        min-width: 0; /* Formulations constraints strings */
+        max-width: 100%; 
+        flex: 1; 
+        min-width: 0; 
     }
 
     .search-input {
-        padding: 10px 14px 10px 38px; /* Mapping laws limitations array datasets mapping restrictions budgets schemas configurations dimensions presets subsets spacing constants formats schemas borders mapping limitations setups subsets values templates arrays widths defaults layouts formats */
-        font-size: 0.85rem; /* Lengths defaults boundaries margins laws formulas templates margins layouts configurations limits strings subsets properties widths formatting sizing bounds */
+        padding: 10px 14px 10px 38px; 
+        font-size: 0.85rem; 
     }
 
     .sticky-header .btn {
-        padding: 8px 12px !important; /* Dimensions laws datasets presets defaults laws schemas margins array formats frameworks dimensions models formulas thresholds strings schemas padding constants rules laws templates models datasets rules borders formats thresholds regulations spacing mappings constraints models boundaries layouts settings subsets budgets schemes limitations offsets limitations rules constraints schemas laws rules offsets models margins ranges offsets borders margins subsets formats datasets margins values formulations limitations */
-        font-size: 0.8rem; /* Variables labels laws constraints constraints boundaries offsets boundaries regulations formulas mappings definitions budgets laws sizes ranges padding datasets budgets string formulations borders mapping dimensions configurations formatting sets mapping labels mappings frameworks offsets formatting setups definitions formatting thresholds conventions */
+        padding: 8px 12px !important; 
+        font-size: 0.8rem; 
     }
 
     .btn-card-qty {
-        width: 42px; /* Mappings rules dimensions arrays sizes constants */
-        height: 38px; /* Margins margins mapping boundaries sets frameworks sizing regulations subsets bounds limitations padding presets formats definitions constants models laws setups bounds sizes */
-        font-size: 1rem; /* Subsets formulas lengths subsets offsets boundaries constraints formulations formatting spaces boundaries */
+        width: 42px; 
+        height: 38px; 
+        font-size: 1rem; 
     }
 
     .badge-alg {
-        font-size: 0.65rem; /* Subsets limitations formatting models limits boundaries formats formats presets */
-        padding: 3px 8px; /* Margins setups restrictions formulations models restrictions formulations regulations subsets arrays subsets templates laws templates templates mapping mapping constraints thresholds formats limitations properties limitations configurations subsets setups laws datasets constants definitions presets formulas conventions definitions mapping mapping properties templates sets configurations schemas arrays layouts budgets templates settings defaults models settings thresholds configurations values settings rules values settings borders setups schemas boundaries bounds subsets mappings settings */
-        margin-right: 3px; /* Variables defaults maps properties rules layouts arrays bounds limits datasets schemas restrictions string datasets sizes spacing formulations rules borders frameworks regulations laws constraints values limitations settings labels frameworks offsets defaults dimensions variables limitations sizing presets presets layouts subsets dimensions models subsets widths laws maps setups layouts conventions sets margins presets ranges formats sets sizes conventions borders */
-        margin-bottom: 3px; /* Conventions schemas labels defaults arrays layouts layouts */
+        font-size: 0.65rem; 
+        padding: 3px 8px; 
+        margin-right: 3px; 
+        margin-bottom: 3px; 
     }
 
     #modalZoom .col-lg-6.position-relative {
-        min-height: 220px !important; /* Formats formulas sets maps datasets bounds strings thresholds formulations widths schemas formulations conventions limits rules restrictions conventions sizes definitions frameworks setups spacing widths sets restrictions settings limitations formats schemas mapped defaults budgets setups layouts laws subsets settings restrictions templates lengths thresholds conventions thresholds models limits schemas schemas setups mapping rules variables sizes constants widths budgets layouts configurations schemas padding formulations dimensions settings borders labels offsets properties mapping schemas formats borders padding conventions presets rules mapping sizes arrays constraints mapping sets */
+        min-height: 220px !important; 
     }
 
     .mobile-cat-btn {
-        padding: 6px 14px; /* Models offsets bounds laws bounds frameworks sets schemas ranges offsets formulations dimensions sizes templates presets padding subsets settings formats ranges strings sizes restrictions definitions templates borders boundaries thresholds rules styles schemas thresholds margins setups layouts laws sets limits array schemas conventions mapped configurations offsets arrays budgets arrays definitions schemas widths formats defaults sizes schemas formats variables padding schemas formats schemas budgets borders settings subsets constants padding layouts setups */
-        font-size: 0.8rem; /* Setups schemas formations frameworks presets properties setups conventions settings regulations bounding formatting datasets strings schemas limits layouts formats layouts layouts values boundaries sizing setups borders restrictions sizes definitions thresholds formats rules constraints setups layouts presets layouts models boundaries dimensions limitations arrays padding borders bounds schemas sizes sizing thresholds rules formatting mapped schemas bounds models spaces offsets array formatting conventions */
+        padding: 6px 14px; 
+        font-size: 0.8rem; 
     }
 }
 
-/* Deep layout limits mapping formulations formulas bounds schemas spacing subsets margins widths conventions foundations boundaries lengths subsets rules layouts mapping margins mapped mapped layouts offsets sizes conventions settings sets rules padding */
 @media (max-width: 399.98px) {
     .search-input {
-        padding: 8px 12px 8px 34px; /* Frameworks bounds rules values formulations datasets schemas formats laws borders arrays frameworks formats */
-        font-size: 0.8rem; /* Sets settings subsets conventions */
+        padding: 8px 12px 8px 34px; 
+        font-size: 0.8rem; 
     }
 
     .sticky-header .btn {
-        padding: 6px 10px !important; /* Defaults maps maps datasets presets string margins schemes limits properties formulations subsets */
-        font-size: 0.75rem; /* Margins setups setups dimensions maps constraints layouts presets spacing bounds mappings bounds */
+        padding: 6px 10px !important; 
+        font-size: 0.75rem; 
     }
 
     .piatto-title {
-        font-size: 0.9rem; /* Dimensions definitions settings formulas limits setups subsets properties constants constants settings variables laws settings */
+        font-size: 0.9rem; 
     }
 
     .piatto-desc {
-        font-size: 0.75rem; /* Limits limits variables defaults spacing offsets mapping sets formatting subsets templates definitions formulations models configurations thresholds schemas mapped bounds setups formulas schemas conventions offsets ranges datasets */
-        height: 32px; /* Margins bounding setups structures settings subsets formulas bounds presets limits templates layouts mappings subsets arrays formats conventions mapped borders formulations templates margins dimensions sets offsets sizes settings arrays budgets setups margins conventions frameworks */
+        font-size: 0.75rem; 
+        height: 32px; 
     }
 
     .btn-card-qty {
-        width: 38px; /* Formulations formulas mappings datasets limits */
-        height: 34px; /* Defaults lengths boundaries labels borders formulations thresholds datasets */
-        font-size: 0.9rem; /* Mapping definitions limitations formats formulas maps constraints limits templates array frameworks schemas rules presets bounds layouts mappings defaults thresholds templates offsets boundaries spacing datasets widths limits schemas layouts schemas sizes definitions widths boundaries values mapping mappings formats rules dimensions datasets definitions datasets budgets presets bounds mappings offsets offsets datasets constraints mapping */
+        width: 38px; 
+        height: 34px; 
+        font-size: 0.9rem; 
     }
 
     .card-body {
-        padding: 0.6rem; /* Formulations laws bounds dimensions margins widths constraints offsets mapping laws formulations array conventions budgets sets limits limits arrays definitions presets limits maps subsets templates borders ranges sets formations datasets conventions models margins limits rules presets labels boundaries offsets formulas limits widths boundaries laws sizes schemas formats sizes */
+        padding: 0.6rem; 
     }
 }

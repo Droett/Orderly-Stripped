@@ -1,8 +1,13 @@
 <?php
-// Motore di connessione al database relazionale MySQL backend core
-$conn = mysqli_connect("localhost", "root", "", "ristorante_db"); // Instaura instradamento pipe API server con i parametri local host zero psw
+// Inizializza la connessione al database MySQL utilizzando le credenziali server locali
+// - Host: "localhost" (il database si trova sullo stesso server locale)
+// - Utente: "root" (l'utente amministratore di default in ambienti di sviluppo locali es. XAMPP)
+// - Password: "" (nessuna password impostata, tipico in sviluppo)
+// - Nome Database: "ristorante_db" (il database specifico del progetto)
+$conn = mysqli_connect("localhost", "root", "", "ristorante_db"); 
 
-// Scudo di bloccaggio in caso di password rotte o database file corrotto o assente (es XAMPP down)
+// Verifica se la connessione è fallita
 if (!$conn)
-    die("Errore di connessione: " . mysqli_connect_error()); // Uccide secco the engine ed emette print rosso di fail server
+    // Se fallisce, interrompe immediatamente l'esecuzione del codice (die) e mostra un messaggio d'errore stampando l'errore effettivo di MySQL
+    die("Errore di connessione: " . mysqli_connect_error()); 
 ?>
