@@ -67,14 +67,6 @@ CREATE TABLE dettaglio_ordini (
     FOREIGN KEY (id_alimento) REFERENCES alimenti(id_alimento) ON DELETE CASCADE
 );
 
--- TABELLA PERMESSI ENDPOINT (ruoli ammessi per ogni endpoint, verificati dal PHP)
-CREATE TABLE permessi_endpoint (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    endpoint VARCHAR(100) NOT NULL,
-    ruolo ENUM('manager','cuoco','tavolo') NOT NULL,
-    UNIQUE KEY (endpoint, ruolo)
-);
-
 
 -- --- DATI DI TEST ---
 
@@ -107,37 +99,3 @@ INSERT INTO categorie (nome_categoria, id_menu) VALUES
 -- Piatto di test
 INSERT INTO alimenti (nome_piatto, prezzo, descrizione, lista_allergeni, immagine, id_categoria)
 VALUES ('Carbonara', 12.50, 'Classica pasta alla carbonara con guanciale croccante, uova fresche, pecorino romano DOP e pepe nero macinato al momento.', 'Glutine,Uova,Lattosio', NULL, 2);
-
--- Permessi endpoint: cucina (accessibile da cuoco e manager)
-INSERT INTO permessi_endpoint (endpoint, ruolo) VALUES
-('cucina/cambia_stato_ordine', 'cuoco'),
-('cucina/cambia_stato_ordine', 'manager'),
-('cucina/leggi_ordini_cucina', 'cuoco'),
-('cucina/leggi_ordini_cucina', 'manager'),
-('dashboard/cucina', 'cuoco'),
-('dashboard/cucina', 'manager');
-
--- Permessi endpoint: manager (solo manager)
-INSERT INTO permessi_endpoint (endpoint, ruolo) VALUES
-('dashboard/manager', 'manager'),
-('manager/get_tavoli', 'manager'),
-('manager/aggiungi_tavolo', 'manager'),
-('manager/elimina_tavolo', 'manager'),
-('manager/modifica_tavolo', 'manager'),
-('manager/cambia_stato_tavolo', 'manager'),
-('manager/termina_sessione', 'manager'),
-('manager/aggiungi_piatto', 'manager'),
-('manager/elimina_piatto', 'manager'),
-('manager/modifica_piatto', 'manager'),
-('manager/aggiungi_categoria', 'manager'),
-('manager/elimina_categoria', 'manager');
-
--- Permessi endpoint: tavolo (solo tavolo)
-INSERT INTO permessi_endpoint (endpoint, ruolo) VALUES
-('dashboard/tavolo', 'tavolo'),
-('tavolo/aggiungi_al_carrello', 'tavolo'),
-('tavolo/get_carrello', 'tavolo'),
-('tavolo/invia_ordine', 'tavolo'),
-('tavolo/leggi_ordini_tavolo', 'tavolo'),
-('tavolo/rimuovi_dal_carrello', 'tavolo'),
-('tavolo/verifica_sessione', 'tavolo');

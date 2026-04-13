@@ -1,5 +1,5 @@
 <?php
-// Blocco blindatura server — Verifica i permessi di accesso a un endpoint API scansionando la tabella mysql 'permessi_endpoint'
+// Blocco blindatura server — Verifica i permessi di accesso a un endpoint API 
 
 // Metodo nucleo per incrociare ticket utente con pass della stanza API GET o POST
 function verificaPermesso($conn, $endpoint) {
@@ -9,19 +9,27 @@ function verificaPermesso($conn, $endpoint) {
     // Cattura la tessera pass stringa del grado untente, eg. manager o cuciniere
     $ruolo = $_SESSION['ruolo'];
     
-    // Compila la query blindata parametrizzata MySQL pre compilata anti Injection attacks cerca "1" se c'è match ruoli
-    $stmt = $conn->prepare("SELECT 1 FROM permessi_endpoint WHERE endpoint = ? AND ruolo = ? LIMIT 1");
-    
-    // Inietta pulite le due stringhe (s s) al posto dei ? nella stringa SQL
-    $stmt->bind_param("ss", $endpoint, $ruolo);
-    
-    // Invoca processore database execution code
-    $stmt->execute();
-    
-    // Restituisci cassetto risposte buffer table MySQL structure properties
-    $result = $stmt->get_result();
+    // Mappa dei ruoli ammessi per macro-aree
+    $permessi = [
+        'manager' => ['manager'],
+        'cucina' => ['cuoco', 'manager'],
+        'tavolo' => ['tavolo']
+    ];
 
-    // Ritorna espressione Bool, True se trovata 1 riga combaciante DB altrimenti False
-    return $result->num_rows > 0;
+    // Estrae il prefisso dell'endpoint (es. "manager", "cucina", "tavolo", "dashboard")
+    $parti = explode('/', $endpoint);
+    $contesto = $parti[0];
+
+    // Se stiamo accedendo a una dashboard, il contesto rilevante è il nome della dashboard
+    if ($contesto === 'dashboard') {
+        $contesto = isset($parti[1]) ? $parti[1] : '';
+    }
+
+    // Verifica se il ruolo ha accesso al contesto richiesto
+    if (isset($permessi[$contesto])) {
+        return in_array($ruolo, $permessi[$contesto]);
+    }
+
+    return false;
 }
 ?>
