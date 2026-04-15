@@ -151,22 +151,7 @@ while ($cat = $categorie_result->fetch_assoc()) {
                     </div>
                 </div>
 
-                <!-- Filter tabs: show All / Free / Occupied / Reserved tables -->
-                <div class="filter-tabs">
-                    <!-- Each tab calls filtraTavoli() in manager.js to filter the grid -->
-                    <button class="filter-tab active" onclick="filtraTavoli('tutti', this)">
-                        <i class="fas fa-th me-1"></i> Tutti <span class="filter-count" id="count-tutti">0</span>
-                    </button>
-                    <button class="filter-tab" onclick="filtraTavoli('libero', this)">
-                        <span class="status-dot dot-libero"></span> Liberi <span class="filter-count" id="count-libero">0</span>
-                    </button>
-                    <button class="filter-tab" onclick="filtraTavoli('occupato', this)">
-                        <span class="status-dot dot-occupato"></span> Occupati <span class="filter-count" id="count-occupato">0</span>
-                    </button>
-                    <button class="filter-tab" onclick="filtraTavoli('riservato', this)">
-                        <span class="status-dot dot-riservato"></span> Riservati <span class="filter-count" id="count-riservato">0</span>
-                    </button>
-                </div>
+
 
                 <!-- The table cards are injected here by manager.js -->
                 <div class="tavoli-grid" id="tavoli-grid"></div>

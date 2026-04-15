@@ -15,6 +15,11 @@
 // Usato per rilevare quando arriva un nuovo ordine così da riprodurre un suono.
 let lastOrderCount = 0;
 
+// Pre-carica il suono di notifica così è pronto a essere riprodotto immediatamente.
+// Gli oggetti Audio funzionano come un lettore musicale — lo carichiamo una volta e
+// chiamiamo .play() quando necessario.
+const audio = new Audio('../audio/notifica_cucina.mp3');
+
 
 // Quando la pagina finisce di caricarsi:
 //   1. Recupera e mostra subito tutti gli ordini attivi

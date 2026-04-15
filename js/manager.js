@@ -62,11 +62,6 @@ function switchPage(page, el) {
 // GRIGLIA TAVOLI — caricamento, visualizzazione, filtro
 // ============================================================
 
-// Memorizza la lista completa dei tavoli recuperati dal server.
-// Conservata globalmente così le funzioni filtro possono ri-visualizzare senza un'altra chiamata API.
-let allTavoli = [];
-
-
 /**
  * caricaTavoli()
  * Recupera tutti i tavoli dall'API e aggiorna la griglia.
@@ -77,53 +72,8 @@ function caricaTavoli() {
     fetch('../api/manager/manager_api.php?action=get_tavoli')
         .then(r => r.json())
         .then(data => {
-            allTavoli = data;          // Salva per uso nei filtri
-            aggiornaConteggi(data);    // Aggiorna i badge contatore nelle schede filtro
             renderTavoli(data);        // Ricostruisce le card della griglia
         });
-}
-
-
-/**
- * aggiornaConteggi(data)
- * Aggiorna i badge numerici sulle schede filtro
- * (es. "Liberi 3", "Occupati 2").
- *
- * data — la lista completa degli oggetti tavolo
- */
-function aggiornaConteggi(data) {
-
-    // Conta quanti tavoli hanno ogni stato
-    const counts = { libero: 0, occupato: 0, riservato: 0 };
-    data.forEach(t => {
-        if (counts[t.stato] !== undefined) counts[t.stato]++;
-    });
-
-    // Aggiorna il testo del badge accanto a ogni scheda filtro
-    document.getElementById('count-tutti').textContent     = data.length;
-    document.getElementById('count-libero').textContent    = counts.libero;
-    document.getElementById('count-occupato').textContent  = counts.occupato;
-    document.getElementById('count-riservato').textContent = counts.riservato;
-}
-
-
-/**
- * filtraTavoli(filtro, btn)
- * Filtra la griglia dei tavoli per stato.
- *
- * filtro — 'tutti', 'libero', 'occupato', oppure 'riservato'
- * btn    — il pulsante scheda filtro cliccato
- */
-function filtraTavoli(filtro, btn) {
-
-    // Evidenzia la scheda cliccata e rimuove l'evidenziazione dalle altre
-    document.querySelectorAll('.filter-tab').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-
-    // Mostra tutti i tavoli o solo quelli con lo stato corrispondente
-    const filtered = filtro === 'tutti' ? allTavoli : allTavoli.filter(t => t.stato === filtro);
-
-    renderTavoli(filtered);
 }
 
 
@@ -153,9 +103,9 @@ function renderTavoli(tavoli) {
         const stato = t.stato || 'libero';
 
         // Sceglie l'icona giusta per lo stato attuale
-        const icon  = stato === 'libero'   ? 'fa-check-circle'
-                    : stato === 'occupato' ? 'fa-users'
-                    : 'fa-clock';
+        const icon = stato === 'libero' ? 'fa-check-circle'
+            : stato === 'occupato' ? 'fa-users'
+                : 'fa-clock';
 
         // Mette in maiuscolo la prima lettera per la visualizzazione (es. 'libero' → 'Libero')
         const label = stato.charAt(0).toUpperCase() + stato.slice(1);
@@ -239,7 +189,7 @@ function managerApiCall(action, fd, successMsg, closeId) {
  */
 function ciclaNuovoStato(id, statoAttuale) {
 
-    const ordine     = ['libero', 'occupato', 'riservato'];
+    const ordine = ['libero', 'occupato', 'riservato'];
     // Trova la posizione dello stato attuale e passa al successivo (con ritorno all'inizio)
     const nuovoStato = ordine[(ordine.indexOf(statoAttuale) + 1) % ordine.length];
 
@@ -285,8 +235,8 @@ function aggiungiTavolo() {
 
     const fd = new FormData();
     fd.append('nome_tavolo', document.getElementById('nuovo_nome_tavolo').value);
-    fd.append('password',    document.getElementById('nuovo_password_tavolo').value);
-    fd.append('posti',       document.getElementById('nuovo_posti_tavolo').value);
+    fd.append('password', document.getElementById('nuovo_password_tavolo').value);
+    fd.append('posti', document.getElementById('nuovo_posti_tavolo').value);
 
     // 'modalAggiungiTavolo' verrà chiusa automaticamente in caso di successo
     managerApiCall('aggiungi_tavolo', fd, 'Tavolo registrato!', 'modalAggiungiTavolo');
@@ -301,11 +251,11 @@ function aggiungiTavolo() {
 function apriModifica(id, nome, pass, posti, stato) {
 
     // Precompila il modulo con i valori attuali
-    document.getElementById('mod_id_tavolo').value  = id;
+    document.getElementById('mod_id_tavolo').value = id;
     document.getElementById('mod_nome_tavolo').value = nome;
-    document.getElementById('mod_password').value   = pass;
-    document.getElementById('mod_posti').value      = posti;
-    document.getElementById('mod_stato').value      = stato;
+    document.getElementById('mod_password').value = pass;
+    document.getElementById('mod_posti').value = posti;
+    document.getElementById('mod_stato').value = stato;
 
     new bootstrap.Modal(document.getElementById('modalModificaTavolo')).show();
 }
@@ -319,11 +269,11 @@ function apriModifica(id, nome, pass, posti, stato) {
 function modificaTavolo() {
 
     const fd = new FormData();
-    fd.append('id_tavolo',   document.getElementById('mod_id_tavolo').value);
+    fd.append('id_tavolo', document.getElementById('mod_id_tavolo').value);
     fd.append('nome_tavolo', document.getElementById('mod_nome_tavolo').value);
-    fd.append('password',    document.getElementById('mod_password').value);
-    fd.append('posti',       document.getElementById('mod_posti').value);
-    fd.append('stato',       document.getElementById('mod_stato').value);
+    fd.append('password', document.getElementById('mod_password').value);
+    fd.append('posti', document.getElementById('mod_posti').value);
+    fd.append('stato', document.getElementById('mod_stato').value);
 
     managerApiCall('modifica_tavolo', fd, 'Modifiche salvate!', 'modalModificaTavolo');
 }
@@ -358,12 +308,12 @@ function eliminaTavolo(id, nome) {
 function apriModalModifica(btn) {
 
     // Precompila tutti i campi del modulo dagli attributi data del pulsante
-    document.getElementById('mod_id').value     = btn.dataset.id;
-    document.getElementById('mod_nome').value   = btn.dataset.nome;
-    document.getElementById('mod_desc').value   = btn.dataset.desc;
+    document.getElementById('mod_id').value = btn.dataset.id;
+    document.getElementById('mod_nome').value = btn.dataset.nome;
+    document.getElementById('mod_desc').value = btn.dataset.desc;
     document.getElementById('mod_prezzo').value = btn.dataset.prezzo;
-    document.getElementById('mod_cat').value    = btn.dataset.cat;
-    document.getElementById('preview_img').src  = btn.dataset.img || '';
+    document.getElementById('mod_cat').value = btn.dataset.cat;
+    document.getElementById('preview_img').src = btn.dataset.img || '';
 
     // Seleziona le checkbox allergeni che corrispondono agli allergeni di questo piatto
     const list = btn.dataset.allergeni.split(',').map(a => a.trim().toLowerCase());
