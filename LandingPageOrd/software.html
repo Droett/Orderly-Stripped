@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Il Software — Orderly</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html"><img src="../imgs/logo_original.png" alt="Orderly" style="height: 32px; width: auto;"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="software.html" class="active">Software</a></li>
+      <li><a href="pricing.html">Prezzi</a></li>
+      <li><a href="#">Contatti</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="../index.php" class="btn btn-outline">Accedi</a>
+      <a href="../index.php" class="btn btn-primary">Inizia ora</a>
+    </div>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <h1>Il software, da vicino.</h1>
+    <p>Uno sguardo approfondito agli strumenti di Orderly — progettato per ogni ruolo nel tuo ristorante, dal manager
+      al cuoco di linea.</p>
+  </div>
+
+  <!-- MODULES -->
+  <div class="modules-section">
+
+    <!-- Order Management -->
+    <div class="module-block">
+      <div class="module-content">
+        <div class="section-label">Modulo 01</div>
+        <h2>Gestione Ordini</h2>
+        <p>Una visione unica e in tempo reale di ogni ordine da tutti i canali. Basta passare da un tablet all'altro —
+          ogni comanda di sala, asporto e delivery arriva in un unico posto, aggiornata in tempo reale.</p>
+        <ul class="feature-list">
+          <li>Inbox unificata per tutte le fonti di ordini (POS, app di delivery, QR code)</li>
+          <li>Tracciamento stato: ricevuto → in cucina → pronto → servito</li>
+          <li>Smistamento automatico degli ordini alla postazione cucina corretta</li>
+          <li>Note ospite e segnalazioni allergie evidenziate per lo staff</li>
+          <li>Storico ordini e log di audit per tavolo o cliente</li>
+        </ul>
+      </div>
+      <div class="module-visual">
+        <img src="../imgs/webapp/CUCINA.png" alt="Dashboard Gestione Ordini - Cucina" style="width:100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: block;">
+      </div>
+    </div>
+
+    <!-- Menu Builder -->
+    <div class="module-block reverse">
+      <div class="module-content">
+        <div class="section-label">Modulo 02</div>
+        <h2>Gestione Menu</h2>
+        <p>Interfaccia dedicata ai Manager per il pieno controllo del menu digitale. Tutte le modifiche sono immediate, sicure e ottimizzate per le performance in ogni dispositivo.</p>
+        <ul class="feature-list">
+          <li>Inserimento, modifica ed eliminazione rapida di piatti e categorie</li>
+          <li>Upload delle immagini dei prodotti ottimizzato per non rallentare il caricamento</li>
+          <li>Gestione completa dei dettagli: nome, prezzo, descrizione e allergeni</li>
+          <li>Sicurezza dei dati: solo gli utenti con ruolo manager possono modificare il menu</li>
+          <li>Supporto integrato per il multilingua per raggiungere ogni cliente</li>
+        </ul>
+      </div>
+      <div class="module-visual">
+        <img src="../imgs/webapp/Gestione%20Menu%20ADMIN.png" alt="Gestione Menu Dashboard" style="width:100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: block;">
+      </div>
+    </div>
+
+    <!-- Tavolo (Cliente) -->
+    <div class="module-block">
+      <div class="module-content">
+        <div class="section-label">Modulo 03</div>
+        <h2>Ordinazione al Tavolo</h2>
+        <p>Un'interfaccia intuitiva progettata per l'utente finale. Semplifica la consultazione del menu e l'ordinazione direttamente dal tavolo, con un'esperienza fluida e moderna.</p>
+        <ul class="feature-list">
+          <li>Layout a griglia per un'esplorazione veloce e chiara dei prodotti</li>
+          <li>Modale dettagliato con zoom sulle immagini e informazioni piatto</li>
+          <li>Gestione del carrello facile con feedback visivi immediati all'aggiunta</li>
+          <li>Accesso sicuro tramite sessione per ogni specifico tavolo</li>
+          <li>Modalità Dark e Light per adattarsi all'illuminazione dell'ambiente</li>
+        </ul>
+      </div>
+      <div class="module-visual">
+        <img src="../imgs/webapp/%20TAVOLO%20DARK%20MODe.png" alt="Dashboard Tavolo - Dark Mode" style="width:100%; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); display: block;">
+      </div>
+    </div>
+
+  </div>
+
+  <!-- TECH SPECS -->
+  <section class="tech-section">
+    <div class="section-label">Piattaforma</div>
+    <h2 class="section-title">Costruito per l'affidabilità negli ambienti ad alto volume</h2>
+    <p class="section-sub">Orderly gira su un'infrastruttura progettata per le esigenze del servizio reale in
+      ristorazione — veloce, disponibile e sicuro.</p>
+    <div class="tech-grid">
+      <div class="tech-card">
+        <div class="icon">☁️</div>
+        <h4>Cloud-native</h4>
+        <p>Funziona interamente nel browser. Nessun software da installare o server da mantenere.</p>
+      </div>
+      <div class="tech-card">
+        <div class="icon">🔒</div>
+        <h4>Sicuro di default</h4>
+        <p>Conforme SOC 2 Type II. Tutti i dati crittografati in transito e a riposo.</p>
+      </div>
+      <div class="tech-card">
+        <div class="icon">⚡</div>
+        <h4>Sincronizzazione in tempo reale</h4>
+        <p>Aggiornamenti ordini e menu su tutti i dispositivi in meno di 500ms tramite WebSocket.</p>
+      </div>
+      <div class="tech-card">
+        <div class="icon">🔌</div>
+        <h4>API aperte</h4>
+        <p>REST API e webhook per integrazioni personalizzate con qualsiasi sistema di terze parti.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="section-title">Guardalo in azione con i tuoi dati</h2>
+    <p>Prenota una demo live di 20 minuti con uno dei nostri specialisti della ristorazione. Nessun discorso commerciale
+      — solo il prodotto.</p>
+    <a href="../index.php" class="btn btn-primary btn-lg">Prenota una demo</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="nav-logo" href="index.html"><img src="../imgs/logo_invert.png" alt="Orderly" style="height: 32px; width: auto;"></a>
+        <p>La piattaforma all-in-one per la gestione di ordini e menu, pensata per la ristorazione moderna.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Prodotto</h4>
+        <ul>
+          <li><a href="software.html">Software</a></li>
+          <li><a href="#">Integrazioni</a></li>
+          <li><a href="pricing.html">Prezzi</a></li>
+          <li><a href="#">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Azienda</h4>
+        <ul>
+          <li><a href="#">Chi siamo</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Lavora con noi</a></li>
+          <li><a href="#">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legale</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Termini</a></li>
+          <li><a href="#">Sicurezza</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Orderly. Tutti i diritti riservati.</span>
+      <span>Fatto per ristoranti che non si fermano mai.</span>
+    </div>
+  </footer>
+
+</body>
+
+</html>

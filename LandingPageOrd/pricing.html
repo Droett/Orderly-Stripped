@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prezzi — Orderly</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* Pricing page extras */
+    .pricing-hero {
+      background: linear-gradient(135deg, var(--red-dark) 0%, #4a0e0e 100%);
+      padding: 72px 64px;
+      color: var(--white);
+      text-align: center;
+    }
+
+    .pricing-hero h1 {
+      font-size: 2.6rem;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+
+    .pricing-hero p {
+      font-size: 1.05rem;
+      color: rgba(255, 255, 255, 0.8);
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    .pricing-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 32px;
+    }
+
+    .toggle-label {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 500;
+    }
+
+    .toggle-label.active {
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .toggle-switch {
+      width: 48px;
+      height: 26px;
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 13px;
+      position: relative;
+      cursor: pointer;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      transition: background 0.2s;
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--white);
+      border-radius: 50%;
+      top: 2px;
+      left: 2px;
+      transition: transform 0.2s;
+    }
+
+    .toggle-switch.yearly::after {
+      transform: translateX(22px);
+    }
+
+    .toggle-switch.yearly {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    .save-badge {
+      background: #22c55e;
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    .pricing-section {
+      padding: 72px 64px;
+      background: var(--gray-light);
+    }
+
+    .pricing-grid-full {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .pricing-card-full {
+      background: var(--white);
+      border: 1px solid var(--gray-mid);
+      border-radius: 16px;
+      padding: 36px 32px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pricing-card-full.featured {
+      border-color: var(--red-dark);
+      box-shadow: 0 8px 32px rgba(122, 26, 26, 0.15);
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--red-dark);
+      color: var(--white);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+
+    .plan-name {
+      font-size: 0.8rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-light);
+      margin-bottom: 10px;
+    }
+
+    .plan-price {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      margin-bottom: 6px;
+      line-height: 1;
+    }
+
+    .plan-price-num {
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      letter-spacing: -2px;
+    }
+
+    .plan-price-period {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      padding-bottom: 6px;
+    }
+
+    .plan-annual-note {
+      font-size: 0.78rem;
+      color: var(--text-light);
+      margin-bottom: 20px;
+      min-height: 18px;
+    }
+
+    .plan-annual-note strong {
+      color: #16a34a;
+    }
+
+    .plan-desc {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      line-height: 1.6;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--gray-mid);
+      margin-bottom: 24px;
+    }
+
+    .plan-features {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex: 1;
+      margin-bottom: 32px;
+    }
+
+    .plan-features li {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      line-height: 1.4;
+    }
+
+    .check {
+      color: var(--red-dark);
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      margin-top: 1px;
+    }
+
+    .cross {
+      color: var(--gray-mid);
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 0.85rem;
+      margin-top: 1px;
+    }
+
+    .plan-features li.disabled {
+      color: var(--gray-mid);
+    }
+
+    .plan-cta {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 13px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .plan-cta-primary {
+      background: var(--red-dark);
+      color: var(--white);
+    }
+
+    .plan-cta-primary:hover {
+      background: var(--red-mid);
+    }
+
+    .plan-cta-outline {
+      border: 1.5px solid var(--red-dark);
+      color: var(--red-dark);
+    }
+
+    .plan-cta-outline:hover {
+      background: var(--red-subtle);
+    }
+
+    /* Compare table */
+    .compare-section {
+      padding: 72px 64px;
+      background: var(--white);
+    }
+
+    .compare-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 48px;
+      font-size: 0.9rem;
+    }
+
+    .compare-table thead tr {
+      border-bottom: 2px solid var(--gray-mid);
+    }
+
+    .compare-table th {
+      padding: 16px 20px;
+      text-align: left;
+      font-weight: 700;
+      color: var(--text-dark);
+    }
+
+    .compare-table th:not(:first-child) {
+      text-align: center;
+    }
+
+    .compare-table th.featured-col {
+      color: var(--red-dark);
+      position: relative;
+    }
+
+    .compare-table th.featured-col::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: -2px;
+      height: 2px;
+      background: var(--red-dark);
+    }
+
+    .compare-table td {
+      padding: 14px 20px;
+      border-bottom: 1px solid var(--gray-mid);
+      color: var(--text-mid);
+    }
+
+    .compare-table td:not(:first-child) {
+      text-align: center;
+    }
+
+    .compare-table td.featured-col {
+      background: var(--red-subtle);
+    }
+
+    .compare-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .compare-table tr.section-row td {
+      background: var(--gray-light);
+      font-weight: 700;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-light);
+      border-bottom: 1px solid var(--gray-mid);
+      padding: 10px 20px;
+    }
+
+    .compare-table tr.section-row td.featured-col {
+      background: #f0dada;
+    }
+
+    .tick {
+      color: var(--red-dark);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .dash {
+      color: var(--gray-mid);
+    }
+
+    /* FAQ */
+    .faq-section {
+      padding: 72px 64px;
+      background: var(--gray-light);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .faq-item {
+      background: var(--white);
+      border: 1px solid var(--gray-mid);
+      border-radius: 12px;
+      padding: 24px 22px;
+    }
+
+    .faq-item h4 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--text-dark);
+    }
+
+    .faq-item p {
+      font-size: 0.88rem;
+      color: var(--text-light);
+      line-height: 1.65;
+    }
+
+    @media (max-width: 900px) {
+      .pricing-hero {
+        padding: 56px 24px;
+      }
+
+      .pricing-section {
+        padding: 56px 24px;
+      }
+
+      .pricing-grid-full {
+        grid-template-columns: 1fr;
+      }
+
+      .compare-section {
+        padding: 56px 24px;
+        overflow-x: auto;
+      }
+
+      .compare-table {
+        min-width: 600px;
+      }
+
+      .faq-section {
+        padding: 56px 24px;
+      }
+
+      .faq-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html"><img src="../imgs/logo_original.png" alt="Orderly" style="height: 32px; width: auto;"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="pricing.html" class="active">Prezzi</a></li>
+      <li><a href="#">Contatti</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="../index.php" class="btn btn-outline">Accedi</a>
+      <a href="../index.php" class="btn btn-primary">Inizia ora</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="pricing-hero">
+    <h1>Prezzi semplici e trasparenti.</h1>
+    <p>Nessuna commissione sulle transazioni. Nessun costo di setup. Disdici quando vuoi. Ogni piano include 14 giorni di prova gratuita.</p>
+    <div class="pricing-toggle">
+      <span class="toggle-label active" id="monthly-label">Mensile</span>
+      <div class="toggle-switch" id="billing-toggle" onclick="toggleBilling()"></div>
+      <span class="toggle-label" id="yearly-label">Annuale</span>
+      <span class="save-badge">Risparmia il 20%</span>
+    </div>
+  </div>
+
+  <!-- PLANS -->
+  <div class="pricing-section">
+    <div class="pricing-grid-full">
+
+      <!-- Starter -->
+      <div class="pricing-card-full">
+        <div class="plan-name">Starter</div>
+        <div class="plan-price">
+          <span class="plan-price-num" id="starter-price">€79</span>
+          <span class="plan-price-period">/ mese</span>
+        </div>
+        <div class="plan-annual-note" id="starter-note">&nbsp;</div>
+        <p class="plan-desc">Per operatori indipendenti con una singola sede che necessitano di controllo su ordini e menu senza costi eccessivi.</p>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> 1 sede</li>
+          <li><span class="check">✓</span> Dashboard gestione ordini</li>
+          <li><span class="check">✓</span> Menu builder (fino a 100 piatti)</li>
+          <li><span class="check">✓</span> Analisi base (ultimi 30 giorni)</li>
+          <li><span class="check">✓</span> Ordinazione tramite QR code</li>
+          <li><span class="check">✓</span> Supporto email (SLA 48h)</li>
+          <li class="disabled"><span class="cross">—</span> Kitchen Display System</li>
+          <li class="disabled"><span class="cross">—</span> Integrazioni POS</li>
+          <li class="disabled"><span class="cross">—</span> Gestione ruoli staff</li>
+        </ul>
+        <a href="#" class="plan-cta plan-cta-outline">Inizia la prova gratuita</a>
+      </div>
+
+      <!-- Pro -->
+      <div class="pricing-card-full featured">
+        <div class="plan-badge">Più popolare</div>
+        <div class="plan-name">Pro</div>
+        <div class="plan-price">
+          <span class="plan-price-num" id="pro-price">€199</span>
+          <span class="plan-price-period">/ mese</span>
+        </div>
+        <div class="plan-annual-note" id="pro-note">&nbsp;</div>
+        <p class="plan-desc">Per attività in crescita con più sedi o canali di delivery che necessitano di un controllo operativo completo.</p>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Fino a 5 sedi</li>
+          <li><span class="check">✓</span> Gestione ordini completa</li>
+          <li><span class="check">✓</span> Piatti del menu illimitati</li>
+          <li><span class="check">✓</span> Analisi avanzate + export CSV/PDF</li>
+          <li><span class="check">✓</span> Kitchen Display System</li>
+          <li><span class="check">✓</span> Integrazioni POS e app di delivery</li>
+          <li><span class="check">✓</span> Ruoli e permessi staff</li>
+          <li><span class="check">✓</span> Supporto prioritario (SLA 4h)</li>
+          <li><span class="check">✓</span> Report settimanali automatizzati</li>
+        </ul>
+        <a href="#" class="plan-cta plan-cta-primary">Inizia la prova gratuita</a>
+      </div>
+
+      <!-- Enterprise -->
+      <div class="pricing-card-full">
+        <div class="plan-name">Enterprise</div>
+        <div class="plan-price">
+          <span class="plan-price-num">Custom</span>
+        </div>
+        <div class="plan-annual-note">&nbsp;</div>
+        <p class="plan-desc">Per gruppi multi-brand, operatori in franchising e catene che necessitano di flussi di lavoro su misura e garanzie.</p>
+        <ul class="plan-features">
+          <li><span class="check">✓</span> Sedi illimitate</li>
+          <li><span class="check">✓</span> Gestione menu multi-brand</li>
+          <li><span class="check">✓</span> Integrazioni POS & ERP su misura</li>
+          <li><span class="check">✓</span> Account manager dedicato</li>
+          <li><span class="check">✓</span> Uptime SLA 99.9%</li>
+          <li><span class="check">✓</span> SSO (SAML / OIDC)</li>
+          <li><span class="check">✓</span> Log di audit e policy ritenzione dati</li>
+          <li><span class="check">✓</span> Onboarding e formazione personalizzati</li>
+          <li><span class="check">✓</span> Supporto telefonico e Slack 24/7</li>
+        </ul>
+        <a href="#" class="plan-cta plan-cta-outline">Contatta le vendite</a>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- COMPARE TABLE -->
+  <div class="compare-section">
+    <div class="section-label">Confronta i piani</div>
+    <h2 class="section-title">Ogni funzionalità, fianco a fianco</h2>
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th style="width:40%">Funzionalità</th>
+          <th>Starter</th>
+          <th class="featured-col">Pro</th>
+          <th>Enterprise</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="section-row">
+          <td colspan="4">Sedi e Scalabilità</td>
+        </tr>
+        <tr>
+          <td>Sedi</td>
+          <td>1</td>
+          <td class="featured-col">Fino a 5</td>
+          <td>Illimitate</td>
+        </tr>
+        <tr>
+          <td>Piatti del menu</td>
+          <td>100</td>
+          <td class="featured-col">Unlimited</td>
+          <td>Illimitate</td>
+        </tr>
+        <tr>
+          <td>Account staff</td>
+          <td>5</td>
+          <td class="featured-col">25</td>
+          <td>Illimitate</td>
+        </tr>
+
+        <tr class="section-row">
+          <td colspan="4">Ordini</td>
+        </tr>
+        <tr>
+          <td>Dashboard ordini</td>
+          <td><span class="tick">✓</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Multi-canale (sala, asporto, delivery)</td>
+          <td><span class="tick">✓</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Kitchen Display System</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Regole di routing ordini</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+
+        <tr class="section-row">
+          <td colspan="4">Menu</td>
+        </tr>
+        <tr>
+          <td>Menu builder</td>
+          <td><span class="tick">✓</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Gruppi di varianti</td>
+          <td><span class="tick">✓</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Programmazione oraria</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Override prezzi multi-sede</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+
+        <tr class="section-row">
+          <td colspan="4">Analisi</td>
+        </tr>
+        <tr>
+          <td>Dashboard vendite</td>
+          <td>30 giorni</td>
+          <td class="featured-col">12 mesi</td>
+          <td>Storico illimitato</td>
+        </tr>
+        <tr>
+          <td>Export CSV / PDF</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Report settimanale automatico</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+
+        <tr class="section-row">
+          <td colspan="4">Integrazioni e Sicurezza</td>
+        </tr>
+        <tr>
+          <td>Integrazioni POS</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Integrazioni app delivery</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="tick">✓</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Integrazioni su misura (API)</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="dash">—</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>SSO (SAML / OIDC)</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="dash">—</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+        <tr>
+          <td>Log di audit</td>
+          <td><span class="dash">—</span></td>
+          <td class="featured-col"><span class="dash">—</span></td>
+          <td><span class="tick">✓</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FAQ -->
+  <div class="faq-section">
+    <div class="section-label">FAQ</div>
+    <h2 class="section-title">Domande frequenti</h2>
+    <div class="faq-grid">
+      <div class="faq-item">
+        <h4>C'è una prova gratuita?</h4>
+        <p>Sì — ogni piano include 14 giorni di prova gratuita. Nessuna carta di credito richiesta. Accesso completo alle funzionalità Pro fin dal primo giorno per testare tutto prima di scegliere.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Cosa si intende per "sede"?</h4>
+        <p>Ogni indirizzo fisico del ristorante conta come una sede. Una ghost kitchen che gestisce due brand dallo stesso indirizzo conta come una singola sede.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Posso cambiare piano in seguito?</h4>
+        <p>Sì. Puoi effettuare l'upgrade in qualsiasi momento e la nuova tariffa verrà calcolata proporzionalmente in modo immediato. Il downgrade avrà effetto dal ciclo di fatturazione successivo — fino ad allora manterrai l'accesso Pro.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Ci sono commissioni sulle transazioni?</h4>
+        <p>No. Orderly addebita una tariffa mensile fissa indipendentemente dal volume degli ordini. Che tu gestisca 100 o 10.000 ordini, il prezzo rimane lo stesso.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Con quali sistemi POS vi integrate?</h4>
+        <p>Supportiamo Square, Toast, Lightspeed e Clover nel piano Pro. I clienti Enterprise possono richiedere integrazioni personalizzate con qualsiasi POS tramite la nostra API REST.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Cosa include lo sconto annuale?</h4>
+        <p>Pagando annualmente risparmi il 20% rispetto al mensile. Il piano Starter scende a €63/mese e il Pro a €159/mese, fatturati in un unico pagamento anticipato.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <h2 class="section-title">Non sai quale piano scegliere?</h2>
+    <p>Parla con il nostro team. Troveremo il piano giusto per te, oppure creeremo un preventivo su misura per il piano Enterprise.</p>
+    <a href="../index.php" class="btn btn-primary btn-lg">Contatta le vendite</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="nav-logo" href="index.html"><img src="../imgs/logo_invert.png" alt="Orderly" style="height: 32px; width: auto;"></a>
+        <p>La piattaforma all-in-one per la gestione di ordini e menu, pensata per la ristorazione moderna.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Prodotto</h4>
+        <ul>
+          <li><a href="software.html">Software</a></li>
+          <li><a href="#">Integrazioni</a></li>
+          <li><a href="pricing.html">Prezzi</a></li>
+          <li><a href="#">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Azienda</h4>
+        <ul>
+          <li><a href="#">Chi siamo</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Lavora con noi</a></li>
+          <li><a href="#">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legale</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Termini</a></li>
+          <li><a href="#">Sicurezza</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Orderly. Tutti i diritti riservati.</span>
+      <span>Fatto per ristoranti che non si fermano mai.</span>
+    </div>
+  </footer>
+
+  <script>
+    let isYearly = false;
+
+    const prices = {
+      monthly: { starter: '€79', pro: '€199' },
+      yearly: { starter: '€63', pro: '€159' },
+    };
+
+    function toggleBilling() {
+      isYearly = !isYearly;
+      const toggle = document.getElementById('billing-toggle');
+      const mLabel = document.getElementById('monthly-label');
+      const yLabel = document.getElementById('yearly-label');
+
+      toggle.classList.toggle('yearly', isYearly);
+      mLabel.classList.toggle('active', !isYearly);
+      yLabel.classList.toggle('active', isYearly);
+
+      const p = isYearly ? prices.yearly : prices.monthly;
+      document.getElementById('starter-price').textContent = p.starter;
+      document.getElementById('pro-price').textContent = p.pro;
+
+      document.getElementById('starter-note').innerHTML = isYearly
+        ? '<strong>Risparmia €192/anno</strong> rispetto al mensile'
+        : '&nbsp;';
+      document.getElementById('pro-note').innerHTML = isYearly
+        ? '<strong>Risparmia €480/anno</strong> rispetto al mensile'
+        : '&nbsp;';
+    }
+  </script>
+
+</body>
+
+</html>
