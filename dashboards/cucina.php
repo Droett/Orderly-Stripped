@@ -1,55 +1,69 @@
 <?php
-// ============================================================
-// cucina.php — Kitchen Dashboard
-// ============================================================
-// This is the screen displayed in the kitchen.
-// It shows incoming orders in a Kanban-style board with two columns:
-//   1. "IN ARRIVO"       — new orders waiting to be prepared
-//   2. "IN PREPARAZIONE" — orders currently being cooked
-//
-// This PHP file just sets up the HTML structure.
-// All the live order data (fetching + updating) is handled by
-// cucina.js, which polls the API every few seconds automatically.
-// ============================================================
-
-// Start the PHP session so we can check who is logged in
 session_start();
-
-// Load the database connection — gives us the $conn variable
 include '../include/conn.php';
-
-// Load the permission checker
 require_once '../include/auth/check_permesso.php';
 
-// --- SECURITY CHECK ---
-// If the user is not logged in as kitchen staff, redirect to the login page
 if (!verificaPermesso($conn, 'dashboard/cucina')) {
     header("Location: ../index.php");
     exit;
 }
 
-// Load the shared HTML <head> and opening <body> tag
+// Handle state change submitted via form button
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $id    = intval($_POST['id_ordine'] ?? 0);
+    $stato = $_POST['nuovo_stato'] ?? '';
+    if ($id && in_array($stato, ['in_attesa', 'in_preparazione', 'pronto'])) {
+        $stmt = $conn->prepare("UPDATE ordini SET stato = ? WHERE id_ordine = ?");
+        $stmt->bind_param("si", $stato, $id);
+        $stmt->execute();
+    }
+    header("Location: cucina.php");
+    exit;
+}
+
+// Fetch active orders
+$sql = "SELECT o.id_ordine, o.id_utente, t.username, o.stato, o.data_ora,
+               d.quantita, a.nome_piatto, d.note
+        FROM ordini o
+        LEFT JOIN utenti t ON o.id_utente = t.id_utente
+        JOIN dettaglio_ordini d ON o.id_ordine = d.id_ordine
+        JOIN alimenti a ON d.id_alimento = a.id_alimento
+        WHERE o.stato IN ('in_attesa', 'in_preparazione')
+        ORDER BY o.data_ora ASC";
+$res = $conn->query($sql);
+
+$ordini = [];
+while ($row = $res->fetch_assoc()) {
+    $id = $row['id_ordine'];
+    if (!isset($ordini[$id])) {
+        $ordini[$id] = [
+            'id_ordine' => $id,
+            'tavolo'    => !empty($row['username']) ? $row['username'] : "Tavolo " . $row['id_utente'],
+            'stato'     => $row['stato'],
+            'ora'       => date('H:i', strtotime($row['data_ora'])),
+            'piatti'    => []
+        ];
+    }
+    $ordini[$id]['piatti'][] = [
+        'nome' => $row['nome_piatto'],
+        'qta'  => $row['quantita'],
+        'note' => $row['note'] ?? ''
+    ];
+}
+
+$inAttesa = array_filter($ordini, fn($o) => $o['stato'] === 'in_attesa');
+$inPrep   = array_filter($ordini, fn($o) => $o['stato'] === 'in_preparazione');
+
 include '../include/header.php';
 ?>
 
-<!-- Google Fonts: loads the "Poppins" font -->
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-<!-- Font Awesome: icon library (bell icon, fire icon, etc.) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-<!-- Kitchen-specific styles -->
 <link rel="stylesheet" href="../css/cucina.css">
 <link rel="stylesheet" href="../css/common.css">
 
 
-<!-- ============================================================
-     TOP HEADER BAR
-     Shows the app logo/name and theme toggle + logout buttons.
-     ============================================================ -->
 <div class="sticky-header">
-
-    <!-- Left side: logo and title -->
     <div class="d-flex align-items-center gap-3">
         <img src="../imgs/ordnobg.png" width="50">
         <div>
@@ -57,10 +71,7 @@ include '../include/header.php';
             <div class="brand-subtitle">Monitor degli ordini in tempo reale</div>
         </div>
     </div>
-
-    <!-- Right side: theme toggle + logout -->
     <div class="d-flex align-items-center gap-3">
-        <!-- Toggles between dark and light mode (defined in common.js) -->
         <div class="theme-toggle" onclick="toggleTheme()" title="Cambia Tema">
             <i class="fas fa-moon" id="theme-icon"></i>
         </div>
@@ -71,42 +82,82 @@ include '../include/header.php';
 </div>
 
 
-<!-- ============================================================
-     KANBAN BOARD
-     Two side-by-side columns for the two active order states.
-     Order cards are injected into each column by cucina.js.
-     ============================================================ -->
 <div class="kanban-board">
 
-    <!-- COLUMN 1: New orders waiting to start ("in_attesa") -->
+    <!-- COLUMN 1: New orders ("in_attesa") -->
     <div class="k-column">
         <div class="k-header" style="color: var(--new-order-text);">
             <span><i class="fas fa-bell me-2"></i> IN ARRIVO</span>
-            <!-- Order count badge — updated by JavaScript -->
-            <span class="badge-count" id="count-new">0</span>
+            <span class="badge-count" id="count-new"><?= count($inAttesa) ?></span>
         </div>
-        <!-- Order cards are inserted here by cucina.js -->
-        <div class="k-body" id="col-new"></div>
+        <div class="k-body" id="col-new">
+            <?php foreach ($inAttesa as $o): ?>
+                <div class="order-card">
+                    <div class="card-top">
+                        <div class="table-badge"><?= htmlspecialchars($o['tavolo']) ?></div>
+                        <div class="time-badge"><i class="fas fa-clock"></i> <?= $o['ora'] ?></div>
+                    </div>
+                    <?php foreach ($o['piatti'] as $p): ?>
+                        <div class="dish-row">
+                            <div class="qty-capsule"><?= $p['qta'] ?>x</div>
+                            <div>
+                                <strong><?= htmlspecialchars($p['nome']) ?></strong>
+                                <?php if ($p['note']): ?>
+                                    <br><small class="text-muted"><i class="fas fa-sticky-note me-1"></i><?= htmlspecialchars($p['note']) ?></small>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <form method="POST" action="cucina.php">
+                        <input type="hidden" name="id_ordine" value="<?= $o['id_ordine'] ?>">
+                        <input type="hidden" name="nuovo_stato" value="in_preparazione">
+                        <button type="submit" class="btn-action btn-start">
+                            <i class="fas fa-fire"></i> Inizia Preparazione
+                        </button>
+                    </form>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
 
-    <!-- COLUMN 2: Orders currently being prepared ("in_preparazione") -->
+    <!-- COLUMN 2: Orders being prepared ("in_preparazione") -->
     <div class="k-column">
         <div class="k-header" style="color: var(--prep-order-text);">
             <span><i class="fas fa-fire me-2"></i> IN PREPARAZIONE</span>
-            <!-- Order count badge — updated by JavaScript -->
-            <span class="badge-count" id="count-prep">0</span>
+            <span class="badge-count" id="count-prep"><?= count($inPrep) ?></span>
         </div>
-        <!-- Order cards are inserted here by cucina.js -->
-        <div class="k-body" id="col-prep"></div>
+        <div class="k-body" id="col-prep">
+            <?php foreach ($inPrep as $o): ?>
+                <div class="order-card">
+                    <div class="card-top">
+                        <div class="table-badge"><?= htmlspecialchars($o['tavolo']) ?></div>
+                        <div class="time-badge"><i class="fas fa-clock"></i> <?= $o['ora'] ?></div>
+                    </div>
+                    <?php foreach ($o['piatti'] as $p): ?>
+                        <div class="dish-row">
+                            <div class="qty-capsule"><?= $p['qta'] ?>x</div>
+                            <div>
+                                <strong><?= htmlspecialchars($p['nome']) ?></strong>
+                                <?php if ($p['note']): ?>
+                                    <br><small class="text-muted"><i class="fas fa-sticky-note me-1"></i><?= htmlspecialchars($p['note']) ?></small>
+                                <?php endif; ?>
+                            </div>
+                        </div>
+                    <?php endforeach; ?>
+                    <form method="POST" action="cucina.php">
+                        <input type="hidden" name="id_ordine" value="<?= $o['id_ordine'] ?>">
+                        <input type="hidden" name="nuovo_stato" value="pronto">
+                        <button type="submit" class="btn-action btn-green-custom">
+                            <i class="fas fa-check"></i> Segna come Pronto ✓
+                        </button>
+                    </form>
+                </div>
+            <?php endforeach; ?>
+        </div>
     </div>
 </div>
 
 
-<!-- Shared JS utilities (theme toggle, etc.) -->
 <script src="../js/common.js"></script>
-
-<!-- Main kitchen page logic: fetches orders from the API and renders the cards -->
-<script src="../js/cucina.js?v=<?php echo time(); ?>"></script>
-
-<!-- Shared HTML footer (closing </body> and </html> tags) -->
+<script src="../js/cucina.js"></script>
 <?php include '../include/footer.php'; ?>

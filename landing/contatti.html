@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contatti — Orderly</title>
+  <link rel="stylesheet" href="css/global.css" />
+  <link rel="stylesheet" href="css/contatti.css" />
+</head>
+
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-logo" href="index.html"><img src="../imgs/logo_original.png" alt="Orderly"
+        style="height: 32px; width: auto;"></a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="software.html">Software</a></li>
+      <li><a href="pricing.html">Prezzi</a></li>
+      <li><a href="contatti.html" class="active">Contatti</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="../index.php" class="btn btn-primary">Prova il demo</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="contact-hero">
+    <h1>Siamo qui per aiutarti.</h1>
+    <p>Hai domande sul software, sui prezzi o vuoi prenotare una demo personalizzata? Compila il modulo sottostante e ti
+      risponderemo il prima possibile.</p>
+  </div>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section">
+    <div class="contact-container">
+
+      <!-- Informazioni -->
+      <div class="contact-info">
+        <h3>Informazioni di Contatto</h3>
+
+        <div class="info-item">
+          <div class="info-icon">📍</div>
+          <div class="info-content">
+            <h4>Sede Operativa</h4>
+            <p>Via Roma, 123<br>20121 Milano, MI<br>Italia</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">✉️</div>
+          <div class="info-content">
+            <h4>Supporto Clienti</h4>
+            <a href="mailto:support@orderly.com">support@orderly.com</a>
+            <p>SLA garantito entro 24h per tutti i clienti.</p>
+          </div>
+        </div>
+
+        <div class="info-item">
+          <div class="info-icon">🤝</div>
+          <div class="info-content">
+            <h4>Vendite & Enterprise</h4>
+            <a href="mailto:sales@orderly.com">sales@orderly.com</a>
+            <p>Per richieste di preventivi multi-sede.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Modulo -->
+      <div class="contact-form">
+        <h3>Inviaci un Messaggio</h3>
+        <form action="#" method="POST"
+          onsubmit="event.preventDefault(); alert('Messaggio inviato con successo! Ti contatteremo a breve.');">
+
+          <div class="form-group">
+            <label for="name" class="form-label">Nome Completo</label>
+            <input type="text" id="name" class="form-input" placeholder="Mario Rossi" required>
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Indirizzo Email</label>
+            <input type="email" id="email" class="form-input" placeholder="mario@ristorante.it" required>
+          </div>
+
+          <div class="form-group">
+            <label for="restaurant" class="form-label">Nome Ristorante (Opzionale)</label>
+            <input type="text" id="restaurant" class="form-input" placeholder="Il Gusto">
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Come possiamo aiutarti?</label>
+            <textarea id="message" class="form-textarea" placeholder="Descrivi la tua richiesta..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-submit">Invia Messaggio</button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="nav-logo" href="index.html"><img src="../imgs/logo_invert.png" alt="Orderly"
+            style="height: 32px; width: auto;"></a>
+        <p>La piattaforma all-in-one per la gestione di ordini e menu, pensata per la ristorazione moderna.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Prodotto</h4>
+        <ul>
+          <li><a href="software.html">Software</a></li>
+          <li><a href="#">Integrazioni</a></li>
+          <li><a href="pricing.html">Prezzi</a></li>
+          <li><a href="#">Changelog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Azienda</h4>
+        <ul>
+          <li><a href="#">Chi siamo</a></li>
+          <li><a href="#">Blog</a></li>
+          <li><a href="#">Lavora con noi</a></li>
+          <li><a href="contatti.html">Contatti</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legale</h4>
+        <ul>
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Termini</a></li>
+          <li><a href="#">Sicurezza</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Orderly. Tutti i diritti riservati.</span>
+      <span>Fatto per ristoranti che non si fermano mai.</span>
+    </div>
+  </footer>
+
+</body>
+
+</html>

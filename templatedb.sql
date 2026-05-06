@@ -70,8 +70,8 @@ CREATE TABLE alimenti (
     descrizione TEXT,
     -- Stringa contenente gli allergeni separati da virgole (es. 'Glutine,Lattosio')
     lista_allergeni TEXT,
-    -- Immagine binaria del piatto (attualmente salvata come BLOB)
-    immagine MEDIUMBLOB,
+    -- Nome file dell'immagine (salvata in imgs/piatti/)
+    immagine VARCHAR(255) DEFAULT NULL,
     -- ID della categoria a cui appartiene questo piatto
     id_categoria INT,
     -- Relazione: l'alimento appartiene a una categoria
