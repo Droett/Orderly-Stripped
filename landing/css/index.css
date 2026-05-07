@@ -429,4 +429,46 @@
   font-size: 0.85rem;
 }
 
-@media (max-width: 900px) {}
+@media (max-width: 900px) {
+  .hero {
+    flex-direction: column;
+    padding: 60px 24px;
+    gap: 40px;
+    text-align: center;
+  }
+
+  .hero h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .stats-bar {
+    flex-direction: column;
+    padding: 32px 24px;
+    gap: 32px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .steps {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .steps::before {
+    display: none;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+}

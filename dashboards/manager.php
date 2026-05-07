@@ -187,6 +187,24 @@ while ($cat = $categorie_result->fetch_assoc()) {
     $categorie_array[] = $cat;
 }
 
+$editTavolo = null;
+if (isset($_GET['edit_tavolo'])) {
+    $etid   = intval($_GET['edit_tavolo']);
+    $etStmt = $conn->prepare("SELECT * FROM utenti WHERE id_utente = ? AND ruolo='tavolo'");
+    $etStmt->bind_param("i", $etid);
+    $etStmt->execute();
+    $editTavolo = $etStmt->get_result()->fetch_assoc();
+}
+
+$editPiatto = null;
+if (isset($_GET['edit_piatto'])) {
+    $epid   = intval($_GET['edit_piatto']);
+    $epStmt = $conn->prepare("SELECT * FROM alimenti WHERE id_alimento = ?");
+    $epStmt->bind_param("i", $epid);
+    $epStmt->execute();
+    $editPiatto = $epStmt->get_result()->fetch_assoc();
+}
+
 include "../include/header.php";
 ?>
 
@@ -210,19 +228,16 @@ include "../include/header.php";
                 <div class="px-3 flex-grow-1">
                     <small class="text-uppercase fw-bold ps-3 mb-2 d-block text-muted" style="font-size: 11px;">Pannello Admin</small>
 
-                    <div class="btn-sidebar <?= $section !== 'menu' ? 'active' : '' ?>" onclick="switchPage('tavoli', this)">
+                    <a href="manager.php?section=tavoli" class="btn-sidebar <?= $section !== 'menu' ? 'active' : '' ?>" style="text-decoration:none">
                         <i class="fas fa-chair me-3"></i> Gestione Tavoli
-                    </div>
-                    <div class="btn-sidebar <?= $section === 'menu' ? 'active' : '' ?>" onclick="switchPage('menu', this)">
+                    </a>
+                    <a href="manager.php?section=menu" class="btn-sidebar <?= $section === 'menu' ? 'active' : '' ?>" style="text-decoration:none">
                         <i class="fas fa-utensils me-3"></i> Gestione Menu
-                    </div>
+                    </a>
                 </div>
 
                 <div class="p-4 mt-auto">
                     <div class="d-flex justify-content-center gap-3">
-                        <div class="theme-toggle-sidebar" onclick="toggleTheme()" title="Cambia Tema">
-                            <i class="fas fa-moon" id="theme-icon"></i>
-                        </div>
                         <a href="../logout.php" class="theme-toggle-sidebar text-danger" title="Esci">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
@@ -237,16 +252,13 @@ include "../include/header.php";
 
             <!-- Mobile navigation bar -->
             <div class="mobile-nav-bar d-md-none">
-                <div class="mobile-nav-btn <?= $section !== 'menu' ? 'active' : '' ?>" onclick="switchPage('tavoli', this)">
+                <a href="manager.php?section=tavoli" class="mobile-nav-btn <?= $section !== 'menu' ? 'active' : '' ?>" style="text-decoration:none">
                     <i class="fas fa-chair"></i> Tavoli
-                </div>
-                <div class="mobile-nav-btn <?= $section === 'menu' ? 'active' : '' ?>" onclick="switchPage('menu', this)">
+                </a>
+                <a href="manager.php?section=menu" class="mobile-nav-btn <?= $section === 'menu' ? 'active' : '' ?>" style="text-decoration:none">
                     <i class="fas fa-utensils"></i> Menu
-                </div>
+                </a>
                 <div class="ms-auto d-flex gap-2 align-items-center">
-                    <div class="theme-toggle-sidebar" onclick="toggleTheme()" style="width:32px;height:32px;">
-                        <i class="fas fa-moon" style="font-size:0.8rem;"></i>
-                    </div>
                     <a href="../logout.php" class="theme-toggle-sidebar text-danger" style="width:32px;height:32px;">
                         <i class="fas fa-sign-out-alt" style="font-size:0.8rem;"></i>
                     </a>
@@ -265,11 +277,49 @@ include "../include/header.php";
                         <p class="text-muted m-0 small">Controlla lo stato delle prenotazioni in tempo reale</p>
                     </div>
                     <div class="d-flex gap-2 align-items-center">
-                        <button class="btn btn-dark rounded-pill px-4 py-2 fw-bold shadow-sm" onclick="apriModalAggiungi()">
+                        <button class="btn btn-dark rounded-pill px-4 py-2 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#modalAggiungiTavolo">
                             <i class="fas fa-plus me-2"></i>Nuovo Tavolo
                         </button>
                     </div>
                 </div>
+
+                <?php if ($section !== 'menu' && !isset($_GET['edit_tavolo'])): ?>
+                <meta http-equiv="refresh" content="30">
+                <?php endif; ?>
+
+                <?php if ($editTavolo): ?>
+                <div class="card-custom mx-4 mb-4">
+                    <h5 class="card-title"><i class="fas fa-pen me-2 text-warning"></i>Modifica Tavolo: <?= htmlspecialchars($editTavolo['username']) ?></h5>
+                    <form method="POST" action="manager.php?action=modifica_tavolo">
+                        <input type="hidden" name="id_tavolo" value="<?= $editTavolo['id_utente'] ?>">
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="small text-muted fw-bold mb-1">Nome</label>
+                                <input type="text" name="nome_tavolo" class="form-control" value="<?= htmlspecialchars($editTavolo['username']) ?>" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="small text-muted fw-bold mb-1">Password</label>
+                                <input type="text" name="password" class="form-control" value="<?= htmlspecialchars($editTavolo['password']) ?>" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="small text-muted fw-bold mb-1">Posti</label>
+                                <input type="number" name="posti" class="form-control" value="<?= $editTavolo['posti'] ?>" min="1" max="20">
+                            </div>
+                            <div class="col-12">
+                                <label class="small text-muted fw-bold mb-1">Stato</label>
+                                <select name="stato" class="form-select">
+                                    <option value="libero" <?= $editTavolo['stato']==='libero'?'selected':'' ?>>Libero</option>
+                                    <option value="riservato" <?= $editTavolo['stato']==='riservato'?'selected':'' ?>>Riservato</option>
+                                </select>
+                            </div>
+                            <div class="col-12 d-flex gap-2">
+                                <button type="submit" class="btn btn-dark rounded-pill px-4 fw-bold">Salva Modifiche</button>
+                                <a href="manager.php?section=tavoli" class="btn btn-light rounded-pill px-4 fw-bold">Annulla</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <?php endif; ?>
 
                 <div class="tavoli-grid" id="tavoli-grid">
                     <?php
@@ -315,10 +365,9 @@ include "../include/header.php";
                                             </form>
                                         <?php endif; ?>
 
-                                        <button class="btn-act" title="Modifica"
-                                            onclick="apriModifica(<?= $t['id_utente'] ?>,'<?= htmlspecialchars($t['username'], ENT_QUOTES) ?>','<?= htmlspecialchars($t['password'], ENT_QUOTES) ?>',<?= $t['posti'] ?>,'<?= $stato ?>')">
+                                        <a href="manager.php?section=tavoli&edit_tavolo=<?= $t['id_utente'] ?>" class="btn-act" title="Modifica">
                                             <i class="fas fa-pen"></i>
-                                        </button>
+                                        </a>
 
                                         <form method="POST" action="manager.php?action=elimina_tavolo" style="display:inline"
                                               onsubmit="return confirm('Eliminare il tavolo &quot;<?= htmlspecialchars($t['username'], ENT_QUOTES) ?>&quot;?')">
@@ -440,6 +489,67 @@ include "../include/header.php";
                     </div>
 
 
+                    <?php if ($editPiatto):
+                        $epAllergeni = array_map('trim', explode(',', strtolower($editPiatto['lista_allergeni'] ?? '')));
+                    ?>
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card-custom">
+                                <h5 class="card-title"><i class="fas fa-edit me-2 text-warning"></i>Modifica Piatto: <?= htmlspecialchars($editPiatto['nome_piatto']) ?></h5>
+                                <form action="manager.php?action=modifica_piatto" method="POST" enctype="multipart/form-data">
+                                    <input type="hidden" name="id_alimento" value="<?= $editPiatto['id_alimento'] ?>">
+                                    <div class="row g-3">
+                                        <div class="col-md-8">
+                                            <input type="text" name="nome_piatto" class="form-control" value="<?= htmlspecialchars($editPiatto['nome_piatto']) ?>" required placeholder="Nome del piatto">
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="number" step="0.01" name="prezzo" class="form-control" value="<?= $editPiatto['prezzo'] ?>" required placeholder="Prezzo (€)">
+                                        </div>
+                                        <div class="col-12">
+                                            <select name="id_categoria" class="form-select" required>
+                                                <?php foreach ($categorie_array as $cat): ?>
+                                                    <option value="<?= $cat['id_categoria'] ?>" <?= $cat['id_categoria'] == $editPiatto['id_categoria'] ? 'selected' : '' ?>>
+                                                        <?= htmlspecialchars($cat['nome_categoria']) ?>
+                                                    </option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-12">
+                                            <textarea name="descrizione" class="form-control" rows="2" placeholder="Descrizione ingredienti..."><?= htmlspecialchars($editPiatto['descrizione']) ?></textarea>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="small text-muted fw-bold mb-2">ALLERGENI PRESENTI</label>
+                                            <div class="d-flex flex-wrap gap-2 p-3 rounded allergeni-box">
+                                                <?php foreach ($ALLERGENI as $a): ?>
+                                                    <div class="form-check form-check-inline m-0 me-3">
+                                                        <input class="form-check-input" type="checkbox" name="allergeni[]" value="<?= $a ?>"
+                                                               id="ep_al_<?= $a ?>" <?= in_array(strtolower($a), $epAllergeni) ? 'checked' : '' ?>>
+                                                        <label class="form-check-label small" for="ep_al_<?= $a ?>"><?= $a ?></label>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="small text-muted fw-bold">FOTO DEL PIATTO</label>
+                                            <?php if ($editPiatto['immagine']): ?>
+                                                <div class="mb-2">
+                                                    <img src="../imgs/piatti/<?= htmlspecialchars($editPiatto['immagine']) ?>" style="width:80px;height:80px;object-fit:cover;border-radius:12px;border:1px solid #ddd;">
+                                                </div>
+                                            <?php endif; ?>
+                                            <input type="file" name="immagine" class="form-control" accept="image/*">
+                                            <small class="text-muted">Lascia vuoto per mantenere l'immagine attuale</small>
+                                        </div>
+                                        <div class="col-12 d-flex gap-2 mt-2">
+                                            <button type="submit" class="btn-main">Salva Modifiche</button>
+                                            <a href="manager.php?section=menu" class="btn btn-light rounded-pill px-4 fw-bold">Annulla</a>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
                     <!-- Dish list -->
                     <div class="row">
                         <div class="col-12">
@@ -469,17 +579,10 @@ include "../include/header.php";
                                                             <td class='fw-bold text-success'>" . number_format($row['prezzo'], 2) . " €</td>
                                                             <td class='text-end'>
                                                                 <div class='d-flex justify-content-end gap-2'>
-                                                                    <button type='button' class='btn btn-warning btn-sm text-white'
-                                                                        onclick='apriModalModifica(this)'
-                                                                        data-id='" . $row['id_alimento'] . "'
-                                                                        data-nome='" . $nomeSafe . "'
-                                                                        data-desc='" . $descSafe . "'
-                                                                        data-prezzo='" . $row['prezzo'] . "'
-                                                                        data-cat='" . $row['id_categoria'] . "'
-                                                                        data-img='" . ($row['immagine'] ? '../imgs/piatti/' . htmlspecialchars($row['immagine'], ENT_QUOTES) : '') . "'
-                                                                        data-allergeni='" . $allergeniSafe . "'>
+                                                                    <a href='manager.php?section=menu&edit_piatto=" . $row['id_alimento'] . "'
+                                                                       class='btn btn-warning btn-sm text-white'>
                                                                         <i class='fas fa-edit'></i>
-                                                                    </button>
+                                                                    </a>
                                                                     <form action='manager.php?action=elimina_piatto' method='POST'
                                                                           onsubmit='return confirm(\"Eliminare questo piatto?\");' style='margin:0;'>
                                                                         <input type='hidden' name='id_alimento' value='" . $row['id_alimento'] . "'>
@@ -510,6 +613,4 @@ include "../include/header.php";
 
 <?php include "../include/modals/manager_modals.php"; ?>
 
-<script src="../js/common.js"></script>
-<script src="../js/manager.js?v=<?php echo time(); ?>"></script>
 <?php include "../include/footer.php"; ?>

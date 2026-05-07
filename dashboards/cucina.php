@@ -57,6 +57,7 @@ $inPrep   = array_filter($ordini, fn($o) => $o['stato'] === 'in_preparazione');
 include '../include/header.php';
 ?>
 
+<meta http-equiv="refresh" content="5">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="../css/cucina.css">
@@ -72,9 +73,6 @@ include '../include/header.php';
         </div>
     </div>
     <div class="d-flex align-items-center gap-3">
-        <div class="theme-toggle" onclick="toggleTheme()" title="Cambia Tema">
-            <i class="fas fa-moon" id="theme-icon"></i>
-        </div>
         <a href="../logout.php" class="theme-toggle-sidebar text-danger" title="Esci">
             <i class="fas fa-sign-out-alt"></i>
         </a>
@@ -158,6 +156,4 @@ include '../include/header.php';
 </div>
 
 
-<script src="../js/common.js"></script>
-<script src="../js/cucina.js"></script>
 <?php include '../include/footer.php'; ?>

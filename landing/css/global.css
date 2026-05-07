@@ -240,3 +240,29 @@ footer {
   nav {
     padding: 0 24px;
   }
+  
+  .nav-links {
+    display: none; /* Hide nav links on mobile for simplicity, could add a hamburger menu if requested */
+  }
+
+  section {
+    padding: 60px 24px;
+  }
+  
+  .section-title {
+    font-size: 1.8rem;
+  }
+  
+  .cta-section {
+    padding: 60px 24px;
+  }
+  
+  .cta-section .section-title {
+    font-size: 1.8rem;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

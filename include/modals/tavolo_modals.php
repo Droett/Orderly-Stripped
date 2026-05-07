@@ -92,6 +92,10 @@ foreach ($cart as $item) {
     </div>
 </div>
 
+<?php
+$activeAllergeni = array_map('strtolower', $_GET['allergeni'] ?? []);
+?>
+
 <div class="modal fade" id="modalFiltri" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content modal-content-custom shadow-lg">
@@ -103,35 +107,32 @@ foreach ($cart as $item) {
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
 
-            <div class="modal-body p-4 pt-2">
-                <div class="row g-2" id="lista-allergeni-filtro">
-                    <?php foreach ($ALLERGENI as $a):
-                        $safeId = str_replace(' ', '_', $a); ?>
-                        <div class="col-6">
-                            <div class="d-flex align-items-center gap-2 p-2 border rounded" style="cursor:pointer">
-                                <input class="form-check-input m-0 flex-shrink-0" type="checkbox" value="<?php echo $a; ?>" id="f_<?php echo $safeId; ?>">
-                                <label class="form-check-label fw-bold w-100 m-0" for="f_<?php echo $safeId; ?>" style="cursor:pointer"><?php echo $a; ?></label>
+            <form method="GET" action="tavolo.php">
+                <input type="hidden" name="cat" value="<?= intval($_GET['cat'] ?? 0) ?>">
+                <input type="hidden" name="search" value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+
+                <div class="modal-body p-4 pt-2">
+                    <div class="row g-2">
+                        <?php foreach ($ALLERGENI as $a):
+                            $safeId = str_replace(' ', '_', $a); ?>
+                            <div class="col-6">
+                                <div class="d-flex align-items-center gap-2 p-2 border rounded" style="cursor:pointer">
+                                    <input class="form-check-input m-0 flex-shrink-0" type="checkbox"
+                                           name="allergeni[]" value="<?php echo $a; ?>" id="f_<?php echo $safeId; ?>"
+                                           <?= in_array(strtolower($a), $activeAllergeni) ? 'checked' : '' ?>>
+                                    <label class="form-check-label fw-bold w-100 m-0" for="f_<?php echo $safeId; ?>" style="cursor:pointer"><?php echo $a; ?></label>
+                                </div>
                             </div>
-                        </div>
-                    <?php endforeach; ?>
+                        <?php endforeach; ?>
+                    </div>
                 </div>
-            </div>
 
-            <div class="modal-footer border-0 p-4 bg-light-custom justify-content-between">
-                <button type="button" class="btn btn-link text-muted" onclick="resettaFiltriAllergeni()">Resetta Filtri</button>
-                <button type="button" class="btn btn-dark rounded-pill px-5 fw-bold" onclick="applicaFiltriAllergeni()" data-bs-dismiss="modal">SALVA</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3">
-    <div id="liveToast" class="toast align-items-center text-white bg-success border-0 shadow-lg" role="alert">
-        <div class="d-flex">
-            <div class="toast-body fw-bold">
-                <i class="fas fa-check-circle me-2"></i> <span id="toast-msg">Operazione riuscita!</span>
-            </div>
-            <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+                <div class="modal-footer border-0 p-4 bg-light-custom justify-content-between">
+                    <a href="tavolo.php?cat=<?= intval($_GET['cat'] ?? 0) ?>&search=<?= urlencode($_GET['search'] ?? '') ?>"
+                       class="btn btn-link text-muted">Resetta Filtri</a>
+                    <button type="submit" class="btn btn-dark rounded-pill px-5 fw-bold">SALVA</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -153,13 +154,3 @@ foreach ($cart as $item) {
     </div>
 </div>
 
-<div class="modal fade" id="modalSuccesso" tabindex="-1" data-bs-backdrop="static">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content modal-content-custom border-0 shadow-lg text-center p-5">
-            <div class="mb-4"><i class="fas fa-check-circle fa-5x text-success"></i></div>
-            <h2 class="fw-bold mb-2">Comanda Inviata!</h2>
-            <p class="text-muted">Il tuo ordine è stato ricevuto. Buon appetito!</p>
-            <button class="btn btn-dark rounded-pill px-5 py-2 mt-3" data-bs-dismiss="modal">Perfetto!</button>
-        </div>
-    </div>
-</div>

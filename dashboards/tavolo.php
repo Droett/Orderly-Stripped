@@ -150,8 +150,43 @@ if (empty($ordiniStorico)) {
 $totaleStorico = number_format($totaleStorico, 2);
 
 // Page data
-$categorie = $conn->query("SELECT * FROM categorie");
-$prodotti  = $conn->query("SELECT * FROM alimenti");
+$catFilter       = intval($_GET['cat'] ?? 0);
+$searchFilter    = trim($_GET['search'] ?? '');
+$allergeniFilter = array_map('strtolower', array_filter($_GET['allergeni'] ?? []));
+
+$categorieResult = $conn->query("SELECT * FROM categorie ORDER BY nome_categoria");
+$categorieArr    = [];
+while ($c = $categorieResult->fetch_assoc()) $categorieArr[] = $c;
+
+$sql    = "SELECT * FROM alimenti WHERE 1=1";
+$types  = '';
+$params = [];
+if ($catFilter > 0) {
+    $sql   .= " AND id_categoria = ?";
+    $types .= 'i';
+    $params[] = $catFilter;
+}
+if ($searchFilter !== '') {
+    $searchLike = '%' . $searchFilter . '%';
+    $sql   .= " AND (nome_piatto LIKE ? OR descrizione LIKE ?)";
+    $types .= 'ss';
+    $params[] = $searchLike;
+    $params[] = $searchLike;
+}
+foreach ($allergeniFilter as $alg) {
+    $sql   .= " AND (lista_allergeni NOT LIKE ? OR lista_allergeni IS NULL OR lista_allergeni = '')";
+    $types .= 's';
+    $params[] = '%' . $alg . '%';
+}
+$sql .= " ORDER BY nome_piatto ASC";
+if ($types) {
+    $pStmt = $conn->prepare($sql);
+    $pStmt->bind_param($types, ...$params);
+    $pStmt->execute();
+    $prodotti = $pStmt->get_result();
+} else {
+    $prodotti = $conn->query($sql);
+}
 
 include "../include/header.php";
 ?>
@@ -176,22 +211,21 @@ include "../include/header.php";
                 <div class="px-3 flex-grow-1 overflow-auto">
                     <small class="text-uppercase fw-bold ps-3 mb-2 d-block text-muted" style="font-size: 11px;">Esplora il Menu</small>
 
-                    <div class="btn-categoria active" onclick="filtraCategoria('all', this)">
+                    <a href="tavolo.php?search=<?= urlencode($searchFilter) ?>"
+                       class="btn-categoria <?= $catFilter === 0 ? 'active' : '' ?>" style="text-decoration:none">
                         <i class="fas fa-utensils me-3"></i> Tutto
-                    </div>
+                    </a>
 
-                    <?php while ($cat = $categorie->fetch_assoc()): ?>
-                        <div class="btn-categoria" onclick="filtraCategoria(<?php echo $cat['id_categoria']; ?>, this)">
-                            <i class="fas fa-bookmark me-3"></i> <?php echo $cat['nome_categoria']; ?>
-                        </div>
-                    <?php endwhile; ?>
+                    <?php foreach ($categorieArr as $cat): ?>
+                        <a href="tavolo.php?cat=<?= $cat['id_categoria'] ?>&search=<?= urlencode($searchFilter) ?>"
+                           class="btn-categoria <?= $catFilter === $cat['id_categoria'] ? 'active' : '' ?>" style="text-decoration:none">
+                            <i class="fas fa-bookmark me-3"></i> <?= htmlspecialchars($cat['nome_categoria']) ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
 
                 <div class="p-4 mt-auto">
                     <div class="d-flex justify-content-center gap-3">
-                        <div class="theme-toggle-sidebar" onclick="toggleTheme()" title="Cambia Tema">
-                            <i class="fas fa-moon" id="theme-icon"></i>
-                        </div>
                         <a href="../logout.php" class="theme-toggle-sidebar text-danger" title="Chiudi Sessione">
                             <i class="fas fa-sign-out-alt"></i>
                         </a>
@@ -207,10 +241,15 @@ include "../include/header.php";
             <!-- TOP BAR -->
             <div class="sticky-header d-flex justify-content-between align-items-center">
 
-                <div class="search-wrapper">
+                <form method="GET" action="tavolo.php" class="search-wrapper">
                     <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="search-bar" class="search-input" placeholder="Cerca un piatto..." oninput="renderProdotti()">
-                </div>
+                    <input type="text" name="search" class="search-input" placeholder="Cerca un piatto..."
+                           value="<?= htmlspecialchars($searchFilter) ?>">
+                    <input type="hidden" name="cat" value="<?= $catFilter ?>">
+                    <?php foreach ($_GET['allergeni'] ?? [] as $alg): ?>
+                        <input type="hidden" name="allergeni[]" value="<?= htmlspecialchars($alg) ?>">
+                    <?php endforeach; ?>
+                </form>
 
                 <div class="d-flex align-items-center justify-content-end gap-2">
                     <div class="d-none d-sm-flex align-items-center me-2 bg-surface rounded-pill px-3 py-2 border shadow-sm">
@@ -237,10 +276,6 @@ include "../include/header.php";
                         <span class="ms-1"><?php echo $cartCount; ?></span>
                     </button>
 
-                    <div class="d-md-none" onclick="toggleTheme()" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;background:var(--input-bg);border:1px solid var(--border-color);color:var(--text-muted);">
-                        <i class="fas fa-moon" style="font-size:0.85rem;"></i>
-                    </div>
-
                     <a href="../logout.php" class="d-md-none" style="width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:rgba(255,71,87,0.1);border:1px solid var(--border-color);color:#e74c3c;text-decoration:none;">
                         <i class="fas fa-sign-out-alt" style="font-size:0.85rem;"></i>
                     </a>
@@ -253,15 +288,21 @@ include "../include/header.php";
 
                 <!-- Mobile category bar -->
                 <div class="mobile-cat-bar d-md-none mb-3">
-                    <div class="mobile-cat-btn active" onclick="filtraCategoria('all', this)">Tutto</div>
-                    <?php
-                    $catMobile = $conn->query("SELECT * FROM categorie");
-                    while ($cm = $catMobile->fetch_assoc()): ?>
-                        <div class="mobile-cat-btn" onclick="filtraCategoria(<?php echo $cm['id_categoria']; ?>, this)">
-                            <?php echo $cm['nome_categoria']; ?>
-                        </div>
-                    <?php endwhile; ?>
+                    <a href="tavolo.php?search=<?= urlencode($searchFilter) ?>"
+                       class="mobile-cat-btn <?= $catFilter === 0 ? 'active' : '' ?>" style="text-decoration:none">Tutto</a>
+                    <?php foreach ($categorieArr as $cm): ?>
+                        <a href="tavolo.php?cat=<?= $cm['id_categoria'] ?>&search=<?= urlencode($searchFilter) ?>"
+                           class="mobile-cat-btn <?= $catFilter === $cm['id_categoria'] ? 'active' : '' ?>" style="text-decoration:none">
+                            <?= htmlspecialchars($cm['nome_categoria']) ?>
+                        </a>
+                    <?php endforeach; ?>
                 </div>
+
+                <?php if (isset($_GET['msg']) && $_GET['msg'] === 'ordered'): ?>
+                <div class="alert alert-success text-center fw-bold border-0 shadow-sm rounded-3 mb-3">
+                    <i class="fas fa-check-circle me-2"></i> Comanda inviata! Buon appetito!
+                </div>
+                <?php endif; ?>
 
                 <!-- Dish cards grid -->
                 <div class="row g-4">
@@ -319,16 +360,6 @@ include "../include/header.php";
 </div>
 
 
-<?php if (isset($_GET['msg']) && $_GET['msg'] === 'ordered'): ?>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    new bootstrap.Modal(document.getElementById('modalSuccesso')).show();
-});
-</script>
-<?php endif; ?>
-
 <?php include "../include/modals/tavolo_modals.php"; ?>
 
-<script src="../js/common.js"></script>
-<script src="../js/tavolo.js?v=<?php echo time(); ?>"></script>
 <?php include "../include/footer.php"; ?>
