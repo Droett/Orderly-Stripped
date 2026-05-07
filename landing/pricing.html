@@ -46,7 +46,7 @@
       <div class="pricing-card-full">
         <div class="plan-name">Starter</div>
         <div class="plan-price">
-          <span class="plan-price-num" id="starter-price">€79</span>
+          <span class="plan-price-num" id="starter-price">N/A</span>
           <span class="plan-price-period">/ mese</span>
         </div>
         <div class="plan-annual-note" id="starter-note">&nbsp;</div>
@@ -70,7 +70,7 @@
         <div class="plan-badge">Più popolare</div>
         <div class="plan-name">Pro</div>
         <div class="plan-price">
-          <span class="plan-price-num" id="pro-price">€199</span>
+          <span class="plan-price-num" id="pro-price">N/A</span>
           <span class="plan-price-period">/ mese</span>
         </div>
         <div class="plan-annual-note" id="pro-note">&nbsp;</div>
@@ -257,7 +257,7 @@
       </div>
       <div class="faq-item">
         <h4>Cosa include lo sconto annuale?</h4>
-        <p>Pagando annualmente risparmi il 20% rispetto al mensile. Il piano Starter scende a €63/mese e il Pro a €159/mese, fatturati in un unico pagamento anticipato.</p>
+        <p>Pagando annualmente risparmi il 20% rispetto al mensile, fatturati in un unico pagamento anticipato.</p>
       </div>
     </div>
   </div>
@@ -315,8 +315,8 @@
     let isYearly = false;
 
     const prices = {
-      monthly: { starter: '€79', pro: '€199' },
-      yearly: { starter: '€63', pro: '€159' },
+      monthly: { starter: 'N/A', pro: 'N/A' },
+      yearly: { starter: 'N/A', pro: 'N/A' },
     };
 
     function toggleBilling() {
@@ -334,10 +334,10 @@
       document.getElementById('pro-price').textContent = p.pro;
 
       document.getElementById('starter-note').innerHTML = isYearly
-        ? '<strong>Risparmia €192/anno</strong> rispetto al mensile'
+        ? '<strong>Risparmia con l\'annuale</strong>'
         : '&nbsp;';
       document.getElementById('pro-note').innerHTML = isYearly
-        ? '<strong>Risparmia €480/anno</strong> rispetto al mensile'
+        ? '<strong>Risparmia con l\'annuale</strong>'
         : '&nbsp;';
     }
   </script>
