@@ -25,12 +25,6 @@ body {
     position: relative; 
 }
 
-.theme-toggle-pos {
-    position: absolute; 
-    top: 20px; 
-    right: 20px; 
-}
-
 .brand-logo {
     width: 90px; 
     height: auto; 

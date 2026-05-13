@@ -153,20 +153,6 @@ body.modal-open {
     transition: background 0.3s; 
 }
 
-.theme-toggle {
-    cursor: pointer; 
-    width: 40px; 
-    height: 40px; 
-    background: var(--bg-card); 
-    border: 1px solid var(--border-color); 
-    border-radius: 50%; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    color: var(--text-main); 
-    transition: 0.3s; 
-}
-
 .btn-main {
     background-color: var(--primary); 
     color: white; 
@@ -253,12 +239,6 @@ body.modal-open {
 
     .sticky-header p {
         font-size: 0.75rem; 
-    }
-
-    .theme-toggle {
-        width: 36px; 
-        height: 36px; 
-        font-size: 0.85rem; 
     }
 
     .modal-content-custom {

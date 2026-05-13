@@ -73,11 +73,6 @@ include "include/header.php";
 <div class="login-container">
     <div class="card-login">
 
-        <!-- Pulsante fluttuante in alto a destra per scambiare Tema Chiaro / Scuro -->
-        <div class="theme-toggle-pos">
-            <div class="theme-toggle" onclick="toggleTheme()"><i class="fas fa-moon" id="theme-icon"></i></div>
-        </div>
-
         <!-- Logo dell'applicazione -->
         <img src="imgs/ordnobg.png" class="brand-logo" alt="Orderly Logo">
         <h3>Login</h3>
@@ -117,13 +112,5 @@ include "include/header.php";
 </div>
 
 <script src="js/common.js"></script>
-<script>
-    // Al caricamento, controlla quale tema ha salvato l'utente sulla sua memoria localStorage
-    if (localStorage.getItem('theme') === 'dark') {
-        const icon = document.getElementById('theme-icon');
-        // Scambia attivamente l'icona da luna a sole se il dark mode è acceso
-        if (icon) { icon.classList.remove('fa-moon'); icon.classList.add('fa-sun'); }
-    }
-</script>
 
 <?php include "include/footer.php"; ?>
