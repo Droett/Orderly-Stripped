@@ -132,13 +132,21 @@ INSERT INTO utenti (username, password, ruolo, stato, posti, id_menu) VALUES
 ('tavolo7', '1234', 'tavolo', 'riservato', 4, 1),
 ('tavolo8', '1234', 'tavolo', 'libero', 4, 1);
 
--- Creazione delle categorie basilari per il menu Test (ID 1)
-INSERT INTO categorie (nome_categoria, id_menu) VALUES
-('Antipasti', 1),
-('Primi', 1),
-('Secondi', 1),
-('Dolci', 1);
+-- Creazione delle categorie basilari per il menu
+INSERT INTO categorie (id_categoria, nome_categoria, id_menu) VALUES
+(1,'Antipasti',1),
+(2,'Primi',1),
+(3,'Secondi',1),
+(4,'Dolci',1);
 
--- Creazione di un alimento fittizio per testare il database (nella categoria 'Primi' = ID 2)
-INSERT INTO alimenti (nome_piatto, prezzo, descrizione, lista_allergeni, immagine, id_categoria)
-VALUES ('Carbonara', 12.50, 'Classica pasta alla carbonara con guanciale croccante, uova fresche, pecorino romano DOP e pepe nero macinato al momento.', 'Glutine,Uova,Lattosio', NULL, 2);
+-- Inserimento degli alimenti creati tramite la dashboard manager
+INSERT INTO alimenti (id_alimento, nome_piatto, prezzo, descrizione, lista_allergeni, immagine, id_categoria) VALUES 
+(5,'Carbonara',11.00,'Uova, guanciale, Pecorino Romano DOP e pepe nero.','Glutine,Uova,Latte','spaghetti-carbonara-creamy-sauce-bacon-600nw-2655617321.webp',2),
+(6,'La mian (Ramen)',9.00,'Pasta di frumento, brodo, carne di maiale, uova, alghe, cipollotto.','Glutine,Uova,Soia','__opt__aboutcom__coeus__resources__content_migration__serious_eats__seriouseats.com__2020__04__20200306-lamian-noodles-vicky-wasik-36-1ad19668d14847109d2fe518b8ca5bab.jpg',2),
+(7,'Paella',12.00,'Riso, zafferano, cozze, vongole, gamberi, peperoni, piselli.','Glutine,Crostacei,Molluschi','01_Paella_Valenciana_original.jpg',2),
+(8,'Moussaka',10.00,'Melanzane, patate, carne macinata, pomodoro, latte, farina, burro, spezie.','Glutine,Latte','vegan-moussaka-1000x1500.jpg',2),
+(9,'Tagliere di Salumi e Formaggi',15.00,'Prosciutto, salame, coppa, pecorino, parmigiano.','Glutine,Latte','tagliere-salumi-formaggi.jpg',1),
+(10,'Hummus con Pita',12.00,'Ceci, tahina, limone, aglio, olio, farina di frumento.','Glutine,Sesamo','Kyles-Pita-and-Hummus.jpg',1),
+(11,'Tagliata di Manzo',18.00,'Carne di manzo, rucola, olio EVO, sale.','','download.jpeg',3),
+(12,'Pollo al Curry',12.00,'Pollo, latte di cocco, mix di spezie curry, riso, cipolla.','Sedano','pollo-al-curry-veloce.jpeg',3),
+(13,'Tiramisu',6.50,'Savoiardi, caffè, mascarpone, uova, zucchero, cacao.','Glutine,Uova,Latte','Tiramisu_650x433_wm.jpg',4);
