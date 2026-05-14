@@ -150,9 +150,9 @@ INSERT INTO alimenti (nome_piatto, prezzo, descrizione, lista_allergeni, immagin
 ('Cheesecake ai Frutti di Bosco', 7.00, 'Biscotti, burro, formaggio spalmabile, uova, coulis di frutti di bosco.', 'Glutine,Lattosio,Uova', 'Cheesecake-ai-frutti-di-bosco-con-fetta-servita.png', 4),
 ('Bruschetta al Pomodoro', 6.00, 'Pane tostato fatto in casa, pomodorini freschi, aglio, basilico e olio EVO.', 'Glutine', 'bruschetta-al-pomodoro.png', 1),
 ('Tagliere di Salumi e Formaggi', 18.00, 'Selezione di salumi locali e formaggi stagionati, serviti con miele e noci.', 'Lattosio,Frutta a guscio', 'tagliere-di-salumi-e-formaggi.png', 1),
-('Risotto ai Funghi Porcini', 14.50, 'Riso Carnaroli sfumato al vino bianco, funghi porcini freschi, prezzemolo e parmigiano.', 'Lattosio', 'risotto funghi porcini.png', 2),
-('Lasagne alla Bolognese', 13.00, 'Strati di pasta fresca, ragù di carne, besciamella e parmigiano reggiano.', 'Glutine,Lattosio,Sedano', 'lasagne.png', 2),
+('Risotto ai Funghi Porcini', 14.50, 'Riso Carnaroli sfumato al vino bianco, funghi porcini freschi, prezzemolo e parmigiano.', 'Lattosio', 'risotto-ai-funghi-porcini.png', 2),
+('Lasagne alla Bolognese', 13.00, 'Strati di pasta fresca, ragù di carne, besciamella e parmigiano reggiano.', 'Glutine,Lattosio,Sedano', 'lasagne-alla-bolognese.png', 2),
 ('Tagliata di Manzo', 22.00, 'Tagliata di manzo servita con rucola fresca, scaglie di grana e aceto balsamico.', 'Lattosio', 'tagliata-di-manzo.png', 3),
-('Salmone al Forno', 19.00, 'Trancio di salmone cotto al forno con patate novelle e rosmarino.', 'Pesce', 'salmone al forno.png', 3),
+('Salmone al Forno', 19.00, 'Trancio di salmone cotto al forno con patate novelle e rosmarino.', 'Pesce', 'salmone-al-forno.png', 3),
 ('Tiramisu', 6.50, 'Classico dessert italiano con savoiardi inzuppati nel caffe, mascarpone e cacao amaro.', 'Glutine,Lattosio,Uova', 'tiramisu.png', 4),
 ('Panna Cotta', 5.50, 'Delicata panna cotta alla vaniglia servita con coulis di fragole fresche.', 'Lattosio', 'panna cotta.png', 4);
