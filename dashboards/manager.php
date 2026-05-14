@@ -394,6 +394,14 @@ include "../include/header.php";
                             <h2 class="fw-bold m-0">Gestione Menu</h2>
                             <p class="text-muted m-0 small">Aggiungi, modifica o elimina piatti dal menu</p>
                         </div>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-outline-dark rounded-pill px-4 py-2 fw-bold shadow-sm" data-bs-toggle="modal" data-bs-target="#modalImportCSV">
+                                <i class="fas fa-file-upload me-2"></i>Importa CSV
+                            </button>
+                            <a href="export_menu.php" class="btn btn-dark rounded-pill px-4 py-2 fw-bold shadow-sm">
+                                <i class="fas fa-file-csv me-2"></i>Esporta CSV
+                            </a>
+                        </div>
                     </div>
 
                     <?php if (isset($_GET['msg']) && $_GET['msg'] === 'success'): ?>
