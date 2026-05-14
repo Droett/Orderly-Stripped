@@ -70,13 +70,19 @@ function redirect($msg, $hash = '') {
 }
 
 /**
- * Legge un file d'immagine caricato e ne ritorna il suo contenuto binario grezzo (raw).
+ * Legge un file d'immagine caricato e lo salva fisicamente sul server.
+ * Ritorna il nome del file generato.
  * Ritorna null se nessun file è stato caricato o se il caricamento fallisce.
- * I dati binari sono salvati direttamente nel database come BLOB.
  */
 function leggiImmagine() {
-    if (isset($_FILES["immagine"]) && $_FILES["immagine"]["error"] === 0)
-        return file_get_contents($_FILES["immagine"]["tmp_name"]);
+    if (isset($_FILES["immagine"]) && $_FILES["immagine"]["error"] === 0) {
+        $uploadDir = '../../imgs/piatti/';
+        $fileName = uniqid() . '_' . basename($_FILES["immagine"]["name"]);
+        $targetPath = $uploadDir . $fileName;
+        if (move_uploaded_file($_FILES["immagine"]["tmp_name"], $targetPath)) {
+            return $fileName;
+        }
+    }
     return null;
 }
 

@@ -340,7 +340,7 @@ while ($cat = $categorie_result->fetch_assoc()) {
                                                                         data-desc='" . $descSafe . "'
                                                                         data-prezzo='" . $row['prezzo'] . "'
                                                                         data-cat='" . $row['id_categoria'] . "'
-                                                                        data-img='" . ($row['immagine'] ? 'data:image/jpeg;base64,' . base64_encode($row['immagine']) : '') . "'
+                                                                        data-img='" . ($row['immagine'] ? '../imgs/piatti/' . $row['immagine'] : '') . "'
                                                                         data-allergeni='" . $allergeniSafe . "'>
                                                                         <i class='fas fa-edit'></i>
                                                                     </button>

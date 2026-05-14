@@ -199,13 +199,13 @@ $prodotti = $conn->query("SELECT * FROM alimenti");
                                 data-nome="<?php echo htmlspecialchars($p['nome_piatto']); ?>"
                                 data-desc="<?php echo htmlspecialchars($p['descrizione']); ?>"
                                 data-prezzo="<?php echo $p['prezzo']; ?>"
-                                data-img="<?php echo $p['immagine'] ? 'data:image/jpeg;base64,' . base64_encode($p['immagine']) : ''; ?>"
+                                data-img="<?php echo $p['immagine'] ? '../imgs/piatti/' . $p['immagine'] : ''; ?>"
                                 data-allergeni="<?php echo htmlspecialchars($p['lista_allergeni']); ?>">
 
                                 <!-- Dish photo -->
                                 <div class="img-wrapper">
                                     <!-- Images are stored as binary data in the DB and converted to base64 for display -->
-                                    <img src="<?php echo $p['immagine'] ? 'data:image/jpeg;base64,' . base64_encode($p['immagine']) : ''; ?>" class="img-prodotto" loading="lazy">
+                                    <img src="<?php echo $p['immagine'] ? '../imgs/piatti/' . $p['immagine'] : ''; ?>" class="img-prodotto" loading="lazy">
                                     <!-- Price tag shown on top of the image -->
                                     <div class="price-tag"><?php echo $p['prezzo']; ?>€</div>
                                 </div>
